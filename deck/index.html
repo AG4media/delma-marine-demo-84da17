@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delma Marine · Digital platform</title>
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#E2231A;--ink:#111;--ink2:#2B2B2B;--mut:#6E727A;--line:#E4E5E8;--bg:#F5F5F7;--ok:#1E9E5A;--amber:#D98B10;--blue:#2563EB}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#0d0d0e}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
+#stage{position:fixed;inset:0;display:grid;place-items:center}
+.slide{width:1600px;height:900px;background:#fff;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:center;display:none;overflow:hidden;padding:72px 90px 70px}
+.slide.on{display:block}
+.slide.dark{background:var(--ink);color:#fff}
+.slide.red{background:var(--red);color:#fff}
+.n{position:absolute;right:40px;bottom:30px;font-size:13px;color:var(--mut);letter-spacing:.08em}
+.dark .n,.red .n{color:rgba(255,255,255,.6)}
+.logo{position:absolute;left:40px;bottom:22px;height:40px}
+.kick{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:16px}
+.dark .kick{color:#FF6B63}.red .kick{color:rgba(255,255,255,.8)}
+h1{font-size:64px;line-height:1.05;letter-spacing:-.02em;font-weight:800}
+h2{font-size:46px;line-height:1.1;letter-spacing:-.02em;font-weight:800;margin-bottom:22px}
+h3{font-size:22px;font-weight:700;margin-bottom:8px}
+p{font-size:20px;line-height:1.5;color:var(--ink2)}
+.dark p{color:#C9CBD1}.red p{color:#fff}
+.lead{font-size:26px;line-height:1.4}
+.mut{color:var(--mut)}.sm{font-size:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;height:calc(100% - 20px)}
+.two.l{grid-template-columns:.9fr 1.1fr}.two.r{grid-template-columns:1.1fr .9fr}
+.shot{border-radius:14px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.28);border:1px solid rgba(0,0,0,.08);background:#fff}
+.shot img{width:100%;display:block}
+.laptop{position:relative;padding:16px 16px 0;background:#1b1b1d;border-radius:18px 18px 6px 6px;box-shadow:0 40px 90px rgba(0,0,0,.35)}
+.laptop img{width:100%;display:block;border-radius:6px}
+.laptop::after{content:"";display:block;height:14px;margin:0 -40px;background:#2a2a2d;border-radius:0 0 12px 12px}
+.phone{width:300px;padding:12px;background:#0f0f10;border-radius:40px;box-shadow:0 40px 90px rgba(0,0,0,.4);display:inline-block}
+.phone img{width:100%;display:block;border-radius:30px}
+.phones{display:flex;gap:28px;align-items:flex-start;justify-content:center}
+ul{list-style:none}
+li{font-size:20px;line-height:1.45;padding-left:30px;position:relative;margin-bottom:12px;color:var(--ink2)}
+li::before{content:"";position:absolute;left:0;top:11px;width:12px;height:12px;border-radius:50%;background:var(--red)}
+.dark li{color:#DDE0E6}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--bg);border-radius:18px;padding:26px 28px}
+.card h3{font-size:22px}
+.card p{font-size:17px;color:var(--mut);line-height:1.45}
+.dark .card{background:#1E1E21}.dark .card p{color:#B5B9C2}
+.card .ic{width:44px;height:44px;border-radius:12px;background:var(--red);display:grid;place-items:center;margin-bottom:16px}
+.card .ic svg{width:24px;height:24px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:28px;height:calc(100% - 30px)}
+.segbox{border-radius:22px;padding:34px 36px;position:relative;overflow:hidden}
+.segbox.a{background:var(--red);color:#fff}.segbox.b{background:var(--ink);color:#fff}
+.segbox .t{font-size:13px;letter-spacing:.2em;text-transform:uppercase;opacity:.8;margin-bottom:10px}
+.segbox h3{font-size:32px;margin-bottom:18px}
+.segbox li{color:#fff;font-size:18px;margin-bottom:9px}.segbox li::before{background:#fff}
+.segbox img{position:absolute;right:-30px;bottom:-20px;width:380px;opacity:.9}
+.found{margin-top:22px;background:var(--bg);border-radius:16px;padding:18px 26px;font-size:18px;color:var(--ink2);display:flex;gap:26px;align-items:center}
+.found b{color:var(--red);font-size:13px;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap}
+.flow{display:flex;gap:14px;align-items:stretch;margin-top:26px}
+.flow .st{flex:1;background:var(--bg);border-radius:16px;padding:20px 18px;position:relative}
+.flow .st b{display:block;font-size:19px;margin-bottom:6px}.flow .st span{font-size:15px;color:var(--mut);line-height:1.4;display:block}
+.flow .st i{position:absolute;top:-14px;left:18px;width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-style:normal;font-weight:800;font-size:14px;display:grid;place-items:center}
+.states{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:26px}
+.state{border-radius:16px;padding:22px;border:2px solid var(--line)}
+.state .d{width:14px;height:14px;border-radius:50%;display:inline-block;margin-right:8px;vertical-align:-1px}
+.state b{font-size:20px;display:block;margin-bottom:6px}.state span{font-size:16px;color:var(--mut);line-height:1.4}
+.ok{color:var(--ok)}.am{color:var(--amber)}.bl{color:var(--blue)}
+.tl{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:30px}
+.tl .ph{background:var(--bg);border-radius:18px;padding:22px 22px 20px;position:relative}
+.tl .ph .w{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);font-weight:700}
+.tl .ph b{display:block;font-size:22px;margin:6px 0 10px}
+.tl .ph span{font-size:15px;color:var(--mut);line-height:1.45;display:block}
+.tl .ph.live{background:var(--ink);color:#fff}.tl .ph.live span{color:#C9CBD1}.tl .ph.live .w{color:#FF6B63}
+.chk{display:grid;grid-template-columns:1fr 1fr;gap:10px 40px;margin-top:10px}
+.chk div{font-size:19px;padding:12px 0 12px 36px;border-bottom:1px solid var(--line);position:relative;color:var(--ink2)}
+.chk div::before{content:"";position:absolute;left:0;top:16px;width:20px;height:20px;border:2px solid var(--red);border-radius:6px}
+.sites{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.site{border-radius:16px;overflow:hidden;background:var(--bg)}
+.site img{width:100%;height:120px;object-fit:cover;display:block;transform:scale(1.08)}
+.site div{padding:12px 16px}.site b{font-size:17px;display:block}.site span{font-size:14px;color:var(--mut)}
+.big{font-size:120px;font-weight:800;line-height:1;letter-spacing:-.04em;color:var(--red)}
+.badge{display:inline-block;background:var(--red);color:#fff;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;border-radius:999px}
+.url{font-size:30px;font-weight:700;color:var(--ink);margin-top:14px;letter-spacing:-.01em}
+.quote{background:var(--bg);border-left:6px solid var(--red);padding:22px 28px;border-radius:0 16px 16px 0;font-size:21px;line-height:1.5;color:var(--ink2)}
+.quote b{display:block;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px 40px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:40px;height:calc(100% - 30px)}
+.vs .box{border-radius:22px;padding:34px 38px;height:100%}
+.vs .old{background:var(--bg);color:var(--mut)}
+.vs .new{background:var(--ink);color:#fff}
+.vs h3{font-size:30px;margin-bottom:18px}
+.vs .old h3{color:var(--ink2)}
+.vs li{font-size:19px}.vs .old li::before{background:#B9BCC3}.vs .new li{color:#DDE0E6}
+.gridmock{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:22px}
+.gridmock div{height:92px;background:#E6E7EA;border-radius:10px}
+.photos{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:26px}.photos div{height:170px;border-radius:14px;overflow:hidden;background:#ddd}.photos img{width:100%;height:100%;object-fit:cover;transform:scale(1.08)}
+.help{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);font-size:12px;color:rgba(255,255,255,.45);font-family:Inter;letter-spacing:.08em}
+@media print{
+ html,body{background:#fff;overflow:visible;height:auto}
+ #stage{position:static;display:block}
+ .slide{display:block!important;position:relative;left:auto;top:auto;transform:none;page-break-after:always;break-after:page;margin:0}
+ .help{display:none}
+ @page{size:1600px 900px;margin:0}
+}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- 1 COVER -->
+<section class="slide dark" style="padding:0">
+  <img src="img/navan.png" style="position:absolute;right:-120px;top:150px;width:1000px;opacity:.95">
+  <div style="position:absolute;left:90px;top:70px"><img src="img/logo.png" style="height:120px"></div>
+  <div style="position:absolute;left:90px;bottom:120px;max-width:760px">
+    <div class="kick">Delma Industrial Supplies & Marine Services</div>
+    <h1>One platform for<br>everything Delma does.</h1>
+    <p class="lead" style="margin-top:22px;color:#C9CBD1">Sales, branding & marketing · Service & maintenance, installation included.<br>A website and app that sell like your best salesperson, and one system behind every branch.</p>
+  </div>
+  <div style="position:absolute;left:90px;bottom:40px;font-size:15px;color:rgba(255,255,255,.55);letter-spacing:.08em">PLAN · OCTOBER 2026 · PREPARED FOR DELMA MARINE</div>
+</section>
+
+<!-- 2 TODAY / TOMORROW -->
+<section class="slide">
+  <div class="kick">The idea</div>
+  <h2>Most shop websites are a grid. Yours should be a salesperson.</h2>
+  <div class="vs" style="height:600px">
+    <div class="box old"><h3>A typical shop website</h3><ul><li>Hundreds of products in a grid</li><li>Search, filter, sort</li><li>The customer has to know what they need</li><li>No idea what fits their boat</li><li>"Out of stock" and that's the end</li><li>One item, then they leave</li></ul><div class="gridmock"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+    <div class="box new"><h3>The Delma way</h3><ul><li><b>Asks</b> what you want to do on the water</li><li><b>Shows</b> the boat; tap a part, see what fits there</li><li><b>Knows</b> live stock in every branch, and the delivery date if not</li><li><b>Suggests</b> the full setup, not one item</li><li><b>Closes</b>: books, takes the deposit, follows up</li><li><b>Remembers</b> you: your boat, your history, your nearest branch</li></ul></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">02</div>
+</section>
+
+<!-- 3 TWO SEGMENTS -->
+<section class="slide">
+  <div class="kick">One platform, two segments</div>
+  <div class="seg" style="height:560px">
+    <div class="segbox a"><div class="t">Segment 1</div><h3>Sales, branding & marketing</h3><ul><li>Website, online shop and the Delma app</li><li>The assistant: understands, advises, closes, collects</li><li>Explore your boat · build your boat</li><li>Showrooms and counters, stock and purchasing</li><li>Every lead handled, from first message to payment</li><li>Brand, offers, Instagram, campaigns, boat shows</li></ul><img src="img/navan.png"></div>
+    <div class="segbox b"><div class="t">Segment 2</div><h3>Service & maintenance<br><span style="font-size:22px;font-weight:600;opacity:.8">installation included</span></h3><ul><li>Book a service or installation online</li><li>My Delma: live job status, approve extra work</li><li>Four workshops: job cards, technicians, parts</li><li>Engine installation and boat assembly, linked to the sale</li><li>Maintenance plans, warranty claims</li><li>Mangrove Marine: berths, requests, billing</li></ul><img src="img/mercury-trio.png" style="width:300px;right:10px;bottom:0"></div>
+  </div>
+  <div class="found"><b>One foundation</b> Every branch, country and franchise set up once · one set of data · staff and roles · money and approvals · head-office dashboards · <u>your accounting software stays exactly as it is</u></div>
+  <img class="logo" src="img/logo.png"><div class="n">03</div>
+</section>
+
+<!-- 4 EXPLORE -->
+<section class="slide">
+  <div class="two r">
+    <div class="laptop"><img src="shots/explore-helm-web.jpg"></div>
+    <div><div class="kick">Segment 1 · Explore your boat</div><h2>Tap a part of the boat. See everything that fits there.</h2><ul><li>Engine, helm, T-top, deck, hull, mooring, galley, towing, service</li><li>Each area shows Delma's real brands for it, with stock per branch</li><li>Several items into the basket from one picture</li><li>"Make it mine": pick the exact model and see only what fits</li><li>Boats and jet skis first; kayaks, eFoils and diving next</li></ul><p class="sm mut" style="margin-top:18px">Try it: <b>demodelma.theautomationgallery.com</b></p></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">04</div>
+</section>
+
+<!-- 5 ASSISTANT -->
+<section class="slide">
+  <div class="two l">
+    <div><div class="kick">Segment 1 · The Delma assistant</div><h2>Advice from Delma's own data, in seconds.</h2><ul><li>Understands plain questions in Arabic or English</li><li>Describes and compares models from the brands' official specs</li><li>Checks live stock in every branch</li><li>Out of stock? Order now with a deposit and a delivery date, choose from stock, or be told when it lands</li><li>Books viewings, services and installations; takes deposits</li><li>Never invents a price, a stock figure or a date; hands over to a person when you want one</li></ul></div>
+    <div class="laptop"><img src="shots/ask-m150-web.jpg"></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">05</div>
+</section>
+
+<!-- 6 LEADS -->
+<section class="slide">
+  <div class="kick">Segment 1 · Every lead, handled</div>
+  <h2>From the first message to the payment, without anyone chasing.</h2>
+  <p class="lead">Website, WhatsApp, Instagram, phone, walk-ins, boat shows: every enquiry becomes a lead the assistant owns.</p>
+  <div class="flow">
+    <div class="st"><i>1</i><b>Reply</b><span>Within a minute, in the customer's language, in Delma's hours</span></div>
+    <div class="st"><i>2</i><b>Qualify</b><span>What, which craft, when, nearest branch</span></div>
+    <div class="st"><i>3</i><b>Quote</b><span>Instantly for priced items; a salesperson approves the rest in one tap</span></div>
+    <div class="st"><i>4</i><b>Follow up</b><span>On your schedule, with something useful each time</span></div>
+    <div class="st"><i>5</i><b>Close & collect</b><span>Payment link, deposit or full, invoice emailed, order to fulfilment</span></div>
+    <div class="st"><i>6</i><b>Hand over</b><span>To a person when the customer asks, above a value you set, or when unsure</span></div>
+  </div>
+  <div class="grid2" style="margin-top:34px">
+    <div class="quote"><b>Your rules</b>Messaging hours · follow-up schedule · value limits · discount authority · who gets handovers per branch. "STOP" is permanent.</div>
+    <div class="quote"><b>What sales sees</b>A "needs a person" list and nothing else to chase · every conversation · response time, leads by source, revenue closed by the assistant and by people.</div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">06</div>
+</section>
+
+<!-- 7 BUILD & PRICE MODES -->
+<section class="slide">
+  <div class="two r">
+    <div class="laptop"><img src="shots/build-web.jpg"></div>
+    <div><div class="kick">Segment 1 · Build your boat · price modes</div><h2>You decide how each product is sold.</h2>
+    <div class="states" style="grid-template-columns:1fr;gap:14px;margin-top:10px">
+      <div class="state"><b><span class="d" style="background:var(--ok)"></span>Price shown</b><span>Parts, accessories, most engines: add to basket and pay.</span></div>
+      <div class="state"><b><span class="d" style="background:var(--blue)"></span>Price on request</b><span>Selected boats, large or government orders: the assistant or a salesperson replies with a quote.</span></div>
+      <div class="state"><b><span class="d" style="background:var(--red)"></span>Customise</b><span>Build your boat: model, engine, colour, electronics, seating, extras. Quote, or reserve with a deposit.</span></div>
+    </div></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">07</div>
+</section>
+
+<!-- 8 AVAILABILITY -->
+<section class="slide">
+  <div class="kick">Segment 1 · Always know when you'll get it</div>
+  <h2>Every product carries a promise, from live stock and the lead time per brand.</h2>
+  <div class="states">
+    <div class="state"><b><span class="d" style="background:var(--ok)"></span>In stock here</b><span>Collect today, or delivered this week.</span></div>
+    <div class="state"><b><span class="d" style="background:var(--blue)"></span>At another branch</b><span>"At Dubai showroom · transfer in 2 days, or collect there."</span></div>
+    <div class="state"><b><span class="d" style="background:var(--amber)"></span>On order</b><span>"Delivered in 10 days · order now with a deposit."</span></div>
+    <div class="state"><b><span class="d" style="background:#8A8F99"></span>Pre-order</b><span>New models before they land; be told when they arrive.</span></div>
+  </div>
+  <div class="two" style="height:auto;margin-top:34px;grid-template-columns:1fr 1.1fr">
+    <ul><li>Lead time per brand kept in the back office by purchasing</li><li>Stock reserved the moment a customer pays</li><li>Back-orders and "tell me when it's in" lists managed by staff</li><li>The same promise on the website, in the app, and from the assistant</li></ul>
+    <div class="shot"><img src="shots/explore-engine-web.jpg"></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">08</div>
+</section>
+
+<!-- 9 REGIONS -->
+<section class="slide">
+  <div class="kick">Segment 1 · Wherever the customer is</div>
+  <h2>Abu Dhabi sees dirhams. Seychelles sees rupees. Each sees the nearest branch.</h2>
+  <div class="two" style="height:auto;margin-top:10px;gap:30px">
+    <div class="shot"><img src="shots/explore-helm-web.jpg"><div style="padding:10px 16px;font-size:15px;color:var(--mut)">📍 Abu Dhabi · AED · stock at Umm Al Nar</div></div>
+    <div class="shot"><img src="shots/explore-sc-web.jpg"><div style="padding:10px 16px;font-size:15px;color:var(--mut)">📍 Victoria, Seychelles · SCR · "available from UAE in about 17 days"</div></div>
+  </div>
+  <p style="margin-top:22px">Per country or franchise: currency, tax, price list, stock shown, delivery, payment methods, languages, contact details and the company name on the invoice. Adding a country is configuration, not a new build.</p>
+  <img class="logo" src="img/logo.png"><div class="n">09</div>
+</section>
+
+<!-- 10 APP -->
+<section class="slide">
+  <div class="two l" style="grid-template-columns:.8fr 1.2fr">
+    <div><div class="kick">Segment 1 · The Delma app</div><h2>Offers, new arrivals and the whole shop, on their phone.</h2><ul><li>Anyone can browse and ask; a phone number creates the account</li><li>Offers and new-arrivals feed by region and interest; app-only offers</li><li>Notifications: new arrivals, price drops, back in stock, orders, jobs, service due, boat shows. Each one switchable</li><li>My Delma, nearest branch, scan a barcode in the showroom</li><li>Installable from the website at launch; App Store and Google Play later, same app</li></ul></div>
+    <div class="phones"><div class="phone"><img src="shots/offers-push-app.jpg"></div><div class="phone" style="margin-top:50px"><img src="shots/home-app.jpg"></div><div class="phone"><img src="shots/ask-app.jpg"></div></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">10</div>
+</section>
+
+<!-- 11 SHOWROOMS -->
+<section class="slide">
+  <div class="kick">Segment 1 · Showrooms, stock and marketing</div>
+  <h2>The same system behind the counter.</h2>
+  <div class="cards">
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9h18M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2M4 9l1 11h14l1-11"/></svg></div><h3>Showrooms</h3><p>Counter sales with barcode and card machine · opening and closing checklists · end-of-day cash-up · display stock by serial number · every walk-in captured as a lead · stock across branches: reserve, transfer, sell from another branch · click & collect.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10"/></svg></div><h3>Stock & purchasing</h3><p>One live stock count: ICAD warehouse, showrooms, workshops, marina · reorder alerts · purchase orders to Mercury and the brands · imports with landed cost · lead time per brand · stock counts · serial numbers from arrival to sale to service.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l18-7-7 18-2-8z"/></svg></div><h3>Brand & marketing</h3><p>Brand pages for all 27 dealerships · Instagram and Google Shopping sync · promo codes and offers, central or per branch · email and WhatsApp campaigns · boat-show mode · reviews · results by source and campaign.</p></div>
+  </div>
+  <div class="photos"><div><img src="img/showroom.jpg"></div><div><img src="img/showroom-inside.jpg"></div><div><img src="img/boatshow.jpg"></div></div>
+  <img class="logo" src="img/logo.png"><div class="n">11</div>
+</section>
+
+<!-- 12 BOOK -->
+<section class="slide">
+  <div class="two l">
+    <div><div class="kick">Segment 2 · Book a service or installation</div><h2>Boat, job, workshop, slot. Done in a minute.</h2><ul><li>From Delma's own service menu: periodic service, diagnosis and repair</li><li>Engine installation, boat assembly and rigging, electronics, lighting and audio bought from Delma</li><li>Bateen, Dubai, Fujairah, Ras Al Khaimah, or Mangrove Marine</li><li>Fixed prices for standard jobs; estimates after diagnosis; optional deposit</li><li>Online, in the app, on WhatsApp, by phone or at the counter: the same calendar</li></ul></div>
+    <div class="laptop"><img src="shots/book-jobs-web.jpg"></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">12</div>
+</section>
+
+<!-- 13 MY DELMA -->
+<section class="slide">
+  <div class="two r">
+    <div class="laptop"><img src="shots/mydelma-web.jpg"></div>
+    <div><div class="kick">Segment 2 · My Delma</div><h2>The customer sees the job live, and approves extra work in one tap.</h2><ul><li>Received → diagnosing → waiting for approval → in progress → ready, with photos</li><li>Extra work found: photo and price on WhatsApp and in the app; nothing extra without approval</li><li>Invoice straight from the job; pay online, by card or on account</li><li>My boats and engines: serials, warranty, full history</li><li>Maintenance plans with reminders by date or engine hours; renew online</li></ul></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">13</div>
+</section>
+
+<!-- 14 WORKSHOP -->
+<section class="slide">
+  <div class="two l" style="grid-template-columns:.85fr 1.15fr">
+    <div><div class="kick">Segment 2 · The workshop</div><h2>Every job, every technician, every part, in one board.</h2><ul><li>Job cards for service, repair, engine installation and boat assembly</li><li>Technician schedule across the four workshops</li><li>Parts issued to the job; missing parts raise a purchase request</li><li>Installation linked to the sale: the bought items move from the order to the job</li><li>Checklists and a test run before a job can close</li><li>Warranty claims opened from the job for units under warranty</li></ul></div>
+    <div class="laptop"><img src="shots/staff-web.jpg"></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">14</div>
+</section>
+
+<!-- 15 PLANS / WARRANTY / MARINA -->
+<section class="slide">
+  <div class="kick">Segment 2 · Plans, warranty, marina</div>
+  <h2>Keeping customers for the life of the boat.</h2>
+  <div class="cards">
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><h3>Maintenance plans</h3><p>Sold online, at the counter, or with a new engine or boat. Visits scheduled into the right workshop, reminders by date or engine hours, renewal online. Fleet customers (government, fishermen): all boats in one place, one monthly invoice.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div><h3>Warranty claims</h3><p>Mercury and other brand claims tracked from the job: claimed, approved, paid. Warranty dates per serial number; a job on a unit under warranty opens the claim automatically.</p></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17c2 1 4 1 6 0s4-1 6 0 4 1 6 0M12 3v9M8 7l4-4 4 4"/></svg></div><h3>Mangrove Marine</h3><p>Berths and dry storage on a map, contracts per boat and owner, monthly billing with reminders, owners' requests in a daily list, extra charges onto the owner's account. The marina boat is the same record the workshop services.</p></div>
+  </div>
+  <div class="photos"><div><img src="img/workshop.jpg"></div><div><img src="img/props.jpg"></div><div><img src="img/marina.jpg"></div></div>
+  <img class="logo" src="img/logo.png"><div class="n">15</div>
+</section>
+
+<!-- 16 BRANCHES -->
+<section class="slide">
+  <div class="kick">The foundation · Every branch, country and franchise</div>
+  <h2>Each site runs its own day. Head office sees them all.</h2>
+  <div class="sites">
+    <div class="site"><img src="img/showroom.jpg"><div><b>Umm Al Nar</b><span>Head office, showroom, parts counter</span></div></div>
+    <div class="site"><img src="img/dubai.jpg"><div><b>Dubai</b><span>Showroom + workshop</span></div></div>
+    <div class="site"><img src="img/workshop.jpg"><div><b>Bateen</b><span>Workshop + parts</span></div></div>
+    <div class="site"><img src="img/rak.jpg"><div><b>Fujairah · Ras Al Khaimah</b><span>Workshops + counters</span></div></div>
+    <div class="site"><img src="img/warehouse.jpg"><div><b>ICAD warehouse</b><span>Imports, storage, picking, transfers</span></div></div>
+    <div class="site"><img src="img/marina-sign.jpg"><div><b>Mangrove Marine</b><span>Berths, storage, requests, billing</span></div></div>
+    <div class="site"><div style="height:120px;background:var(--ink);display:grid;place-items:center;color:#fff;font-size:34px;font-weight:800">SCR</div><div><b>Seychelles</b><span>Own currency, tax, prices, stock, jobs</span></div></div>
+    <div class="site"><div style="height:120px;background:var(--red);display:grid;place-items:center;color:#fff;font-size:22px;font-weight:800;text-align:center;padding:10px">Next franchise</div><div><b>Any new country</b><span>Configuration, not a new build</span></div></div>
+  </div>
+  <p style="margin-top:22px" class="sm">Each branch: its own stock, staff, tills, cash-up, targets and results. Each franchise: its own company on the platform, its own accounting software, only its own data. Head office: one catalogue, approval rules, every branch side by side, profit & loss per branch.</p>
+  <img class="logo" src="img/logo.png"><div class="n">16</div>
+</section>
+
+<!-- 17 MANAGEMENT / ACCOUNTING -->
+<section class="slide">
+  <div class="two">
+    <div><div class="kick">The foundation · Management</div><h2>Your accounting software stays exactly as it is.</h2><ul><li>The platform runs alongside it and imports from it: products, prices, customers, suppliers, stock, balances</li><li>Accounts gets daily sales, purchase, payment and petty-cash reports, ready to post</li><li>VAT returns and e-invoicing carry on where they are today</li><li>Petty cash: photo of the receipt, manager approves, accounts pays</li><li>Approval rules for discounts, refunds, purchases, write-offs</li></ul></div>
+    <div><div class="card" style="background:var(--ink);color:#fff;padding:34px"><h3 style="font-size:26px;color:#fff">Head office, every morning</h3><ul style="margin-top:12px"><li style="color:#DDE0E6">Sales by branch, brand, channel and salesperson</li><li style="color:#DDE0E6">Leads and how many became sales; revenue closed by the assistant</li><li style="color:#DDE0E6">Workshop load, turnaround, ratings</li><li style="color:#DDE0E6">Stock value and slow movers; marina occupancy</li><li style="color:#DDE0E6">Money owed and owing; profit & loss per branch</li></ul><p style="color:#C9CBD1;margin-top:14px;font-size:17px">On the phone too. Each person sees only what their role and branch need; every change is logged.</p></div></div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">17</div>
+</section>
+
+<!-- 18 STAGES -->
+<section class="slide">
+  <div class="kick">How we get there</div>
+  <h2>Something live after every stage. Public launch at week 10.</h2>
+  <div class="tl">
+    <div class="ph"><div class="w">Weeks 1–2</div><b>Prepare</b><span>Your data, pictures and service menu in; clickable designs approved.</span></div>
+    <div class="ph live"><div class="w">Weeks 3–10</div><b>Website & online selling</b><span>Shop, payments, assistant on web and WhatsApp, explorer, build your boat, online booking, the app installable, My Delma basics. <b style="font-size:16px;color:#FF6B63">Public launch</b></span></div>
+    <div class="ph"><div class="w">Weeks 11–18</div><b>Run the branches</b><span>Showroom operations, stock across all locations, purchasing, workshop job cards with live status, installation linked to the sale.</span></div>
+    <div class="ph"><div class="w">Weeks 19–26</div><b>Run the business</b><span>Leads in full, plans, warranty, marina, campaigns, targets, accounting import and exports, dashboards, app in the stores, training.</span></div>
+    <div class="ph"><div class="w">Weeks 27–38</div><b>Add-ons</b><span>Packages, promo codes, boat-show mode, technician app, delivery tracking, reviews, price-list import, smart reordering, assistant for staff.</span></div>
+  </div>
+  <p style="margin-top:30px">A short online demo every week. Each stage starts only after Delma signs off the previous one. New countries and franchises are added as they open.</p>
+  <img class="logo" src="img/logo.png"><div class="n">18</div>
+</section>
+
+<!-- 19 NEEDS -->
+<section class="slide">
+  <div class="kick">What we need from Delma</div>
+  <h2>To start Stage 0.</h2>
+  <div class="chk">
+    <div>Product list with prices, stock per location and photos, and the price mode per item</div>
+    <div>Service and installation menu with prices and times; workshop hours and capacity</div>
+    <div>Lead time per brand, so the site can promise dates</div>
+    <div>Marina details: berths, storage, contracts, what owners can request</div>
+    <div>Large pictures of each craft type, or permission to use the brands' pictures</div>
+    <div>Branch details: sites, hours, numbers, staff and roles, tills and card machines</div>
+    <div>How your salespeople sell, and the rules for the assistant</div>
+    <div>Countries and franchises: company, currency, tax, payment gateway, languages</div>
+    <div>Lead rules: hours, follow-up schedule, value limits, who gets handovers</div>
+    <div>Name of the accounting software and a sample export</div>
+    <div>Logo files, brand colours, Instagram and WhatsApp Business access</div>
+    <div>The website address, and one person at Delma to answer and approve</div>
+  </div>
+  <img class="logo" src="img/logo.png"><div class="n">19</div>
+</section>
+
+<!-- 20 NEXT -->
+<section class="slide dark" style="padding:0">
+  <img src="img/taiga.png" style="position:absolute;right:-60px;bottom:-40px;width:760px;opacity:.9">
+  <div style="position:absolute;left:90px;top:90px;max-width:900px">
+    <div class="kick">Next step</div>
+    <h1 style="font-size:56px">Stage 0 starts the week you say yes.</h1>
+    <ul style="margin-top:30px"><li>Try the prototype today: <b style="color:#fff">demodelma.theautomationgallery.com</b></li><li>Send the items on the checklist as they're ready; none of them holds up the design</li><li>Decide the open points: website address, price mode per product, countries and franchises</li><li>Week 1: screen designs for sign-off · Week 10: public launch</li></ul>
+  </div>
+  <div style="position:absolute;left:90px;bottom:48px;font-size:15px;color:rgba(255,255,255,.55);line-height:1.8">Prepared for Delma Industrial Supplies & Marine Services · October 2026<br><span id="prepby">Prepared by: (contact line to confirm)</span></div>
+  <div class="n">20</div>
+</section>
+
+</div>
+<div class="help">← → to move · F for full screen · Esc to exit</div>
+<script>
+const Q=new URLSearchParams(location.search),STATIC=Q.get('static')==='1';
+const slides=[...document.querySelectorAll('.slide')];let i=Math.max(0,Math.min(slides.length-1,(+Q.get('slide')||1)-1));
+function fit(){const s=Math.min(innerWidth/1600,innerHeight/900);document.documentElement.style.setProperty('--s',s)}
+function show(n){i=(n+slides.length)%slides.length;slides.forEach((s,k)=>s.classList.toggle('on',k===i));if(!STATIC)history.replaceState(null,'','?slide='+(i+1))}
+addEventListener('resize',fit);fit();show(i);
+if(!STATIC){addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')show(i+1);if(e.key==='ArrowLeft'||e.key==='PageUp')show(i-1);if(e.key==='Home')show(0);if(e.key==='End')show(slides.length-1);if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}});
+ addEventListener('click',e=>{if(e.target.closest('a'))return;show(e.clientX>innerWidth/2?i+1:i-1)});
+ let tx=0;addEventListener('touchstart',e=>tx=e.touches[0].clientX);addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)show(d<0?i+1:i-1)})}
+if(STATIC)document.querySelector('.help').style.display='none';
+</script>
+</body>
+</html>

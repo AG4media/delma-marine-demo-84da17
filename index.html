@@ -503,7 +503,8 @@ function renderBasket(){const l=document.getElementById('basketlist');if(!basket
 const chat=document.getElementById('chat');
 function msg(h,who){const d=document.createElement('div');d.className='m '+who;d.innerHTML=h;chat.appendChild(d);d.scrollIntoView({behavior:'smooth',block:'end'});return d}
 function typing(){return msg('<span class="typing"><span></span><span></span><span></span></span>','a')}
-function reply(parts){const t=typing();let i=0;const next=()=>{if(i===0)t.remove();if(i<parts.length){const p=parts[i++];setTimeout(()=>{msg(p,'a');if(i<parts.length){const tt=typing();setTimeout(()=>{tt.remove();next()},700)}else next()},i===1?600:0)}};setTimeout(next,900)}
+const Q=new URLSearchParams(location.search);const FAST=Q.get('fast')==='1';
+function reply(parts){if(FAST){parts.forEach(p=>msg(p,'a'));return}const t=typing();let i=0;const next=()=>{if(i===0)t.remove();if(i<parts.length){const p=parts[i++];setTimeout(()=>{msg(p,'a');if(i<parts.length){const tt=typing();setTimeout(()=>{tt.remove();next()},700)}else next()},i===1?600:0)}};setTimeout(next,900)}
 const SCRIPT={
  night:{u:'I have a Bayliner VR5 and want to use it for night fishing. What do I need?',a:[
   'Nice boat for it. For night fishing on the VR5 I\'d suggest three things:',
@@ -520,7 +521,7 @@ const SCRIPT={
  human:{u:'Talk to a person',a:['Of course. I\'ve sent this conversation to Khalid at Umm Al Nar sales. He\'ll continue with you on WhatsApp within 15 minutes (showroom hours 09:00–18:00). You can keep asking me meanwhile.'],chips:['Night fishing setup','Is the Mercury 150 in stock?']}};
 const CH={'Night fishing setup':'night','Is the Mercury 150 in stock?':'m150','How much is the service?':'service','Book the installation':'book','Talk to a person':'human','Yes, add them':'Yes, add them'};
 function chips(list){document.getElementById('chips').innerHTML=list.map(c=>`<span onclick="chipReply('${c}')">${c}</span>`).join('')}
-function chipReply(c){const s=SCRIPT[CH[c]||c];if(!s)return;msg(s.u||c,'u');document.getElementById('chips').innerHTML='';reply(s.a);setTimeout(()=>{if(s.chips)chips(s.chips);if(s.go)go(s.go)},1200+700*s.a.length)}
+function chipReply(c){const s=SCRIPT[CH[c]||c];if(!s)return;msg(s.u||c,'u');document.getElementById('chips').innerHTML='';reply(s.a);setTimeout(()=>{if(s.chips)chips(s.chips);if(s.go)go(s.go)},FAST?0:1200+700*s.a.length)}
 function sendTyped(){const i=document.getElementById('askin');const v=i.value.trim();if(!v)return;i.value='';const k=/150/.test(v)?'m150':/service|100/.test(v)?'service':/person|human|call/.test(v)?'human':'night';msg(v,'u');reply(SCRIPT[k].a);setTimeout(()=>chips(SCRIPT[k].chips||[]),1200+700*SCRIPT[k].a.length)}
 function startChat(){if(chat.children.length)return;msg('Hi, I\'m Delma. Tell me what you want to do on the water, or ask about any boat, engine or part. I check our real stock in every branch.','a');chips(['Night fishing setup','Is the Mercury 150 in stock?','How much is the service?','Talk to a person'])}
 
@@ -552,8 +553,8 @@ function openSheet(kind,o){const s=document.getElementById('sheet');if(kind==='p
  s.classList.add('on');document.getElementById('dim').classList.add('on')}
 function closeSheet(){document.getElementById('sheet').classList.remove('on');document.getElementById('dim').classList.remove('on')}
 function paid(a){document.getElementById('sheet').innerHTML=`<div class="handle"></div><div style="text-align:center;padding:10px 0 4px"><div style="width:54px;height:54px;border-radius:50%;background:#E6F6EC;color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:26px">✓</div><b style="font-size:16px">Paid ${a}</b><p class="sm mut" style="margin:4px 0 12px">Order DM-10482 confirmed · tax invoice emailed · we'll message you on WhatsApp with every update.</p><button class="btn k" onclick="closeSheet();basket=[];document.getElementById('bdot').style.display='none';renderBasket();go('mydelma')">Track it in My Delma</button></div>`}
-let tt;function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
-function showPush(){const p=document.getElementById('push');p.classList.add('on');setTimeout(()=>p.classList.remove('on'),4000)}
+let tt;function toast(t){if(FAST)return;const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
+function showPush(){const p=document.getElementById('push');p.classList.add('on');if(!FAST)setTimeout(()=>p.classList.remove('on'),4000)}
 function go(s){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('on');document.querySelectorAll('.nav div,.hnav span').forEach(d=>d.classList.toggle('on',d.dataset.s===s));document.getElementById('view').scrollTop=0;closeSheet();
  if(s==='explore')renderStage();if(s==='ask')startChat();if(s==='basket')renderBasket();if(s==='book')renderBook();if(location.hash!=='#'+s)history.replaceState(null,'','#'+s)}
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(document.getElementById('s-'+h))go(h)});
@@ -562,7 +563,16 @@ function toggleView(){setView(document.body.classList.contains('desk')?'app':'we
 let v0='web';try{v0=localStorage.getItem('dm-view')||'web'}catch(e){}
 if(/[?&]view=app/.test(location.search))v0='app';if(/[?&]view=web/.test(location.search))v0='web';setView(v0);
 applyRegion();document.getElementById('toast').classList.remove('on');
-const h0=location.hash.slice(1);go(document.getElementById('s-'+h0)?h0:'home');
+const h0=location.hash.slice(1);
+if(Q.get('region')==='SC'){region='SC';applyRegion()}
+if(Q.get('basket')==='1'){['fs9','hel1','hel2'].forEach(id=>basket.push(id));document.getElementById('bdot').style.display='block'}
+go(document.getElementById('s-'+h0)?h0:'home');
+if(Q.get('area')!==null&&h0==='explore'){pick(+Q.get('area'))}
+if(Q.get('chat')){startChat();chipReply(Q.get('chat')==='night'?'Night fishing setup':Q.get('chat')==='m150'?'Is the Mercury 150 in stock?':Q.get('chat'))}
+if(Q.get('approve')==='1')approve();
+if(Q.get('push')==='1')showPush();
+if(Q.get('book')){bk={step:+Q.get('book'),boat:0,job:2,ws:0,day:1,slot:2};renderBook()}
+if(Q.get('sheet')==='pay')openSheet('pay',{title:'Pay',amount:document.getElementById('grand')?document.getElementById('grand').textContent:'',sub:'Card · Apple Pay · Google Pay · tax invoice emailed'});
 </script>
 </body>
 </html>
