@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>Delma Marine</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#E2231A;--red-d:#B8170F;--ink:#111;--ink2:#2A2A2A;--mut:#6B6F76;--line:#E6E7EA;--bg:#F4F5F7;--card:#fff;--ok:#1E9E5A;--amber:#D98B10;--blue:#2563EB}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#2b2d33;color:var(--ink);-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.45}
+#frame{position:relative;width:100%;max-width:430px;height:100dvh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
+@media(min-width:900px){body{display:flex;align-items:center;justify-content:center;padding:24px}
+ #frame{height:min(900px,calc(100vh - 48px));border-radius:44px;border:10px solid #0f0f10;box-shadow:0 40px 90px rgba(0,0,0,.5);max-width:410px}
+ #desk{position:fixed;left:32px;top:32px;color:#C9CBD1;font-size:13px;max-width:330px;line-height:1.6}
+ #desk b{display:block;color:#fff;font-size:15px;margin-bottom:6px}
+ #desk a{color:#fff}
+}
+#desk{display:none}@media(min-width:900px){#desk{display:block}}
+/* top bar */
+.top{background:#fff;border-bottom:1px solid var(--line);padding:10px 14px 8px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.top img{height:30px}
+.top .sp{flex:1}
+.pill{font-size:11px;padding:4px 9px;border-radius:999px;background:#F1F2F4;color:var(--ink2);font-weight:500;white-space:nowrap;border:1px solid var(--line);cursor:pointer}
+.pill.red{background:#FDECEB;color:var(--red);border-color:#F6C9C6}
+.ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#F1F2F4;position:relative;cursor:pointer}
+.ico svg{width:18px;height:18px}
+.ico .dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid #fff}
+.sample{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);background:#fff;border:1px dashed #C9CBD1;padding:2px 6px;border-radius:5px}
+/* screens */
+#view{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;position:relative}
+.scr{display:none;padding:14px 14px 90px}
+.scr.on{display:block}
+h1{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+h2{font-size:16px;font-weight:700;margin:18px 0 8px}
+h3{font-size:14px;font-weight:700}
+p{margin-bottom:8px}
+.mut{color:var(--mut)} .sm{font-size:12px} .xs{font-size:11px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.row{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:10px;padding:10px 14px;font-weight:600;font-size:13px;cursor:pointer;background:#F1F2F4;color:var(--ink);font-family:inherit}
+.btn.p{background:var(--red);color:#fff}.btn.k{background:var(--ink);color:#fff}.btn.w{width:100%}.btn.s{padding:7px 10px;font-size:12px}
+.btn.o{background:#fff;border:1px solid #D4D6DB}
+.chip{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:600}
+.chip.ok{background:#E6F6EC;color:var(--ok)}.chip.am{background:#FDF3E0;color:var(--amber)}.chip.bl{background:#E8EEFD;color:var(--blue)}.chip.gr{background:#F1F2F4;color:var(--mut)}.chip.rd{background:#FDECEB;color:var(--red)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;min-height:84px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.tile b{font-size:13.5px}.tile span{font-size:11px;color:var(--mut)}
+.tile svg{width:22px;height:22px;position:absolute;top:12px;left:12px;color:var(--red)}
+.hero{background:var(--ink);color:#fff;border-radius:18px;padding:16px;position:relative;overflow:hidden;margin-bottom:12px}
+.hero img{position:absolute;right:-40px;bottom:-10px;width:230px;opacity:.95}
+.hero h1{font-size:19px;max-width:200px}
+.hero p{font-size:12px;color:#C9CBD1;max-width:190px}
+.bar{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin:0 -14px;padding-left:14px;padding-right:14px}
+.bar::-webkit-scrollbar{display:none}
+.prod{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px;align-items:flex-start}
+.prod .im{width:62px;height:62px;border-radius:10px;background:#F1F2F4 center/70% no-repeat;flex-shrink:0;display:grid;place-items:center;font-size:10px;color:var(--mut);font-weight:700;text-align:center;padding:4px}
+.prod .b{flex:1;min-width:0}
+.prod .n{font-weight:600;font-size:13px;line-height:1.3}
+.prod .br{font-size:11px;color:var(--mut)}
+.prod .pr{font-weight:700;font-size:13px;margin-top:3px}
+.av{font-size:11px;margin-top:3px;font-weight:500}
+.av.ok{color:var(--ok)}.av.am{color:var(--amber)}.av.bl{color:var(--blue)}.av.gr{color:var(--mut)}
+.prod .act{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+/* explorer */
+.exp{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 6px 6px;position:relative}
+.stage{position:relative;width:100%}
+.stage img{width:100%;display:block}
+.hs{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--red);border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);cursor:pointer;animation:pulse 2s infinite}
+.hs.on{background:var(--ink);animation:none;transform:scale(1.15)}
+.hs::after{content:"+";color:#fff;font-weight:800;font-size:15px;line-height:20px;display:block;text-align:center}
+.hs.on::after{content:"✓";font-size:12px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(226,35,26,.55)}70%{box-shadow:0 0 0 12px rgba(226,35,26,0)}100%{box-shadow:0 0 0 0 rgba(226,35,26,0)}}
+.seg{display:flex;background:#F1F2F4;border-radius:10px;padding:3px;margin-bottom:10px}
+.seg div{flex:1;text-align:center;padding:7px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--mut)}
+.seg div.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.panel{margin-top:10px}
+.areas{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.areas span{font-size:11px;padding:4px 9px;border-radius:999px;background:#F1F2F4;cursor:pointer;font-weight:500}
+.areas span.on{background:var(--ink);color:#fff}
+/* chat */
+.chat{display:flex;flex-direction:column;gap:8px;padding-bottom:6px}
+.m{max-width:86%;padding:10px 12px;border-radius:14px;font-size:13px;line-height:1.45}
+.m.a{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
+.m.u{background:var(--ink);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.m .prod{margin:8px 0 0;padding:8px}
+.m .prod .im{width:46px;height:46px}
+.typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:#B9BCC3;margin-right:3px;animation:b 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes b{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.chips span{font-size:12px;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid #D4D6DB;cursor:pointer;font-weight:500}
+.inp{display:flex;gap:8px;position:sticky;bottom:0;background:var(--bg);padding:8px 0 0}
+.inp input{flex:1;border:1px solid #D4D6DB;border-radius:999px;padding:10px 14px;font:inherit;font-size:13px;background:#fff}
+/* steps */
+.opt{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:8px;cursor:pointer}
+.opt.on{border-color:var(--ink)}
+.opt .ck{width:18px;height:18px;border-radius:50%;border:2px solid #C9CBD1;flex-shrink:0}
+.opt.on .ck{border-color:var(--ink);background:var(--ink);box-shadow:inset 0 0 0 3px #fff}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.slots div{background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:8px 4px;text-align:center;font-size:12px;font-weight:600;cursor:pointer}
+.slots div.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.slots div.x{opacity:.35;text-decoration:line-through;cursor:default}
+.days{display:flex;gap:6px;overflow:auto;margin-bottom:10px}
+.days div{min-width:56px;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:7px 4px;font-size:11px;cursor:pointer}
+.days div b{display:block;font-size:15px}
+.days div.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.steps{display:flex;gap:4px;margin:4px 0 12px}
+.steps i{flex:1;height:4px;border-radius:2px;background:#DADCE0}.steps i.on{background:var(--red)}
+/* timeline */
+.tl{position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:#DADCE0}
+.tl .st{position:relative;padding-bottom:14px}
+.tl .st::before{content:"";position:absolute;left:-19px;top:4px;width:10px;height:10px;border-radius:50%;background:#C9CBD1;border:2px solid #fff;box-shadow:0 0 0 2px #DADCE0}
+.tl .st.done::before{background:var(--ok);box-shadow:0 0 0 2px var(--ok)}
+.tl .st.now::before{background:var(--red);box-shadow:0 0 0 2px var(--red)}
+.tl .st b{display:block;font-size:13px}.tl .st span{font-size:11.5px;color:var(--mut)}
+.photo{border-radius:10px;width:100%;height:120px;object-fit:cover;margin:8px 0}
+/* bottom nav */
+.nav{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.nav div{flex:1;text-align:center;font-size:10.5px;font-weight:600;color:var(--mut);cursor:pointer;padding:4px 0}
+.nav div svg{width:22px;height:22px;display:block;margin:0 auto 2px}
+.nav div.on{color:var(--red)}
+/* overlays */
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:14px 16px 24px;box-shadow:0 -20px 60px rgba(0,0,0,.35);transform:translateY(110%);opacity:0;pointer-events:none;transition:.3s;z-index:20;max-height:85%;overflow:auto}
+.sheet.on{transform:none;opacity:1;pointer-events:auto}
+.dim{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:.3s;z-index:19}
+.dim.on{opacity:1;pointer-events:auto}
+.handle{width:40px;height:4px;border-radius:2px;background:#DADCE0;margin:0 auto 12px}
+.push{position:absolute;top:10px;left:10px;right:10px;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-radius:16px;padding:10px 12px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.3);transform:translateY(-140%);opacity:0;pointer-events:none;transition:.4s;z-index:30}
+.push.on{transform:none;opacity:1;pointer-events:auto}
+.push img{width:36px;height:36px;border-radius:9px;background:#fff;object-fit:contain;border:1px solid var(--line)}
+.push b{font-size:12px;display:block}.push span{font-size:12px;color:var(--ink2)}
+.toast{position:absolute;bottom:80px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:9px 14px;border-radius:999px;font-size:12px;opacity:0;transition:.3s;z-index:25;white-space:nowrap}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.gate{position:absolute;inset:0;background:#111;color:#fff;display:none;place-items:center;text-align:center;padding:30px;z-index:99}
+.gate.on{display:grid}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kpi div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}
+.kpi b{font-size:18px;display:block}.kpi span{font-size:10.5px;color:var(--mut)}
+.kan{display:flex;gap:8px;overflow:auto;margin:0 -14px;padding:0 14px 6px}
+.col{min-width:150px;background:#ECEDF0;border-radius:12px;padding:8px}
+.col h4{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.jc{background:#fff;border-radius:9px;padding:8px;margin-bottom:6px;font-size:11.5px;border-left:3px solid #C9CBD1}
+.jc b{display:block;font-size:12px}
+.jc.i{border-left-color:var(--blue)}.jc.w{border-left-color:var(--amber)}.jc.r{border-left-color:var(--ok)}
+.sched{display:grid;grid-template-columns:70px repeat(4,1fr);gap:4px;font-size:10.5px}
+.sched div{background:#fff;border:1px solid var(--line);border-radius:6px;padding:5px 4px;min-height:30px}
+.sched .h{background:transparent;border:0;font-weight:700;color:var(--mut)}
+.sched .j{background:#E8EEFD;border-color:#C7D4FA}.sched .j2{background:#FDF3E0;border-color:#F3DDB0}.sched .j3{background:#E6F6EC;border-color:#BFE6CD}
+.feed img{width:100%;height:130px;object-fit:cover;border-radius:10px;margin-bottom:8px;background:#fff}
+.tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--red)}
+.tabs{display:flex;gap:14px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.tabs div{padding:8px 0;font-size:13px;font-weight:600;color:var(--mut);cursor:pointer;border-bottom:2px solid transparent}
+.tabs div.on{color:var(--ink);border-color:var(--red)}
+.sum{display:flex;justify-content:space-between;font-size:13px;padding:5px 0}
+.sum.t{border-top:1px solid var(--line);font-weight:700;margin-top:4px;padding-top:9px}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opts span{font-size:12px;padding:7px 10px;border:1.5px solid var(--line);border-radius:9px;background:#fff;cursor:pointer}
+.opts span.on{border-color:var(--ink);background:var(--ink);color:#fff}
+.colors span{width:34px;height:34px;border-radius:50%;padding:0;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--line)}
+.colors span.on{box-shadow:0 0 0 2px var(--ink)}
+.brands{display:flex;flex-wrap:wrap;gap:6px}
+.brands span{font-size:11px;padding:5px 9px;background:#fff;border:1px solid var(--line);border-radius:8px;font-weight:600}
+
+/* ===== website view (laptop) ===== */
+@media(min-width:900px){
+ body.desk{display:block;padding:0;background:var(--bg)}
+ body.desk #desk{display:none}
+ body.desk #frame{max-width:none;height:100vh;border:0;border-radius:0;box-shadow:none}
+ body.desk .top{padding:0 40px;height:64px;gap:16px}
+ body.desk .top img{height:40px}
+ body.desk .hnav{display:flex;gap:4px;margin-left:12px}
+ body.desk .nav{display:none}
+ body.desk .scr{padding:28px 40px 60px;max-width:1240px;margin:0 auto}
+ body.desk .scr.narrow{max-width:760px}
+ body.desk .hero{padding:34px 36px;min-height:280px;border-radius:24px}
+ body.desk .hero h1{font-size:34px;max-width:460px}
+ body.desk .hero p{font-size:15px;max-width:380px}
+ body.desk .hero img{width:560px;right:-20px;bottom:-30px}
+ body.desk .hgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:0 32px}
+ body.desk .bar{margin:0;padding:0;flex-wrap:wrap}
+ body.desk .bar .pill{font-size:13px;padding:8px 14px}
+ body.desk #s-explore.on{display:grid;grid-template-columns:1.55fr 1fr;gap:22px;align-items:start}
+ body.desk .xl .seg{max-width:360px}
+ body.desk .xr{position:sticky;top:0}
+ body.desk .xr .panel{max-height:calc(100vh - 140px);overflow:auto;padding-right:4px}
+ body.desk .hs{width:32px;height:32px;margin:-16px 0 0 -16px}
+ body.desk .hs::after{line-height:26px;font-size:18px}
+ body.desk .areas span{font-size:12.5px;padding:6px 12px}
+ body.desk h1{font-size:28px} body.desk h2{font-size:18px}
+ body.desk .chat{max-width:720px} body.desk .m{font-size:14px} body.desk .inp{max-width:720px}
+ body.desk .kan{margin:0;padding:0} body.desk .col{min-width:0;flex:1}
+ body.desk .sheet{left:50%;right:auto;width:440px;transform:translate(-50%,110%);border-radius:22px;bottom:30px}
+ body.desk .sheet.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
+ body.desk .push{left:auto;right:24px;top:80px;width:360px;transform:translateY(-300%)}
+ body.desk .feed img{height:200px}
+ body.desk .grid-off{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ body.desk .grid-off .card{margin:0}
+}
+.hnav{display:none}
+.hnav span{padding:8px 12px;border-radius:9px;font-weight:600;font-size:13.5px;cursor:pointer;color:var(--ink2)}
+.hnav span.on{color:var(--red);background:#FDECEB}
+.viewtog{display:none}@media(min-width:900px){body.desk .viewtog{display:inline-flex}}
+</style>
+</head>
+<body>
+<div id="desk"><b>Delma Marine · prototype</b>This is a clickable prototype of the customer app and website, with sample data. Nothing is real behind it: no orders, no payments, no messages.<br><br>Tap the boat on <a href="#explore">Explore</a>, chat on <a href="#ask">Ask</a>, book on <a href="#book">Book</a>, see a live job in <a href="#mydelma">My Delma</a>, and the offers feed under the bell. Switch region at the top to see Seychelles prices.<br><br><a href="#staff">Staff view: workshop board →</a><br><br><a href="javascript:toggleView()">Switch to the website view (laptop) →</a></div>
+
+<div id="frame">
+<div class="gate" id="gate"><div><img src="assets/logo.png" style="height:60px;margin-bottom:16px"><h1 style="font-size:18px">This preview has expired</h1><p class="mut sm" style="margin-top:8px">Please ask Delma Marine for a new link.</p></div></div>
+
+<div class="push" id="push"><img src="assets/logo.png"><div><b>Delma Marine · now</b><span id="pushtxt">New arrival: Mercury Avator 110e electric outboard is at Umm Al Nar. Book a viewing.</span></div></div>
+<div class="toast" id="toast"></div>
+
+<div class="top">
+  <img src="assets/logo.png" alt="Delma Marine">
+  <span class="pill" id="regionpill" onclick="toggleRegion()">📍 Abu Dhabi · AED</span>
+  <div class="hnav" id="hnav"><span data-s="home" onclick="go('home')">Home</span><span data-s="explore" onclick="go('explore')">Explore your boat</span><span data-s="ask" onclick="go('ask')">Ask Delma</span><span data-s="book" onclick="go('book')">Book a service</span><span data-s="mydelma" onclick="go('mydelma')">My Delma</span></div><span class="sp"></span><span class="sample">Sample data</span><button class="btn s o viewtog" onclick="toggleView()" id="vtog">App view</button>
+  <div class="ico" onclick="go('offers')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg><i class="dot"></i></div>
+  <div class="ico" onclick="go('basket')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 100-2 1 1 0 000 2zM18 20a1 1 0 100-2 1 1 0 000 2z"/></svg><i class="dot" id="bdot" style="display:none"></i></div>
+</div>
+
+<div id="view">
+
+<!-- HOME -->
+<section class="scr on" id="s-home">
+  <div class="hero"><img src="assets/navan.png" alt=""><h1>What do you want to do on the water?</h1><p>Tell us, and we'll put the right boat, engine and kit together.</p><div style="margin-top:10px"><button class="btn p s" onclick="go('ask')">Ask Delma</button></div></div>
+  <div class="bar">
+    <span class="pill" onclick="go('explore')">🎣 Fishing</span><span class="pill" onclick="go('explore')">👨‍👩‍👧 Family day out</span><span class="pill" onclick="go('explore')">🏄 Watersports</span><span class="pill" onclick="go('explore')">🤿 Diving</span><span class="pill" onclick="go('explore')">🛶 Kayaking</span><span class="pill" onclick="go('explore')">⚡ Performance</span>
+  </div>
+  <div class="hgrid"><div>
+  <h2>Explore your boat</h2>
+  <div class="exp" onclick="go('explore')" style="cursor:pointer"><div class="stage"><img src="assets/navan.png" alt=""><i class="hs" style="left:14%;top:52%"></i><i class="hs" style="left:47%;top:41%"></i><i class="hs" style="left:84%;top:41%"></i></div><p class="sm mut" style="padding:6px 8px 2px">Tap any part of the boat to see what fits there, with live stock.</p></div>
+  <h2>Shop by my boat or engine</h2>
+  <div class="card row"><div style="flex:1"><b>Bayliner VR5 · Mercury 150 FourStroke</b><div class="sm mut">Serial 2B•••••71 · saved in My Delma</div></div><button class="btn s" onclick="go('explore')">Parts that fit</button></div>
+  </div><div>
+  <h2>New arrivals & offers</h2>
+  <div class="prod" onclick="go('offers')"><div class="im" style="background-image:url(assets/mercury-avator.png)"></div><div class="b"><div class="n">Mercury Avator 110e</div><div class="br">Electric outboard · now at Umm Al Nar</div><div class="av bl">New arrival · book a viewing</div></div></div>
+  <div class="prod" onclick="go('offers')"><div class="im">INTER-<br>NATIONAL</div><div class="b"><div class="n">Antifouling season</div><div class="br">International Micron 350</div><div class="av ok">Offer until 30 Nov · app only</div></div></div>
+  <h2>Nearest branch</h2>
+  <div class="card row"><div style="flex:1"><b id="nb-name">Delma Marine · Umm Al Nar</b><div class="sm mut" id="nb-sub">Head office & showroom · open until 18:00 · 2.1 km</div></div><button class="btn s">Call</button><button class="btn s k">WhatsApp</button></div>
+  </div></div>
+  <h2>Brands we represent</h2>
+  <div class="brands"><span>Mercury</span><span>Bayliner</span><span>Navan</span><span>Taiga</span><span>ABNC</span><span>iWave</span><span>Whaly</span><span>SeaStorm</span><span>Lowrance</span><span>Kicker</span><span>Omnisense</span><span>Bob's Machine</span><span>Ultraflex</span><span>Hella Marine</span><span>Seaview</span><span>Polyform</span><span>Fendequip</span><span>Marlow</span><span>Beuchat</span><span>Connelly</span><span>E-SeaRider</span><span>Comfort Seat</span><span>Vitrifrigo</span><span>Max</span><span>Borika</span><span>Pelican</span><span>Wilderness</span><span>Perception</span></div>
+  <p class="xs mut" style="margin-top:14px">Delma Industrial Supplies & Marine Services · since 1978 · Abu Dhabi · Dubai · Fujairah · Ras Al Khaimah · Seychelles</p>
+  <p class="xs mut"><a href="#staff" style="color:var(--mut)">Staff view</a></p>
+</section>
+
+<!-- EXPLORE -->
+<section class="scr" id="s-explore">
+  <div class="xl">
+  <div class="seg"><div class="on" onclick="setCraft('boat',this)">Boat</div><div onclick="setCraft('jetski',this)">Jet ski</div><div onclick="setCraft('kayak',this)">Kayak</div></div>
+  <div class="exp">
+    <div class="row" style="padding:0 6px 8px"><div style="flex:1"><b id="craftname">Navan S30 · twin Mercury 300</b><div class="xs mut">Tap a part of the boat</div></div><button class="btn s o" onclick="openSheet('mine')">Make it mine</button></div>
+    <div class="stage" id="stage"></div>
+    <div class="areas" id="areas"></div>
+  </div>
+  </div>
+  <div class="xr">
+  <div class="panel" id="panel"><div class="card"><b>Everything that fits, in one picture</b><p class="sm mut" style="margin:4px 0 0">Choose an area above. Each shows the parts and accessories Delma sells for it, what's in stock and where, and adds to your basket.</p></div></div>
+  <div class="card row" style="margin-top:12px"><div style="flex:1"><b>Build this boat</b><div class="sm mut">Engine, colour, electronics, seating, extras</div></div><button class="btn s k" onclick="go('build')">Build</button></div>
+  </div>
+</section>
+
+<!-- BUILD -->
+<section class="scr narrow" id="s-build">
+  <h1>Build your Navan S30</h1>
+  <p class="sm mut">Choose what you want. We'll quote it, or reserve it with a deposit.</p>
+  <div class="card"><img src="assets/navan.png" style="width:100%;display:block"></div>
+  <h3>Engine</h3><div class="opts" id="b-eng"><span class="on">Mercury 300 V8 Verado</span><span>Twin Mercury 300 V8</span><span>Twin Mercury 400 V10</span></div>
+  <h3 style="margin-top:12px">Hull colour</h3><div class="opts colors" id="b-col"><span class="on" style="background:#fff"></span><span style="background:#1a1a1a"></span><span style="background:#C9B48C"></span><span style="background:#1F4E79"></span></div>
+  <h3 style="margin-top:12px">Electronics</h3><div class="opts" id="b-el"><span class="on">Lowrance Elite FS 9</span><span>Lowrance HDS Pro 12</span><span>HDS Pro 12 + Omnisense night vision</span></div>
+  <h3 style="margin-top:12px">Seating & comfort</h3><div class="opts" id="b-seat"><span class="on">Standard</span><span>Lounge pack</span><span>+ Vitrifrigo fridge</span></div>
+  <h3 style="margin-top:12px">Extras</h3><div class="opts" id="b-ex"><span>Hella T-top lights</span><span>Kicker audio</span><span>Marlow & Polyform mooring kit</span><span>Connelly tow pack</span></div>
+  <div class="card" style="margin-top:14px"><div class="sum"><span>Your build</span><span id="b-sum" class="mut">Mercury 300 · white · Elite FS 9 · standard</span></div><div class="sum t"><span>Price</span><span>On request</span></div><p class="xs mut">Boats are priced on request. A Delma salesperson confirms the quote; you can reserve the build with a deposit.</p><div class="row"><button class="btn w o" onclick="toast('Quote request sent to Delma Marine Umm Al Nar')">Request a quote</button><button class="btn w p" onclick="openSheet('pay',{title:'Reserve this build',amount:fmt(5000),sub:'Refundable deposit · balance on the confirmed quote'})">Reserve with deposit</button></div></div>
+</section>
+
+<!-- ASK -->
+<section class="scr narrow" id="s-ask">
+  <div class="row" style="margin-bottom:8px"><div style="width:36px;height:36px;border-radius:12px;background:var(--red);display:grid;place-items:center"><img src="assets/logo.png" style="height:22px;filter:brightness(0) invert(1)"></div><div><b>Delma</b><div class="xs mut">Replies in seconds · answers from Delma's own stock and prices</div></div></div>
+  <div class="chat" id="chat"></div>
+  <div class="chips" id="chips"></div>
+  <div class="inp"><input id="askin" placeholder="Ask anything about boats, engines, parts…" onkeydown="if(event.key==='Enter')sendTyped()"><button class="btn p" onclick="sendTyped()">Send</button></div>
+</section>
+
+<!-- BASKET -->
+<section class="scr narrow" id="s-basket">
+  <h1>Your basket</h1>
+  <div id="basketlist"></div>
+  <h2>Complete your setup</h2>
+  <div id="upsell"></div>
+  <div class="card" id="totals"></div>
+  <div class="card"><div class="sm"><b>Delivery or collection</b></div><div class="opt on" style="margin-top:8px"><div class="ck"></div><div style="flex:1"><b id="d1">Collect at Umm Al Nar</b><div class="xs mut" id="d1s">Ready tomorrow from 10:00 · free</div></div></div><div class="opt"><div class="ck"></div><div style="flex:1"><b id="d2">Deliver to me</b><div class="xs mut" id="d2s">Abu Dhabi · Thursday · AED 40</div></div></div></div>
+  <button class="btn w k" style="margin-bottom:8px" onclick="openSheet('pay',{title:'Pay',amount:document.getElementById('grand').textContent,sub:'Card · Apple Pay · Google Pay · tax invoice emailed'})"> Pay</button>
+  <p class="xs mut" style="text-align:center">Prices include VAT. Card details are handled by the payment gateway.</p>
+</section>
+
+<!-- BOOK -->
+<section class="scr narrow" id="s-book">
+  <h1>Book a service or installation</h1>
+  <div class="steps" id="bsteps"><i class="on"></i><i></i><i></i><i></i></div>
+  <div id="bookbody"></div>
+</section>
+
+<!-- MY DELMA -->
+<section class="scr narrow" id="s-mydelma">
+  <h1>My Delma</h1>
+  <div class="tabs"><div class="on" onclick="mdTab('jobs',this)">Jobs</div><div onclick="mdTab('boats',this)">My boats</div><div onclick="mdTab('inv',this)">Invoices</div><div onclick="mdTab('plan',this)">Plan</div></div>
+  <div id="md-jobs">
+    <div class="card">
+      <div class="row"><div style="flex:1"><b>Job BT-2041 · Bateen workshop</b><div class="sm mut">Bayliner VR5 · Mercury 150 · 100-hour service</div></div><span class="chip am" id="jobchip">Waiting for you</span></div>
+      <div class="tl" style="margin-top:12px">
+        <div class="st done"><b>Received</b><span>Today 09:10 · engine hours 212 · 6 photos</span></div>
+        <div class="st done"><b>Diagnosing</b><span>10:30 · technician Rashid</span></div>
+        <div class="st now" id="st-appr"><b>Waiting for your approval</b><span>11:05 · one extra item found</span>
+          <div class="card" style="margin:8px 0 0;background:#FFF8F0;border-color:#F3DDB0" id="apprcard"><img class="photo" src="assets/technician.jpg" alt=""><b>Water-pump impeller worn</b><p class="sm" style="margin:2px 0 8px">Rashid recommends replacing it today. Parts in stock. <b id="apprprice"></b> incl. labour and VAT.</p><div class="row"><button class="btn w p s" onclick="approve()">Approve</button><button class="btn w o s" onclick="toast('Declined · we will continue with the 100-hour service only')">Decline</button></div></div>
+        </div>
+        <div class="st" id="st-prog"><b>In progress</b><span>—</span></div>
+        <div class="st"><b>Ready for collection</b><span>Expected today 16:00</span></div>
+      </div>
+    </div>
+  </div>
+  <div id="md-boats" style="display:none">
+    <div class="card"><img src="assets/bayliner.png" style="width:100%"><b>Bayliner VR5 (2024)</b><div class="sm mut">Mercury 150 FourStroke · serial 2B•••••71 · warranty to Mar 2027 · 212 hours</div><div class="row" style="margin-top:8px"><button class="btn s" onclick="go('explore')">Parts that fit</button><button class="btn s" onclick="go('book')">Book a service</button></div></div>
+    <div class="card row"><div style="flex:1"><b>Add a boat or engine</b><div class="sm mut">Scan the engine plate or enter the serial</div></div><button class="btn s o">Scan</button></div>
+  </div>
+  <div id="md-inv" style="display:none">
+    <div class="card row"><div style="flex:1"><b>INV-10388 · 100-hour service kit</b><div class="sm mut">12 Oct 2026 · paid online</div></div><b id="inv1"></b></div>
+    <div class="card row"><div style="flex:1"><b>INV-10102 · Lowrance Elite FS 9 + install</b><div class="sm mut">3 Aug 2026 · paid by card</div></div><b id="inv2"></b></div>
+  </div>
+  <div id="md-plan" style="display:none">
+    <div class="card"><span class="tag">Maintenance plan</span><b style="display:block;margin-top:4px">Mercury Care · 2 visits a year</b><div class="sm mut">Next: 100-hour service, due in 23 engine hours or by 30 Nov. Reminders by WhatsApp.</div><div class="row" style="margin-top:8px"><button class="btn s p" onclick="go('book')">Book the visit</button><button class="btn s o" onclick="toast('Renewed for 12 months')">Renew</button></div></div>
+    <div class="card"><b>Reminders</b><div class="sm mut">Warranty ends Mar 2027 · plan renews 1 Feb 2027</div></div>
+  </div>
+</section>
+
+<!-- OFFERS -->
+<section class="scr narrow" id="s-offers">
+  <h1>Offers & new arrivals</h1>
+  <p class="sm mut">For <span id="offreg">Abu Dhabi</span> · fishing, watersports <span class="pill" style="margin-left:4px">Edit interests</span></p>
+  <div class="card feed"><img src="assets/mercury-trio.png" style="object-fit:contain"><span class="tag">New arrival</span><b style="display:block">Mercury Avator electric outboards</b><p class="sm mut" style="margin:2px 0 8px">The 20e, 35e, 75e and 110e are now at Umm Al Nar. Quiet, no fuel, instant torque.</p><button class="btn s k" onclick="toast('Viewing booked · Sat 11:00 · Umm Al Nar')">Book a viewing</button></div>
+  <div class="card feed"><img src="assets/boatshow.jpg"><span class="tag">Boat show</span><b style="display:block">Abu Dhabi International Boat Show</b><p class="sm mut" style="margin:2px 0 8px">Visit the Delma stand. Show-only offers on Lowrance and Connelly.</p><button class="btn s o" onclick="toast('Added to your calendar')">Remind me</button></div>
+  <div class="card feed"><span class="tag">Offer · app only</span><b style="display:block">Antifouling season: 15% off International Micron 350</b><p class="sm mut" style="margin:2px 0 8px">Until 30 Nov. Book the hull work at any workshop.</p><button class="btn s p" onclick="addToBasket('micron');toast('Added to basket')">Add to basket</button></div>
+  <div class="card feed"><span class="tag">Back in stock</span><b style="display:block">Lowrance HDS Pro 12</b><p class="sm mut" style="margin:2px 0 8px">Back at Umm Al Nar and Dubai. You asked us to tell you.</p><button class="btn s o" onclick="addToBasket('hds');toast('Added to basket')">Add to basket</button></div>
+  <div class="card"><b>Notifications</b><div class="sm mut" style="margin-bottom:8px">New arrivals & offers · price drops · back in stock · orders · jobs · service due · boat shows. Each can be switched off.</div><button class="btn s o" onclick="showPush()">Send me a sample notification</button></div>
+</section>
+
+<!-- STAFF -->
+<section class="scr" id="s-staff">
+  <div class="row" style="margin-bottom:8px"><div style="flex:1"><span class="tag">Staff · Bateen workshop</span><h1 style="font-size:19px">Today · Tue 27 Oct</h1></div><span class="chip gr">Rashid · supervisor</span></div>
+  <div class="kpi"><div><b>11</b><span>Open jobs</span></div><div><b>3</b><span>Waiting approval</span></div><div><b>2</b><span>Waiting parts</span></div></div>
+  <div class="kan">
+    <div class="col"><h4>Received</h4><div class="jc"><b>BT-2044 · Whaly 435</b>Periodic service · 09:40</div><div class="jc"><b>BT-2045 · Navan S30</b>Engine installation · linked to order DM-10482</div></div>
+    <div class="col"><h4>Diagnosing</h4><div class="jc i"><b>BT-2043 · SeaStorm 5</b>Won't start · Ahmed</div></div>
+    <div class="col"><h4>Waiting approval</h4><div class="jc w"><b>BT-2041 · Bayliner VR5</b>Impeller · sent 11:05</div><div class="jc w"><b>BT-2039 · Taiga Orca</b>Battery check · sent 10:20</div></div>
+    <div class="col"><h4>In progress</h4><div class="jc i"><b>BT-2038 · Bayliner VR6</b>Boat assembly & rigging · twin 150 · Rashid</div><div class="jc i"><b>BT-2036 · Mercury 60</b>Lower unit · Jomon</div></div>
+    <div class="col"><h4>Ready</h4><div class="jc r"><b>BT-2035 · Pelican Catch</b>Collected 12:10</div></div>
+  </div>
+  <h2>Technician schedule</h2>
+  <div class="sched"><div class="h"></div><div class="h">09–11</div><div class="h">11–13</div><div class="h">14–16</div><div class="h">16–18</div>
+   <div class="h">Rashid</div><div class="j">BT-2038 rigging</div><div class="j">BT-2038</div><div class="j2">BT-2041 impeller</div><div></div>
+   <div class="h">Ahmed</div><div class="j">BT-2043 diag.</div><div></div><div class="j">BT-2045 install</div><div class="j">BT-2045</div>
+   <div class="h">Jomon</div><div class="j">BT-2036 lower unit</div><div class="j">BT-2036</div><div class="j3">BT-2044 service</div><div></div></div>
+  <h2>Parts for today's jobs</h2>
+  <div class="card sm"><div class="row"><span style="flex:1">Impeller kit 47-8M0100526 · BT-2041</span><span class="chip ok">In store</span></div><div class="row" style="margin-top:6px"><span style="flex:1">Rigging kit, twin 150 · BT-2038</span><span class="chip ok">Reserved from order</span></div><div class="row" style="margin-top:6px"><span style="flex:1">Starter motor · BT-2043</span><span class="chip am">Transfer from ICAD · tomorrow</span></div></div>
+  <p class="xs mut"><a href="#home" style="color:var(--mut)">← Back to the customer app</a></p>
+</section>
+
+</div><!-- /view -->
+
+<div class="nav">
+  <div class="on" data-s="home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8v10a1 1 0 01-1 1h-5v-7h-6v7H4a1 1 0 01-1-1z"/></svg>Home</div>
+  <div data-s="explore" onclick="go('explore')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-4 2 2-6z"/></svg>Explore</div>
+  <div data-s="ask" onclick="go('ask')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 01-11.6 7.1L4 21l1.9-5.4A8 8 0 1121 12z"/></svg>Ask</div>
+  <div data-s="book" onclick="go('book')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Book</div>
+  <div data-s="mydelma" onclick="go('mydelma')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>My Delma</div>
+</div>
+
+<div class="dim" id="dim" onclick="closeSheet()"></div>
+<div class="sheet" id="sheet"></div>
+</div><!-- /frame -->
+
+<script>
+/* ---------- expiry gate (client-side) ---------- */
+if(new Date()>new Date('2026-11-30T23:59:59+04:00'))document.getElementById('gate').classList.add('on');
+
+/* ---------- region ---------- */
+const REG={
+ AE:{label:'📍 Abu Dhabi · AED',cur:'AED',rate:1,vat:.05,near:'AUH',nb:'Delma Marine · Umm Al Nar',nbs:'Head office & showroom · open until 18:00 · 2.1 km',del:'Abu Dhabi · Thursday · AED 40',col:'Collect at Umm Al Nar',offreg:'Abu Dhabi',
+   br:{AUH:'Umm Al Nar',DXB:'Dubai showroom',FUJ:'Fujairah',RAK:'Ras Al Khaimah',WH:'ICAD warehouse'}},
+ SC:{label:'📍 Victoria, Seychelles · SCR',cur:'SCR',rate:4.1,vat:.15,near:'SEZ',nb:'Delma Marine Seychelles · Victoria',nbs:'Branch & workshop · open until 17:00 · 3.4 km',del:'Mahé · Friday · SCR 150',col:'Collect at Victoria',offreg:'Seychelles',
+   br:{SEZ:'Victoria'}}};
+let region='AE';
+function fmt(aed){const r=REG[region];const v=Math.round(aed*r.rate/10)*10;return r.cur+' '+v.toLocaleString('en-US')}
+function toggleRegion(){region=region==='AE'?'SC':'AE';applyRegion()}
+function applyRegion(){const r=REG[region];document.getElementById('regionpill').textContent=r.label;
+ document.getElementById('nb-name').textContent=r.nb;document.getElementById('nb-sub').textContent=r.nbs;
+ document.getElementById('d1').textContent=r.col;document.getElementById('d2s').textContent=r.del;document.getElementById('offreg').textContent=r.offreg;
+ document.getElementById('apprprice').textContent=fmt(420);document.getElementById('inv1').textContent=fmt(680);document.getElementById('inv2').textContent=fmt(4530);
+ renderPanel();renderBasket();toast(region==='AE'?'Showing Abu Dhabi prices in AED':'Showing Seychelles prices in SCR · nearest branch Victoria')}
+
+/* ---------- products ---------- */
+const P={
+ m300:{n:'Mercury 300 V8 Verado',br:'Mercury · 4.6 L V8 · DTS',p:98500,mode:'shown',st:{AUH:1,DXB:0,WH:0,SEZ:0},lead:21,im:'assets/mercury-v12.png'},
+ m150:{n:'Mercury 150 FourStroke',br:'Mercury · 3.0 L · the UAE favourite',p:52900,mode:'shown',st:{AUH:0,DXB:0,WH:0,SEZ:0},lead:10,im:'assets/mercury-v12.png'},
+ prop:{n:'Enertia propeller 16" × 14',br:'Mercury · stainless',p:2850,mode:'shown',st:{AUH:4,DXB:2,WH:9,SEZ:1},lead:14,t:'PROP'},
+ jack:{n:'Action Series jack plate 6"',br:"Bob's Machine · hydraulic",p:6900,mode:'shown',st:{AUH:0,DXB:1,WH:2,SEZ:0},lead:18,t:'JACK PLATE'},
+ steer:{n:'MasterDrive power steering',br:'Ultraflex · electro-hydraulic',p:9800,mode:'shown',st:{AUH:1,DXB:0,WH:1,SEZ:0},lead:21,t:'STEERING'},
+ oil:{n:'Mercury 25W-40 synthetic blend 4 L',br:'Mercury · service oil',p:160,mode:'shown',st:{AUH:40,DXB:25,WH:120,SEZ:12},lead:7,t:'OIL'},
+ kit:{n:'100-hour service kit, 150 FourStroke',br:'Mercury · filters, plugs, impeller',p:680,mode:'shown',st:{AUH:6,DXB:3,WH:14,SEZ:2},lead:10,t:'SERVICE KIT'},
+ fs9:{n:'Lowrance Elite FS 9',br:'Lowrance · fish finder & chartplotter',p:3950,mode:'shown',st:{AUH:3,DXB:0,WH:5,SEZ:0},lead:12,t:'LOWRANCE'},
+ hds:{n:'Lowrance HDS Pro 12',br:'Lowrance · Active Imaging HD',p:11900,mode:'shown',st:{AUH:2,DXB:1,WH:0,SEZ:0},lead:12,t:'LOWRANCE'},
+ radar:{n:'Lowrance HALO20+ radar',br:'Lowrance',p:0,mode:'request',st:{AUH:0,DXB:0,WH:0,SEZ:0},lead:21,t:'RADAR'},
+ omni:{n:'Ulysses Micro night vision',br:'Omnisense · thermal camera',p:14800,mode:'shown',st:{AUH:0,DXB:0,WH:0,SEZ:0},lead:10,t:'OMNISENSE'},
+ seav:{n:'Radar mount, 12"',br:'Seaview · powder-coated aluminium',p:1250,mode:'shown',st:{AUH:2,DXB:2,WH:4,SEZ:0},lead:14,t:'SEAVIEW'},
+ kick:{n:'KMC5 marine audio + 6.5" speakers',br:'Kicker · Bluetooth',p:2650,mode:'shown',st:{AUH:3,DXB:4,WH:6,SEZ:1},lead:14,t:'KICKER'},
+ hel1:{n:'Sea Hawk-470 LED floodlight',br:'Hella Marine',p:890,mode:'shown',st:{AUH:5,DXB:3,WH:10,SEZ:2},lead:10,t:'HELLA'},
+ hel2:{n:'NaviLED PRO navigation lights, pair',br:'Hella Marine',p:1180,mode:'shown',st:{AUH:4,DXB:2,WH:8,SEZ:1},lead:10,t:'HELLA'},
+ hel3:{n:'Apelo A2 underwater light',br:'Hella Marine · RGB',p:1480,mode:'shown',st:{AUH:0,DXB:2,WH:0,SEZ:0},lead:10,t:'HELLA'},
+ cseat:{n:'Comfort Seat Marine, navy',br:'Comfort Seat',p:520,mode:'shown',st:{AUH:8,DXB:5,WH:20,SEZ:3},lead:14,t:'COMFORT SEAT'},
+ bean:{n:'Marine bean bag, teardrop',br:'E-SeaRider',p:1150,mode:'shown',st:{AUH:3,DXB:2,WH:6,SEZ:0},lead:21,t:'E-SEARIDER'},
+ bor:{n:'Rod holder with FASTen mount',br:'Borika',p:210,mode:'shown',st:{AUH:12,DXB:6,WH:30,SEZ:4},lead:14,t:'BORIKA'},
+ maxc:{n:'MAX430 watertight case',br:'Max Cases · IP67',p:640,mode:'shown',st:{AUH:4,DXB:3,WH:9,SEZ:2},lead:14,t:'MAX'},
+ micron:{n:'Micron 350 antifouling 3 L',br:'International',p:690,mode:'shown',st:{AUH:14,DXB:9,WH:40,SEZ:6},lead:7,t:'INTER-NATIONAL'},
+ awl:{n:'Awlgrip topcoat, white, 1 US gal',br:'Awlgrip',p:1350,mode:'shown',st:{AUH:3,DXB:2,WH:8,SEZ:0},lead:7,t:'AWLGRIP'},
+ clean:{n:'Hull cleaning & care kit',br:'Delma workshop pick',p:240,mode:'shown',st:{AUH:10,DXB:8,WH:25,SEZ:5},lead:7,t:'CARE'},
+ rope:{n:'Dock line 14 mm × 10 m, pair',br:'Marlow Ropes',p:380,mode:'shown',st:{AUH:9,DXB:6,WH:30,SEZ:4},lead:14,t:'MARLOW'},
+ fend:{n:'F3 fender, white, pair',br:'Polyform',p:460,mode:'shown',st:{AUH:7,DXB:5,WH:20,SEZ:3},lead:14,t:'POLYFORM'},
+ fcov:{n:'Fender covers, navy, pair',br:'Fendequip',p:290,mode:'shown',st:{AUH:4,DXB:2,WH:10,SEZ:0},lead:21,t:'FENDEQUIP'},
+ vit:{n:'C51i fridge 51 L',br:'Vitrifrigo',p:3200,mode:'shown',st:{AUH:1,DXB:1,WH:2,SEZ:0},lead:21,t:'VITRIFRIGO'},
+ vitp:{n:'Portable cooler VF35P',br:'Vitrifrigo',p:2100,mode:'shown',st:{AUH:2,DXB:0,WH:3,SEZ:0},lead:21,t:'VITRIFRIGO'},
+ vest:{n:'Promo nylon life vest',br:'Connelly',p:190,mode:'shown',st:{AUH:20,DXB:15,WH:60,SEZ:8},lead:14,t:'CONNELLY'},
+ tube:{n:'Big Easy 3-person tube',br:'Connelly',p:1650,mode:'shown',st:{AUH:2,DXB:3,WH:5,SEZ:1},lead:14,t:'CONNELLY'},
+ trope:{n:'Tube tow rope, 60 ft',br:'Connelly',p:220,mode:'shown',st:{AUH:6,DXB:4,WH:15,SEZ:2},lead:14,t:'CONNELLY'},
+ ski:{n:'Eclypse combo skis',br:'Connelly',p:1390,mode:'shown',st:{AUH:1,DXB:2,WH:3,SEZ:0},lead:14,t:'CONNELLY'},
+ jcov:{n:'Taiga Orca cover',br:'Taiga',p:980,mode:'shown',st:{AUH:2,DXB:1,WH:3,SEZ:0},lead:21,t:'TAIGA'},
+ jchg:{n:'Orca fast charger, 6.6 kW',br:'Taiga',p:0,mode:'request',st:{AUH:0,DXB:0,WH:0,SEZ:0},lead:30,t:'TAIGA'},
+ kpad:{n:'Poseidon angler paddle',br:'Pelican',p:420,mode:'shown',st:{AUH:5,DXB:3,WH:12,SEZ:2},lead:14,t:'PELICAN'},
+ kseat:{n:'Phase seat for Catch 110',br:'Wilderness Systems',p:760,mode:'shown',st:{AUH:2,DXB:1,WH:4,SEZ:0},lead:21,t:'WILDERNESS'},
+ kff:{n:'Lowrance HOOK Reveal 5 + kayak mount',br:'Lowrance + Borika',p:1540,mode:'shown',st:{AUH:3,DXB:1,WH:6,SEZ:0},lead:12,t:'LOWRANCE'},
+ beu:{n:'Mundial mask + snorkel',br:'Beuchat',p:390,mode:'shown',st:{AUH:9,DXB:7,WH:20,SEZ:4},lead:14,t:'BEUCHAT'},
+ inst:{n:'Installation at a Delma workshop',br:'Service · engine, electronics, lighting, audio',p:0,mode:'book',st:{},lead:0,t:'INSTALL'},
+ plan:{n:'Mercury Care maintenance plan',br:'2 visits a year · reminders',p:1900,mode:'shown',st:{AUH:99,DXB:99,WH:99,SEZ:99},lead:0,t:'PLAN'},
+};
+function avail(id){const p=P[id],r=REG[region];if(p.mode==='book')return{c:'bl',t:'Book a slot at any workshop'};if(p.mode==='request')return{c:'gr',t:'Price on request · we reply within an hour'};
+ if(region==='SC'){if(p.st.SEZ>0)return{c:'ok',t:'In stock at Victoria · '+p.st.SEZ+' left'};return{c:'am',t:'Available from UAE · delivered in about '+(p.lead+5)+' days'}}
+ if(p.st.AUH>0)return{c:'ok',t:'In stock at Umm Al Nar · '+p.st.AUH+' left'};
+ const other=Object.keys(p.st).find(k=>k!=='AUH'&&k!=='SEZ'&&p.st[k]>0);if(other)return{c:'bl',t:'At '+r.br[other]+' · transfer in '+(other==='WH'?1:2)+' days, or collect there'};
+ return{c:'am',t:'On order · delivered in '+p.lead+' days · order now with a deposit'}}
+function prodHTML(id,small){const p=P[id],a=avail(id);const price=p.mode==='shown'?fmt(p.p):(p.mode==='request'?'Price on request':'From '+fmt(350));
+ const btn=p.mode==='book'?`<button class="btn s k" onclick="go('book')">Book</button>`:p.mode==='request'?`<button class="btn s o" onclick="toast('Quote request sent · Delma replies within an hour')">Request price</button>`:a.c==='am'?`<button class="btn s p" onclick="openSheet('pay',{title:'Order now',amount:fmt(Math.max(500,Math.round(P['${id}'].p*0.2/10)*10)),sub:'Deposit (20%) · delivered in ${p.lead} days · balance on delivery'})">Order · deposit</button><button class="btn s o" onclick="toast('We will message you when it is in stock')">Tell me</button>`:`<button class="btn s p" onclick="addToBasket('${id}')">Add to basket</button>`;
+ return `<div class="prod"><div class="im" ${p.im?`style="background-image:url(${p.im})"`:''}>${p.im?'':p.t}</div><div class="b"><div class="n">${p.n}</div><div class="br">${p.br}</div><div class="pr">${price}</div><div class="av ${a.c}">${a.t}</div>${small?'':`<div class="act">${btn}</div>`}</div></div>`}
+
+/* ---------- explorer ---------- */
+const CRAFT={
+ boat:{name:'Navan S30 · twin Mercury 300',img:'assets/navan.png',areas:[
+  {k:'Engine & propulsion',x:14,y:52,items:['m300','prop','jack','steer','oil','inst'],note:'Twin 300 V8 Verado fitted. Everything here fits the S30 rigging.'},
+  {k:'Helm & electronics',x:47,y:41,items:['hds','fs9','omni','radar','seav','kick'],note:'Lowrance, Omnisense and Kicker, with Seaview mounts for the T-top.'},
+  {k:'T-top & lighting',x:44,y:28,items:['hel1','hel2','hel3','seav'],note:'Hella Marine LED: flood, navigation and underwater.'},
+  {k:'Deck & seating',x:31,y:45,items:['cseat','bean','bor','maxc'],note:'Comfort on board, rod holders and dry storage.'},
+  {k:'Bow · mooring',x:84,y:41,items:['rope','fend','fcov'],note:'Marlow ropes, Polyform fenders, Fendequip covers.'},
+  {k:'Hull & bottom',x:60,y:66,items:['micron','awl','clean'],note:'Antifouling and topside paint; cleaning kit.'},
+  {k:'Galley & comfort',x:68,y:48,items:['vit','vitp'],note:'Vitrifrigo cooling for the console galley.'},
+  {k:'Towing & fun',x:25,y:60,items:['tube','trope','ski','vest'],note:'Connelly water toys and vests for the family.'},
+  {k:'Service & care',x:90,y:50,items:['plan','kit','inst'],note:'Keep it covered: plan, service kits, installation at a Delma workshop.'}]},
+ jetski:{name:'Taiga Orca · electric',img:'assets/taiga.png',areas:[
+  {k:'Handlebars & display',x:44,y:27,items:['kick','maxc'],note:'Audio and a dry case for the phone.'},
+  {k:'Seat & cover',x:62,y:40,items:['jcov','cseat'],note:'Taiga cover and seat comfort.'},
+  {k:'Hull & bottom',x:40,y:72,items:['clean','micron'],note:'Care products for the hull.'},
+  {k:'Charging & service',x:86,y:66,items:['jchg','plan','inst'],note:'Fast charger on request; plans and installation at a Delma workshop.'},
+  {k:'Safety & towing',x:20,y:56,items:['vest','tube','trope'],note:'Connelly vests and tow toys.'}]},
+ kayak:{name:'Pelican Catch 110 · fishing kayak',img:'assets/kayak.png',areas:[
+  {k:'Seat & mounts',x:50,y:36,items:['kseat','bor'],note:'Seat upgrade and Borika mounts.'},
+  {k:'Electronics',x:36,y:48,items:['kff'],note:'A fish finder sized for a kayak.'},
+  {k:'Paddle & safety',x:72,y:30,items:['kpad','vest','maxc'],note:'Paddle, vest, dry case.'},
+  {k:'Diving & snorkelling',x:62,y:70,items:['beu'],note:'Beuchat masks, fins and snorkels.'}]}};
+let craft='boat',area=null;
+function setCraft(c,el){craft=c;area=null;document.querySelectorAll('.seg div').forEach(d=>d.classList.remove('on'));el.classList.add('on');renderStage()}
+function renderStage(){const c=CRAFT[craft];document.getElementById('craftname').textContent=c.name;
+ document.getElementById('stage').innerHTML=`<img src="${c.img}" alt="">`+c.areas.map((a,i)=>`<i class="hs ${area===i?'on':''}" style="left:${a.x}%;top:${a.y}%" onclick="pick(${i})"></i>`).join('');
+ document.getElementById('areas').innerHTML=c.areas.map((a,i)=>`<span class="${area===i?'on':''}" onclick="pick(${i})">${a.k}</span>`).join('');renderPanel()}
+function pick(i){area=i;renderStage();document.getElementById('panel').scrollIntoView({behavior:'smooth',block:'start'})}
+function renderPanel(){const el=document.getElementById('panel');if(!el)return;if(area===null){return}const a=CRAFT[craft].areas[area];
+ el.innerHTML=`<div class="row" style="margin:4px 0 8px"><div style="flex:1"><b>${a.k}</b><div class="xs mut">${a.note}</div></div><button class="btn s o" onclick="go('ask')">Ask</button></div>`+a.items.map(id=>prodHTML(id)).join('')}
+
+/* ---------- basket ---------- */
+let basket=[];
+function addToBasket(id){basket.push(id);document.getElementById('bdot').style.display='block';toast('Added · '+P[id].n);renderBasket()}
+function removeB(i){basket.splice(i,1);renderBasket();if(!basket.length)document.getElementById('bdot').style.display='none'}
+function renderBasket(){const l=document.getElementById('basketlist');if(!basket.length){l.innerHTML='<div class="card"><b>Your basket is empty</b><p class="sm mut" style="margin:4px 0 8px">Explore your boat or ask Delma to put a setup together.</p><button class="btn s k" onclick="go(\'explore\')">Explore your boat</button></div>';document.getElementById('upsell').innerHTML='';document.getElementById('totals').innerHTML='';return}
+ l.innerHTML=basket.map((id,i)=>`<div class="prod"><div class="im" ${P[id].im?`style="background-image:url(${P[id].im})"`:''}>${P[id].im?'':P[id].t}</div><div class="b"><div class="n">${P[id].n}</div><div class="br">${P[id].br}</div><div class="pr">${fmt(P[id].p)}</div><div class="av ${avail(id).c}">${avail(id).t}</div></div><span class="xs mut" style="cursor:pointer" onclick="removeB(${i})">Remove</span></div>`).join('');
+ const up=[];if(basket.includes('fs9')||basket.includes('hds')){up.push('seav','inst')}if(basket.includes('m150')||basket.includes('m300')){up.push('prop','oil','inst','plan')}if(basket.includes('micron'))up.push('clean','awl');if(basket.includes('tube'))up.push('trope','vest');
+ const u=[...new Set(up)].filter(x=>!basket.includes(x)).slice(0,3);document.getElementById('upsell').innerHTML=u.length?u.map(id=>prodHTML(id)).join(''):'<p class="sm mut">Nothing else needed for these items.</p>';
+ const sub=basket.reduce((s,id)=>s+P[id].p,0),r=REG[region];const vat=Math.round(sub*r.vat);
+ document.getElementById('totals').innerHTML=`<div class="sum"><span>Items (${basket.length})</span><span>${fmt(sub-vat)}</span></div><div class="sum"><span>VAT ${Math.round(r.vat*100)}%</span><span>${fmt(vat)}</span></div><div class="sum t"><span>Total</span><span id="grand">${fmt(sub)}</span></div>`}
+
+/* ---------- assistant ---------- */
+const chat=document.getElementById('chat');
+function msg(h,who){const d=document.createElement('div');d.className='m '+who;d.innerHTML=h;chat.appendChild(d);d.scrollIntoView({behavior:'smooth',block:'end'});return d}
+function typing(){return msg('<span class="typing"><span></span><span></span><span></span></span>','a')}
+function reply(parts){const t=typing();let i=0;const next=()=>{if(i===0)t.remove();if(i<parts.length){const p=parts[i++];setTimeout(()=>{msg(p,'a');if(i<parts.length){const tt=typing();setTimeout(()=>{tt.remove();next()},700)}else next()},i===1?600:0)}};setTimeout(next,900)}
+const SCRIPT={
+ night:{u:'I have a Bayliner VR5 and want to use it for night fishing. What do I need?',a:[
+  'Nice boat for it. For night fishing on the VR5 I\'d suggest three things:',
+  '<b>1 · See the fish</b>'+prodHTML('fs9',true)+'<b>2 · See the deck and be seen</b>'+prodHTML('hel1',true)+prodHTML('hel2',true)+'<b>3 · If you go far out</b>'+prodHTML('omni',true),
+  'A Marlow anchor line helps if you drift-fish. Shall I put the fish finder and the lights in your basket? I can also book the installation at the Bateen workshop. <div class="row" style="margin-top:8px"><button class="btn s p" onclick="addToBasket(\'fs9\');addToBasket(\'hel1\');addToBasket(\'hel2\');chipReply(\'Yes, add them\')">Add all three</button><button class="btn s o" onclick="go(\'book\')">Book installation</button></div>'],
+  chips:['Yes, add them','Is the Mercury 150 in stock?','How much is the service?']},
+ 'Yes, add them':{a:['Done: Elite FS 9 and the two Hella lights are in your basket. Everything is in stock at Umm Al Nar, so you can collect tomorrow or we deliver on Thursday. <div style="margin-top:8px"><button class="btn s k" onclick="go(\'basket\')">Go to basket</button></div>'],chips:['Is the Mercury 150 in stock?','Book the installation']},
+ m150:{u:'Is the Mercury 150 FourStroke in stock?',a:[
+  'Let me check across our branches…',
+  'Not right now: Umm Al Nar, Dubai and the warehouse are all out. You have three options:'+prodHTML('m150',true)+'<b>Order now</b> with a 20% deposit and it\'s delivered in <b>10 days</b>; or choose from stock: the <b>Mercury 115 FourStroke</b> (in stock, Umm Al Nar) or the <b>Mercury 150 Pro XS</b> (in stock, Dubai, transfer in 2 days); or I tell you the moment one lands. <div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn s p" onclick="openSheet(\'pay\',{title:\'Order the Mercury 150\',amount:fmt(10580),sub:\'Deposit (20%) · delivered in 10 days · balance on delivery\'})">Order · pay deposit</button><button class="btn s o" onclick="toast(\'We will message you when it is in stock\')">Tell me</button></div>'],
+  chips:['Night fishing setup','Book the installation','Talk to a person']},
+ service:{u:'How much is the 100-hour service for my 150?',a:['For the Mercury 150 FourStroke the 100-hour service is <b>'+fmt(680)+'</b> at any Delma workshop (kit, oil, plugs, impeller check, labour, VAT). Bateen has slots tomorrow 09:00 and 14:00. <div class="row" style="margin-top:8px"><button class="btn s p" onclick="go(\'book\')">Book a slot</button></div>'],chips:['Night fishing setup','Is the Mercury 150 in stock?']},
+ book:{u:'Book the installation',a:['Sure. I\'ll take you to booking with your VR5 and the items from your basket already selected.'],go:'book'},
+ human:{u:'Talk to a person',a:['Of course. I\'ve sent this conversation to Khalid at Umm Al Nar sales. He\'ll continue with you on WhatsApp within 15 minutes (showroom hours 09:00–18:00). You can keep asking me meanwhile.'],chips:['Night fishing setup','Is the Mercury 150 in stock?']}};
+const CH={'Night fishing setup':'night','Is the Mercury 150 in stock?':'m150','How much is the service?':'service','Book the installation':'book','Talk to a person':'human','Yes, add them':'Yes, add them'};
+function chips(list){document.getElementById('chips').innerHTML=list.map(c=>`<span onclick="chipReply('${c}')">${c}</span>`).join('')}
+function chipReply(c){const s=SCRIPT[CH[c]||c];if(!s)return;msg(s.u||c,'u');document.getElementById('chips').innerHTML='';reply(s.a);setTimeout(()=>{if(s.chips)chips(s.chips);if(s.go)go(s.go)},1200+700*s.a.length)}
+function sendTyped(){const i=document.getElementById('askin');const v=i.value.trim();if(!v)return;i.value='';const k=/150/.test(v)?'m150':/service|100/.test(v)?'service':/person|human|call/.test(v)?'human':'night';msg(v,'u');reply(SCRIPT[k].a);setTimeout(()=>chips(SCRIPT[k].chips||[]),1200+700*SCRIPT[k].a.length)}
+function startChat(){if(chat.children.length)return;msg('Hi, I\'m Delma. Tell me what you want to do on the water, or ask about any boat, engine or part. I check our real stock in every branch.','a');chips(['Night fishing setup','Is the Mercury 150 in stock?','How much is the service?','Talk to a person'])}
+
+/* ---------- booking ---------- */
+let bk={step:0,boat:0,job:null,ws:null,day:1,slot:null};
+const JOBS=[['Periodic service','100-hour / yearly service from Delma\'s menu'],['Diagnosis & repair','Tell us the problem; we quote after diagnosis'],['Engine installation','Fit an engine bought from Delma'],['Boat assembly & rigging','New boat: engine, steering, electronics, pre-delivery checks'],['Electronics / lighting / audio installation','Lowrance, Hella, Kicker and more']];
+const WS=[['Bateen workshop · Abu Dhabi','2.1 km · slots tomorrow'],['Dubai workshop','130 km · slots Thursday'],['Fujairah workshop','250 km'],['Ras Al Khaimah workshop','240 km'],['Mangrove Marine','Your boat is berthed here · we come to it']];
+function renderBook(){const b=document.getElementById('bookbody');document.querySelectorAll('#bsteps i').forEach((e,i)=>e.classList.toggle('on',i<=bk.step));
+ if(bk.step===0)b.innerHTML=`<h3>Which boat or engine?</h3><p class="sm mut">From My Delma, or add a new one.</p>${[['Bayliner VR5 · Mercury 150 FourStroke','2024 · 212 hours · warranty to Mar 2027'],['Navan S30 · twin Mercury 300','Ordered · assembly & rigging to book'],['Add a boat or engine','Scan the plate or enter the serial']].map((o,i)=>`<div class="opt ${bk.boat===i?'on':''}" onclick="bk.boat=${i};renderBook()"><div class="ck"></div><div><b>${o[0]}</b><div class="xs mut">${o[1]}</div></div></div>`).join('')}<button class="btn w p" style="margin-top:8px" onclick="bk.step=1;renderBook()">Next</button>`;
+ if(bk.step===1)b.innerHTML=`<h3>What do you need?</h3>${JOBS.map((o,i)=>`<div class="opt ${bk.job===i?'on':''}" onclick="bk.job=${i};renderBook()"><div class="ck"></div><div><b>${o[0]}</b><div class="xs mut">${o[1]}</div></div></div>`).join('')}<div class="row" style="margin-top:8px"><button class="btn w o" onclick="bk.step=0;renderBook()">Back</button><button class="btn w p" onclick="if(bk.job===null){toast('Choose a job');return}bk.step=2;renderBook()">Next</button></div>`;
+ if(bk.step===2)b.innerHTML=`<h3>Where?</h3>${WS.map((o,i)=>`<div class="opt ${bk.ws===i?'on':''}" onclick="bk.ws=${i};renderBook()"><div class="ck"></div><div><b>${o[0]}</b><div class="xs mut">${o[1]}</div></div></div>`).join('')}<div class="row" style="margin-top:8px"><button class="btn w o" onclick="bk.step=1;renderBook()">Back</button><button class="btn w p" onclick="if(bk.ws===null){toast('Choose a workshop');return}bk.step=3;renderBook()">Next</button></div>`;
+ if(bk.step===3){const days=['Tue 27','Wed 28','Thu 29','Sat 31','Sun 1','Mon 2'];b.innerHTML=`<h3>When?</h3><div class="days">${days.map((d,i)=>`<div class="${bk.day===i?'on':''}" onclick="bk.day=${i};bk.slot=null;renderBook()"><b>${d.split(' ')[1]}</b>${d.split(' ')[0]}</div>`).join('')}</div><div class="slots">${['08:00','09:00','10:00','11:00','14:00','15:00','16:00'].map((s,i)=>`<div class="${bk.slot===i?'on':''} ${(i===1&&bk.day===0)||(i===4&&bk.day===1)?'x':''}" onclick="${(i===1&&bk.day===0)||(i===4&&bk.day===1)?'':`bk.slot=${i};renderBook()`}">${s}</div>`).join('')}</div>
+  <div class="card" style="margin-top:12px"><div class="sum"><span>${JOBS[bk.job][0]}</span><span>${bk.job===1?'Quote after diagnosis':bk.job===0?fmt(680):bk.job===2?'From '+fmt(1200):bk.job===3?'Included with the boat':'From '+fmt(350)}</span></div><div class="sum"><span>${WS[bk.ws][0]}</span><span class="mut">${days[bk.day]}${bk.slot!==null?' · '+['08:00','09:00','10:00','11:00','14:00','15:00','16:00'][bk.slot]:''}</span></div></div>
+  <div class="row"><button class="btn w o" onclick="bk.step=2;renderBook()">Back</button><button class="btn w p" onclick="if(bk.slot===null){toast('Pick a time');return}bk.step=4;renderBook()">Confirm booking</button></div>`}
+ if(bk.step===4)b.innerHTML=`<div class="card" style="text-align:center;padding:22px"><div style="width:54px;height:54px;border-radius:50%;background:#E6F6EC;color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:26px">✓</div><b>Booked · job BT-2046</b><p class="sm mut" style="margin:4px 0 10px">${JOBS[bk.job][0]} · ${WS[bk.ws][0]}.<br>Confirmation sent on WhatsApp. ${bk.job===2||bk.job===4?'Your bought items are reserved for this job.':''}</p><button class="btn s k" onclick="go('mydelma')">See it in My Delma</button> <button class="btn s o" onclick="bk={step:0,boat:0,job:null,ws:null,day:1,slot:null};renderBook()">Book another</button></div>`}
+
+/* ---------- my delma ---------- */
+function mdTab(t,el){document.querySelectorAll('.tabs div').forEach(d=>d.classList.remove('on'));el.classList.add('on');['jobs','boats','inv','plan'].forEach(k=>document.getElementById('md-'+k).style.display=k===t?'block':'none')}
+function approve(){document.getElementById('apprcard').innerHTML='<b>Approved</b><div class="sm mut">11:12 · Rashid has been told. Impeller added to the job.</div>';const a=document.getElementById('st-appr');a.classList.remove('now');a.classList.add('done');const p=document.getElementById('st-prog');p.classList.add('now');p.querySelector('span').textContent='11:12 · impeller + 100-hour service';document.getElementById('jobchip').textContent='In progress';document.getElementById('jobchip').className='chip bl';toast('Approved · the workshop has been told')}
+
+/* ---------- build ---------- */
+document.querySelectorAll('#s-build .opts').forEach(g=>g.addEventListener('click',e=>{if(e.target.tagName!=='SPAN')return;if(g.id==='b-ex'){e.target.classList.toggle('on')}else{g.querySelectorAll('span').forEach(s=>s.classList.remove('on'));e.target.classList.add('on')}
+ const eng=document.querySelector('#b-eng .on').textContent,col=['white','black','sand','navy'][[...document.querySelectorAll('#b-col span')].findIndex(s=>s.classList.contains('on'))],el=document.querySelector('#b-el .on').textContent,se=document.querySelector('#b-seat .on').textContent.toLowerCase(),ex=[...document.querySelectorAll('#b-ex .on')].length;
+ document.getElementById('b-sum').textContent=`${eng.replace('Mercury ','')} · ${col} · ${el.replace('Lowrance ','')} · ${se}${ex?' · '+ex+' extra'+(ex>1?'s':''):''}`}));
+
+/* ---------- sheets, toasts, nav ---------- */
+function openSheet(kind,o){const s=document.getElementById('sheet');if(kind==='pay')s.innerHTML=`<div class="handle"></div><b style="font-size:16px">${o.title}</b><div class="sum" style="margin-top:8px"><span class="mut">${o.sub}</span></div><div class="sum t"><span>To pay now</span><span>${o.amount}</span></div><button class="btn w k" style="margin-top:12px;font-size:15px" onclick="paid('${o.amount}')"> Pay</button><button class="btn w o" style="margin-top:8px" onclick="paid('${o.amount}')">Pay by card</button><p class="xs mut" style="text-align:center;margin-top:10px">Secured by the payment gateway · tax invoice emailed · nothing is charged in this prototype</p>`;
+ if(kind==='mine')s.innerHTML=`<div class="handle"></div><b style="font-size:16px">Make it mine</b><p class="sm mut">Pick your exact boat and the explorer shows only what fits.</p>${[['Bayliner VR5 · Mercury 150','From My Delma'],['Navan S30 · twin Mercury 300','From My Delma'],['Enter a model or engine serial','Or scan the engine plate']].map(o=>`<div class="opt" onclick="closeSheet();toast('Showing parts that fit the ${o[0].split(' ·')[0]}')"><div class="ck"></div><div><b>${o[0]}</b><div class="xs mut">${o[1]}</div></div></div>`).join('')}`;
+ s.classList.add('on');document.getElementById('dim').classList.add('on')}
+function closeSheet(){document.getElementById('sheet').classList.remove('on');document.getElementById('dim').classList.remove('on')}
+function paid(a){document.getElementById('sheet').innerHTML=`<div class="handle"></div><div style="text-align:center;padding:10px 0 4px"><div style="width:54px;height:54px;border-radius:50%;background:#E6F6EC;color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:26px">✓</div><b style="font-size:16px">Paid ${a}</b><p class="sm mut" style="margin:4px 0 12px">Order DM-10482 confirmed · tax invoice emailed · we'll message you on WhatsApp with every update.</p><button class="btn k" onclick="closeSheet();basket=[];document.getElementById('bdot').style.display='none';renderBasket();go('mydelma')">Track it in My Delma</button></div>`}
+let tt;function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
+function showPush(){const p=document.getElementById('push');p.classList.add('on');setTimeout(()=>p.classList.remove('on'),4000)}
+function go(s){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('on');document.querySelectorAll('.nav div,.hnav span').forEach(d=>d.classList.toggle('on',d.dataset.s===s));document.getElementById('view').scrollTop=0;closeSheet();
+ if(s==='explore')renderStage();if(s==='ask')startChat();if(s==='basket')renderBasket();if(s==='book')renderBook();if(location.hash!=='#'+s)history.replaceState(null,'','#'+s)}
+window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(document.getElementById('s-'+h))go(h)});
+function setView(v){document.body.classList.toggle('desk',v==='web');document.getElementById('vtog').textContent=v==='web'?'App view':'Website view';try{localStorage.setItem('dm-view',v)}catch(e){}}
+function toggleView(){setView(document.body.classList.contains('desk')?'app':'web')}
+let v0='web';try{v0=localStorage.getItem('dm-view')||'web'}catch(e){}
+if(/[?&]view=app/.test(location.search))v0='app';if(/[?&]view=web/.test(location.search))v0='web';setView(v0);
+applyRegion();document.getElementById('toast').classList.remove('on');
+const h0=location.hash.slice(1);go(document.getElementById('s-'+h0)?h0:'home');
+</script>
+</body>
+</html>
