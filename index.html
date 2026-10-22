@@ -30,7 +30,7 @@ body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111216;col
 .ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid var(--line);position:relative;cursor:pointer}
 .ico svg{width:17px;height:17px}
 .ico .dot{position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid #fff}
-.sample{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:3px 7px;border-radius:4px}
+.sample{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:3px 7px;border-radius:4px;white-space:nowrap}
 /* screens */
 #view{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;position:relative;scroll-behavior:smooth}
 .scr{display:none;padding:14px 14px 90px}
@@ -214,7 +214,7 @@ p{margin-bottom:8px}
  body.desk{display:block;padding:0;background:var(--bg)}
  body.desk #desk{display:none}
  body.desk #frame{max-width:none;height:100vh;border:0;border-radius:0;box-shadow:none}
- body.desk .top{padding:0 48px;height:72px;gap:18px;background:rgba(244,242,236,.85)}
+ body.desk .top{padding:0 40px;height:72px;gap:14px;background:rgba(244,242,236,.85)}
  body.desk .top img{height:40px}
  body.desk .hnav{display:flex;gap:2px;margin-left:16px}
  body.desk .nav{display:none}
@@ -258,8 +258,33 @@ p{margin-bottom:8px}
  body.desk .brands{gap:10px 26px}
  body.desk .brands span{font-size:18px}
 }
+/* AI entry points */
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 rgba(215,38,30,.35),0 0 40px rgba(110,155,255,.35)}50%{box-shadow:0 0 0 10px rgba(215,38,30,0),0 0 60px rgba(110,155,255,.55)}}
+.orb{position:relative;width:46px;height:46px;border-radius:50%;background:#0B0D12;display:grid;place-items:center;flex-shrink:0;animation:glow 3s ease-in-out infinite}
+.orb::before{content:"";position:absolute;inset:-2px;border-radius:50%;background:conic-gradient(from 0deg,#D7261E,#6E9BFF,#C9B88A,#D7261E);animation:spin 4s linear infinite;z-index:-1}
+.orb::after{content:"";position:absolute;inset:0;border-radius:50%;background:#0B0D12}
+.orb svg{width:22px;height:22px;position:relative;z-index:1;fill:#fff}
+.orb.sm{width:34px;height:34px;animation:none}.orb.sm svg{width:17px;height:17px}
+.aibar{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.14);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:8px 8px 8px 10px;cursor:pointer;margin-top:6px;max-width:560px;transition:.2s}
+.aibar:hover{background:rgba(255,255,255,.22)}
+.aibar .q{flex:1;min-width:0}
+.aibar .q b{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+.aibar .q span{display:block;font-size:13px;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-style:italic;font-family:'Cormorant Garamond',serif;font-size:16px}
+.aibar .go{width:36px;height:36px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;flex-shrink:0}
+.aibar .go svg{width:16px;height:16px}
+.aifab{position:absolute;right:14px;bottom:76px;z-index:18;display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border-radius:999px;padding:5px 16px 5px 5px;cursor:pointer;box-shadow:0 18px 40px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.12)}
+.aifab b{font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.aifab small{display:block;font-size:10.5px;color:rgba(255,255,255,.65);letter-spacing:0;text-transform:none}
+.aifab.hide{display:none}
+body.desk .aifab{right:40px;bottom:36px;padding:6px 20px 6px 6px}
+body.desk .aifab b{font-size:13px}
+body.desk .aibar{max-width:640px;padding:10px 10px 10px 12px;margin-top:10px}
+body.desk .aibar .q span{font-size:19px}
+.hnav .ai{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:#fff!important;border-radius:999px;padding:7px 14px 7px 8px}
+.hnav .ai svg{width:14px;height:14px;fill:#fff}
 .hnav{display:none}
-.hnav span{padding:8px 13px;border-radius:999px;font-weight:600;font-size:11.5px;cursor:pointer;color:var(--ink2);letter-spacing:.1em;text-transform:uppercase}
+.hnav span{padding:8px 11px;border-radius:999px;font-weight:600;font-size:11px;cursor:pointer;color:var(--ink2);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 .hnav span.on{color:var(--red)}
 .viewtog{display:none}@media(min-width:900px){body.desk .viewtog{display:inline-flex}}
 </style>
@@ -276,7 +301,7 @@ p{margin-bottom:8px}
 <div class="top">
   <img src="assets/logo.png" alt="Delma Marine">
   <span class="pill" id="regionpill" onclick="toggleRegion()">📍 Abu Dhabi · AED</span>
-  <div class="hnav" id="hnav"><span data-s="home" onclick="go('home')">Home</span><span data-s="explore" onclick="go('explore')">Explore your boat</span><span data-s="ask" onclick="go('ask')">Ask Delma</span><span data-s="book" onclick="go('book')">Book a service</span><span data-s="mydelma" onclick="go('mydelma')">My Delma</span><span data-s="staff" onclick="go('staff')" style="margin-left:14px;color:var(--mut)">Staff</span></div><span class="sp"></span><span class="sample">Sample data</span><button class="btn s o viewtog" onclick="toggleView()" id="vtog">App view</button>
+  <div class="hnav" id="hnav"><span data-s="home" onclick="go('home')">Home</span><span data-s="explore" onclick="go('explore')">Explore your boat</span><span data-s="ask" class="ai" onclick="go('ask')"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg>Ask Delma AI</span><span data-s="book" onclick="go('book')">Book a service</span><span data-s="mydelma" onclick="go('mydelma')">My Delma</span><span data-s="staff" onclick="go('staff')" style="margin-left:14px;color:var(--mut)">Staff</span></div><span class="sp"></span><span class="sample">Sample data</span><button class="btn s o viewtog" onclick="toggleView()" id="vtog">App view</button>
   <div class="ico" onclick="go('offers')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg><i class="dot"></i></div>
   <div class="ico" onclick="go('basket')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 100-2 1 1 0 000 2zM18 20a1 1 0 100-2 1 1 0 000 2z"/></svg><i class="dot" id="bdot" style="display:none"></i></div>
 </div>
@@ -289,7 +314,8 @@ p{margin-bottom:8px}
     <div class="eyebrow">Delma Marine · Abu Dhabi · since 1978</div>
     <h1>The water<br>is <em>waiting.</em></h1>
     <p>Boats, engines and everything that belongs on board, chosen for the way you use the sea.</p>
-    <div class="row" style="flex-wrap:wrap"><button class="btn p" onclick="go('explore')">Explore your boat</button><button class="btn g" onclick="go('ask')">Ask Delma</button></div>
+    <div class="row" style="flex-wrap:wrap"><button class="btn p" onclick="go('explore')">Explore your boat</button><button class="btn g" onclick="go('book')">Book a service</button></div>
+    <div class="aibar" onclick="go('ask')"><div class="orb"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg></div><div class="q"><b>Ask Delma AI</b><span>"I have a 7 m boat and want to fish at night. What do I need?"</span></div><div class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></div>
   </div>
 
   <div class="eyebrow">Find your craft</div>
@@ -323,8 +349,8 @@ p{margin-bottom:8px}
 
   <div class="split" style="margin-top:22px">
     <div class="ph" style="background-image:url(assets/photos/helm.jpg)"></div>
-    <div><div class="eyebrow">Ask Delma</div><h2 style="margin-top:4px">Advice from the people who fit it.</h2><p class="sm mut">Tell Delma what you want to do and it puts the right boat, engine and kit together, from real stock, with a delivery date when something is on order.</p>
-      <div class="card" style="margin-top:10px"><div class="m u" style="max-width:100%;margin-bottom:8px">I have a Bayliner VR5 and want to use it for night fishing. What do I need?</div><div class="m a" style="max-width:100%">Three things: a Lowrance Elite FS 9 (in stock, Umm Al Nar), Hella deck and navigation lights, and a night-vision camera if you go far out. Shall I put them in your basket?</div><button class="btn k s" style="margin-top:10px" onclick="go('ask')">Ask Delma</button></div></div>
+    <div><div class="row"><div class="orb sm"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg></div><div class="eyebrow">Delma AI · your personal advisor</div></div><h2 style="margin-top:8px">Ask anything. Get the right setup, from real stock.</h2><p class="sm mut">Tell Delma what you want to do and it puts the right boat, engine and kit together, from real stock, with a delivery date when something is on order.</p>
+      <div class="card" style="margin-top:10px"><div class="m u" style="max-width:100%;margin-bottom:8px">I have a Bayliner VR5 and want to use it for night fishing. What do I need?</div><div class="m a" style="max-width:100%">Three things: a Lowrance Elite FS 9 (in stock, Umm Al Nar), Hella deck and navigation lights, and a night-vision camera if you go far out. Shall I put them in your basket?</div><button class="btn k s" style="margin-top:10px" onclick="go('ask')">Ask Delma AI</button></div></div>
   </div>
 
   <div class="hgrid"><div>
@@ -386,7 +412,7 @@ p{margin-bottom:8px}
 
 <!-- ASK -->
 <section class="scr narrow" id="s-ask">
-  <div class="row" style="margin-bottom:8px"><div style="width:38px;height:38px;border-radius:50%;background:var(--ink);display:grid;place-items:center"><img src="assets/logo.png" style="height:20px;filter:brightness(0) invert(1)"></div><div><b class="serif" style="font-size:18px">Delma</b><div class="xs mut">Replies in seconds · answers from Delma's own stock and prices</div></div></div>
+  <div class="row" style="margin-bottom:8px"><div class="orb"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg></div><div><b class="serif" style="font-size:18px">Delma AI</b><div class="xs mut">Replies in seconds · answers from Delma's own stock and prices</div></div></div>
   <div class="chat" id="chat"></div>
   <div class="chips" id="chips"></div>
   <div class="inp"><input id="askin" placeholder="Ask anything about boats, engines, parts…" onkeydown="if(event.key==='Enter')sendTyped()"><button class="btn p" onclick="sendTyped()">Send</button></div>
@@ -486,6 +512,7 @@ p{margin-bottom:8px}
   <div data-s="mydelma" onclick="go('mydelma')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></svg>My Delma</div>
 </div>
 
+<div class="aifab" id="aifab" onclick="go('ask')"><div class="orb"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg></div><div><b>Ask Delma AI</b><small>Stock, advice, bookings · 24/7</small></div></div>
 <div class="dim" id="dim" onclick="closeSheet()"></div>
 <div class="sheet" id="sheet"></div>
 </div><!-- /frame -->
@@ -704,7 +731,7 @@ function closeSheet(){document.getElementById('sheet').classList.remove('on');do
 function paid(a){document.getElementById('sheet').innerHTML=`<div class="handle"></div><div style="text-align:center;padding:10px 0 4px"><div style="width:54px;height:54px;border-radius:50%;background:#E6F6EC;color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:26px">✓</div><b style="font-size:16px">Paid ${a}</b><p class="sm mut" style="margin:4px 0 12px">Order DM-10482 confirmed · tax invoice emailed · we'll message you on WhatsApp with every update.</p><button class="btn k" onclick="closeSheet();basket=[];document.getElementById('bdot').style.display='none';renderBasket();go('mydelma')">Track it in My Delma</button></div>`}
 let tt;function toast(t){if(FAST)return;const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
 function showPush(){const p=document.getElementById('push');p.classList.add('on');if(!FAST)setTimeout(()=>p.classList.remove('on'),4000)}
-function go(s){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('on');document.querySelectorAll('.nav div,.hnav span').forEach(d=>d.classList.toggle('on',d.dataset.s===s));document.getElementById('view').scrollTop=0;closeSheet();
+function go(s){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('on');document.querySelectorAll('.nav div,.hnav span').forEach(d=>d.classList.toggle('on',d.dataset.s===s));document.getElementById('view').scrollTop=0;closeSheet();document.getElementById('aifab').classList.toggle('hide',s==='ask'||s==='staff'||s==='tech');
  if(s==='explore')renderStage();if(s==='ask')startChat();if(s==='basket')renderBasket();if(s==='book')renderBook();if(s==='staff')renderStaff();if(s==='tech')renderTech();if(location.hash!=='#'+s)history.replaceState(null,'','#'+s)}
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(document.getElementById('s-'+h))go(h)});
 function setView(v){document.body.classList.toggle('desk',v==='web');document.getElementById('vtog').textContent=v==='web'?'App view':'Website view';try{localStorage.setItem('dm-view',v)}catch(e){}}
