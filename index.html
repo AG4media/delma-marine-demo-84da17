@@ -7,84 +7,114 @@
 <title>Delma Marine</title>
 <link rel="icon" href="assets/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
-:root{--red:#E2231A;--red-d:#B8170F;--ink:#111;--ink2:#2A2A2A;--mut:#6B6F76;--line:#E6E7EA;--bg:#F4F5F7;--card:#fff;--ok:#1E9E5A;--amber:#D98B10;--blue:#2563EB}
+:root{--red:#D7261E;--red-d:#B11C15;--ink:#0B0D12;--ink2:#1C1F26;--char:#2A2E36;--mut:#7B808A;--line:rgba(11,13,18,.1);--pearl:#F4F2EC;--bone:#E9E5DB;--card:#fff;--bg:var(--pearl);--sand:#B9A77C;--ok:#1E8E55;--amber:#C8840E;--blue:#2457C5}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#2b2d33;color:var(--ink);-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.45}
+body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111216;color:var(--ink);-webkit-font-smoothing:antialiased;font-size:14px;line-height:1.5}
+.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;letter-spacing:-.01em}
 #frame{position:relative;width:100%;max-width:430px;height:100dvh;margin:0 auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden}
 @media(min-width:900px){body{display:flex;align-items:center;justify-content:center;padding:24px}
  #frame{height:min(900px,calc(100vh - 48px));border-radius:44px;border:10px solid #0f0f10;box-shadow:0 40px 90px rgba(0,0,0,.5);max-width:410px}
  #desk{position:fixed;left:32px;top:32px;color:#C9CBD1;font-size:13px;max-width:330px;line-height:1.6}
  #desk b{display:block;color:#fff;font-size:15px;margin-bottom:6px}
- #desk a{color:#fff}
-}
+ #desk a{color:#fff}}
 #desk{display:none}@media(min-width:900px){#desk{display:block}}
 /* top bar */
-.top{background:#fff;border-bottom:1px solid var(--line);padding:10px 14px 8px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.top{background:rgba(244,242,236,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:10px 14px 8px;display:flex;align-items:center;gap:10px;flex-shrink:0;position:relative;z-index:5}
 .top img{height:30px}
 .top .sp{flex:1}
-.pill{font-size:11px;padding:4px 9px;border-radius:999px;background:#F1F2F4;color:var(--ink2);font-weight:500;white-space:nowrap;border:1px solid var(--line);cursor:pointer}
-.pill.red{background:#FDECEB;color:var(--red);border-color:#F6C9C6}
-.ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:#F1F2F4;position:relative;cursor:pointer}
-.ico svg{width:18px;height:18px}
-.ico .dot{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid #fff}
-.sample{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);background:#fff;border:1px dashed #C9CBD1;padding:2px 6px;border-radius:5px}
+.pill{font-size:11px;padding:5px 10px;border-radius:999px;background:#fff;color:var(--ink2);font-weight:500;white-space:nowrap;border:1px solid var(--line);cursor:pointer;letter-spacing:.01em}
+.pill.red{background:#FBEAE8;color:var(--red);border-color:#F2C4C0}
+.ico{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#fff;border:1px solid var(--line);position:relative;cursor:pointer}
+.ico svg{width:17px;height:17px}
+.ico .dot{position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--red);border:2px solid #fff}
+.sample{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);padding:3px 7px;border-radius:4px}
 /* screens */
-#view{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;position:relative}
+#view{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;position:relative;scroll-behavior:smooth}
 .scr{display:none;padding:14px 14px 90px}
 .scr.on{display:block}
-h1{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
-h2{font-size:16px;font-weight:700;margin:18px 0 8px}
-h3{font-size:14px;font-weight:700}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
+h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;margin:22px 0 10px;line-height:1.1}
+h3{font-size:14px;font-weight:600}
 p{margin-bottom:8px}
 .mut{color:var(--mut)} .sm{font-size:12px} .xs{font-size:11px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px}
+.eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--sand);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 1px 0 rgba(0,0,0,.02)}
 .row{display:flex;align-items:center;gap:10px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:10px;padding:10px 14px;font-weight:600;font-size:13px;cursor:pointer;background:#F1F2F4;color:var(--ink);font-family:inherit}
-.btn.p{background:var(--red);color:#fff}.btn.k{background:var(--ink);color:#fff}.btn.w{width:100%}.btn.s{padding:7px 10px;font-size:12px}
-.btn.o{background:#fff;border:1px solid #D4D6DB}
-.chip{display:inline-block;font-size:11px;padding:3px 8px;border-radius:999px;font-weight:600}
-.chip.ok{background:#E6F6EC;color:var(--ok)}.chip.am{background:#FDF3E0;color:var(--amber)}.chip.bl{background:#E8EEFD;color:var(--blue)}.chip.gr{background:#F1F2F4;color:var(--mut)}.chip.rd{background:#FDECEB;color:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:999px;padding:11px 16px;font-weight:600;font-size:12.5px;cursor:pointer;background:#fff;color:var(--ink);font-family:inherit;border:1px solid var(--line);letter-spacing:.02em;transition:.2s}
+.btn:hover{transform:translateY(-1px)}
+.btn.p{background:var(--red);color:#fff;border-color:transparent}.btn.k{background:var(--ink);color:#fff;border-color:transparent}.btn.w{width:100%}.btn.s{padding:8px 12px;font-size:11.5px}
+.btn.o{background:transparent;border:1px solid rgba(11,13,18,.25)}
+.btn.g{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.5)}
+.chip{display:inline-block;font-size:10.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.02em}
+.chip.ok{background:#E4F3EA;color:var(--ok)}.chip.am{background:#FBF0DA;color:var(--amber)}.chip.bl{background:#E6ECFA;color:var(--blue)}.chip.gr{background:#ECEAE3;color:var(--mut)}.chip.rd{background:#FBEAE8;color:var(--red)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;min-height:84px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
-.tile b{font-size:13.5px}.tile span{font-size:11px;color:var(--mut)}
-.tile svg{width:22px;height:22px;position:absolute;top:12px;left:12px;color:var(--red)}
-.hero{background:var(--ink);color:#fff;border-radius:18px;padding:16px;position:relative;overflow:hidden;margin-bottom:12px}
-.hero img{position:absolute;right:-40px;bottom:-10px;width:230px;opacity:.95}
-.hero h1{font-size:19px;max-width:200px}
-.hero p{font-size:12px;color:#C9CBD1;max-width:190px}
-.bar{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin:0 -14px;padding-left:14px;padding-right:14px}
+/* hero */
+.hero{position:relative;border-radius:22px;overflow:hidden;min-height:380px;display:flex;flex-direction:column;justify-content:flex-end;padding:22px 20px;color:#fff;margin-bottom:14px;background:#0B0D12}
+.hero .bg{position:absolute;inset:0;background:center/cover no-repeat;transform:scale(1.02)}
+.hero .sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 0%,rgba(0,0,0,.15) 45%,rgba(5,7,12,.85) 100%)}
+.hero>*{position:relative}
+.hero h1{font-size:40px;color:#fff;font-weight:500;line-height:1;margin:6px 0 10px}
+.hero h1 em{font-style:italic;font-weight:500}
+.hero p{font-size:13.5px;color:rgba(255,255,255,.82);max-width:300px;margin-bottom:14px}
+.hero .eyebrow{color:rgba(255,255,255,.75)}
+/* craft tiles */
+.bar{display:flex;gap:10px;overflow:auto;padding-bottom:6px;margin:0 -14px;padding-left:14px;padding-right:14px;scroll-snap-type:x mandatory}
 .bar::-webkit-scrollbar{display:none}
-.prod{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:8px;align-items:flex-start}
-.prod .im{width:62px;height:62px;border-radius:10px;background:#F1F2F4 center/70% no-repeat;flex-shrink:0;display:grid;place-items:center;font-size:10px;color:var(--mut);font-weight:700;text-align:center;padding:4px}
+.craft{position:relative;min-width:200px;height:250px;border-radius:18px;overflow:hidden;background:#0B0D12;color:#fff;cursor:pointer;scroll-snap-align:start;flex-shrink:0}
+.craft .bg{position:absolute;inset:0;background:center/cover no-repeat;opacity:.9;transition:transform .6s}
+.craft:hover .bg{transform:scale(1.05)}
+.craft .cut{position:absolute;left:8%;right:8%;bottom:64px;height:46%;background:center/contain no-repeat;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5))}
+.craft .t{position:absolute;left:16px;right:16px;bottom:16px}
+.craft .t b{display:block;font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;line-height:1}
+.craft .t span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.craft .sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(5,7,12,.9) 100%)}
+/* activity cards */
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.act{position:relative;height:120px;border-radius:16px;overflow:hidden;color:#fff;cursor:pointer;background:center/cover no-repeat}
+.act::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(5,7,12,.8))}
+.act b{position:absolute;left:12px;bottom:10px;z-index:1;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600}
+/* dark section */
+.dark{background:#0B0D12;color:#fff;border-radius:22px;padding:20px 18px;margin:14px 0;position:relative;overflow:hidden}
+.dark h2{color:#fff;margin-top:0}
+.dark .eyebrow{color:var(--sand)}
+.dark p{color:rgba(255,255,255,.75)}
+.dark .glow{position:absolute;width:420px;height:420px;border-radius:50%;filter:blur(90px);background:#1F2A44;opacity:.55;right:-150px;top:-150px;pointer-events:none}
+/* products */
+.prod{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:8px;align-items:flex-start}
+.prod .im{width:66px;height:66px;border-radius:10px;background:var(--pearl) center/72% no-repeat;flex-shrink:0;display:grid;place-items:center;font-size:9.5px;color:var(--mut);font-weight:700;text-align:center;padding:4px;letter-spacing:.04em}
 .prod .b{flex:1;min-width:0}
 .prod .n{font-weight:600;font-size:13px;line-height:1.3}
 .prod .br{font-size:11px;color:var(--mut)}
-.prod .pr{font-weight:700;font-size:13px;margin-top:3px}
-.av{font-size:11px;margin-top:3px;font-weight:500}
+.prod .pr{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;margin-top:3px;letter-spacing:0}
+.av{font-size:11px;margin-top:2px;font-weight:500}
 .av.ok{color:var(--ok)}.av.am{color:var(--amber)}.av.bl{color:var(--blue)}.av.gr{color:var(--mut)}
-.prod .act{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.prod .pact{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
 /* explorer */
-.exp{background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 6px 6px;position:relative}
+.exp{background:#0B0D12;border-radius:20px;padding:12px 10px 10px;position:relative;color:#fff;overflow:hidden}
+.exp .glow{position:absolute;width:520px;height:320px;left:50%;top:38%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(120,150,200,.35),rgba(0,0,0,0));pointer-events:none}
+.exp .xs,.exp .mut{color:rgba(255,255,255,.6)}
 .stage{position:relative;width:100%}
-.stage img{width:100%;display:block}
-.hs{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:var(--red);border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.35);cursor:pointer;animation:pulse 2s infinite}
-.hs.on{background:var(--ink);animation:none;transform:scale(1.15)}
-.hs::after{content:"+";color:#fff;font-weight:800;font-size:15px;line-height:20px;display:block;text-align:center}
-.hs.on::after{content:"✓";font-size:12px}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(226,35,26,.55)}70%{box-shadow:0 0 0 12px rgba(226,35,26,0)}100%{box-shadow:0 0 0 0 rgba(226,35,26,0)}}
-.seg{display:flex;background:#F1F2F4;border-radius:10px;padding:3px;margin-bottom:10px}
-.seg div{flex:1;text-align:center;padding:7px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;color:var(--mut)}
-.seg div.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.panel{margin-top:10px}
-.areas{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-.areas span{font-size:11px;padding:4px 9px;border-radius:999px;background:#F1F2F4;cursor:pointer;font-weight:500}
-.areas span.on{background:var(--ink);color:#fff}
+.stage img{width:100%;display:block;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6))}
+.hs{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.9);backdrop-filter:blur(4px);cursor:pointer;transition:.2s}
+.hs::before{content:"";position:absolute;inset:-9px;border-radius:50%;border:1px solid rgba(255,255,255,.35);animation:ring 2.4s infinite}
+.hs::after{content:"+";color:#fff;font-weight:500;font-size:16px;line-height:23px;display:block;text-align:center}
+.hs.on{background:var(--red);border-color:var(--red);transform:scale(1.1)}
+.hs.on::before{display:none}.hs.on::after{content:"✓";font-size:12px;line-height:23px}
+@keyframes ring{0%{transform:scale(.7);opacity:.9}100%{transform:scale(1.4);opacity:0}}
+.seg{display:flex;background:rgba(255,255,255,.08);border-radius:999px;padding:3px;margin-bottom:12px}
+.seg div{flex:1;text-align:center;padding:8px;border-radius:999px;font-size:11.5px;font-weight:600;cursor:pointer;color:rgba(255,255,255,.6);letter-spacing:.04em;text-transform:uppercase}
+.seg div.on{background:#fff;color:var(--ink)}
+.exp .seg{margin:0 0 10px}
+.panel{margin-top:12px}
+.areas{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 2px}
+.areas span{font-size:11px;padding:6px 11px;border-radius:999px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);cursor:pointer;font-weight:500;border:1px solid rgba(255,255,255,.12)}
+.areas span.on{background:#fff;color:var(--ink);border-color:#fff}
 /* chat */
 .chat{display:flex;flex-direction:column;gap:8px;padding-bottom:6px}
-.m{max-width:86%;padding:10px 12px;border-radius:14px;font-size:13px;line-height:1.45}
+.m{max-width:86%;padding:11px 13px;border-radius:16px;font-size:13px;line-height:1.5}
 .m.a{background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;align-self:flex-start}
 .m.u{background:var(--ink);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
 .m .prod{margin:8px 0 0;padding:8px}
@@ -93,118 +123,144 @@ p{margin-bottom:8px}
 .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
 @keyframes b{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
-.chips span{font-size:12px;padding:7px 11px;border-radius:999px;background:#fff;border:1px solid #D4D6DB;cursor:pointer;font-weight:500}
+.chips span{font-size:12px;padding:8px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);cursor:pointer;font-weight:500}
 .inp{display:flex;gap:8px;position:sticky;bottom:0;background:var(--bg);padding:8px 0 0}
-.inp input{flex:1;border:1px solid #D4D6DB;border-radius:999px;padding:10px 14px;font:inherit;font-size:13px;background:#fff}
+.inp input{flex:1;border:1px solid var(--line);border-radius:999px;padding:11px 16px;font:inherit;font-size:13px;background:#fff}
 /* steps */
-.opt{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:8px;cursor:pointer}
+.opt{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 13px;margin-bottom:8px;cursor:pointer}
 .opt.on{border-color:var(--ink)}
-.opt .ck{width:18px;height:18px;border-radius:50%;border:2px solid #C9CBD1;flex-shrink:0}
+.opt .ck{width:18px;height:18px;border-radius:50%;border:2px solid #C9CBC6;flex-shrink:0}
 .opt.on .ck{border-color:var(--ink);background:var(--ink);box-shadow:inset 0 0 0 3px #fff}
 .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.slots div{background:#fff;border:1.5px solid var(--line);border-radius:9px;padding:8px 4px;text-align:center;font-size:12px;font-weight:600;cursor:pointer}
+.slots div{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 4px;text-align:center;font-size:12px;font-weight:600;cursor:pointer}
 .slots div.on{border-color:var(--ink);background:var(--ink);color:#fff}
 .slots div.x{opacity:.35;text-decoration:line-through;cursor:default}
 .days{display:flex;gap:6px;overflow:auto;margin-bottom:10px}
-.days div{min-width:56px;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:7px 4px;font-size:11px;cursor:pointer}
-.days div b{display:block;font-size:15px}
+.days div{min-width:56px;text-align:center;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:7px 4px;font-size:11px;cursor:pointer}
+.days div b{display:block;font-size:16px;font-family:'Cormorant Garamond',serif}
 .days div.on{border-color:var(--ink);background:var(--ink);color:#fff}
 .steps{display:flex;gap:4px;margin:4px 0 12px}
-.steps i{flex:1;height:4px;border-radius:2px;background:#DADCE0}.steps i.on{background:var(--red)}
+.steps i{flex:1;height:3px;border-radius:2px;background:#D9D5CB}.steps i.on{background:var(--red)}
 /* timeline */
 .tl{position:relative;padding-left:22px}
-.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:#DADCE0}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:1.5px;background:#D9D5CB}
 .tl .st{position:relative;padding-bottom:14px}
-.tl .st::before{content:"";position:absolute;left:-19px;top:4px;width:10px;height:10px;border-radius:50%;background:#C9CBD1;border:2px solid #fff;box-shadow:0 0 0 2px #DADCE0}
-.tl .st.done::before{background:var(--ok);box-shadow:0 0 0 2px var(--ok)}
-.tl .st.now::before{background:var(--red);box-shadow:0 0 0 2px var(--red)}
+.tl .st::before{content:"";position:absolute;left:-19px;top:4px;width:10px;height:10px;border-radius:50%;background:#C9C5BB;border:2px solid #fff;box-shadow:0 0 0 1.5px #D9D5CB}
+.tl .st.done::before{background:var(--ok);box-shadow:0 0 0 1.5px var(--ok)}
+.tl .st.now::before{background:var(--red);box-shadow:0 0 0 1.5px var(--red)}
 .tl .st b{display:block;font-size:13px}.tl .st span{font-size:11.5px;color:var(--mut)}
-.photo{border-radius:10px;width:100%;height:120px;object-fit:cover;margin:8px 0}
+.photo{border-radius:12px;width:100%;height:130px;object-fit:cover;margin:8px 0}
 /* bottom nav */
-.nav{position:absolute;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
-.nav div{flex:1;text-align:center;font-size:10.5px;font-weight:600;color:var(--mut);cursor:pointer;padding:4px 0}
-.nav div svg{width:22px;height:22px;display:block;margin:0 auto 2px}
-.nav div.on{color:var(--red)}
+.nav{position:absolute;left:0;right:0;bottom:0;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;padding:7px 4px calc(7px + env(safe-area-inset-bottom))}
+.nav div{flex:1;text-align:center;font-size:9.5px;font-weight:600;color:var(--mut);cursor:pointer;padding:4px 0;letter-spacing:.06em;text-transform:uppercase}
+.nav div svg{width:21px;height:21px;display:block;margin:0 auto 3px}
+.nav div.on{color:var(--ink)}
+.nav div.on svg{color:var(--red)}
 /* overlays */
-.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:22px 22px 0 0;padding:14px 16px 24px;box-shadow:0 -20px 60px rgba(0,0,0,.35);transform:translateY(110%);opacity:0;pointer-events:none;transition:.3s;z-index:20;max-height:85%;overflow:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;padding:14px 18px 26px;box-shadow:0 -20px 60px rgba(0,0,0,.35);transform:translateY(110%);opacity:0;pointer-events:none;transition:.3s;z-index:20;max-height:85%;overflow:auto}
 .sheet.on{transform:none;opacity:1;pointer-events:auto}
-.dim{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:.3s;z-index:19}
+.dim{position:absolute;inset:0;background:rgba(11,13,18,.5);opacity:0;pointer-events:none;transition:.3s;z-index:19}
 .dim.on{opacity:1;pointer-events:auto}
-.handle{width:40px;height:4px;border-radius:2px;background:#DADCE0;margin:0 auto 12px}
-.push{position:absolute;top:10px;left:10px;right:10px;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-radius:16px;padding:10px 12px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.3);transform:translateY(-140%);opacity:0;pointer-events:none;transition:.4s;z-index:30}
+.handle{width:40px;height:4px;border-radius:2px;background:#D9D5CB;margin:0 auto 12px}
+.push{position:absolute;top:10px;left:10px;right:10px;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-radius:18px;padding:10px 12px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.3);transform:translateY(-140%);opacity:0;pointer-events:none;transition:.4s;z-index:30}
 .push.on{transform:none;opacity:1;pointer-events:auto}
 .push img{width:36px;height:36px;border-radius:9px;background:#fff;object-fit:contain;border:1px solid var(--line)}
 .push b{font-size:12px;display:block}.push span{font-size:12px;color:var(--ink2)}
 .toast{position:absolute;bottom:80px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:9px 14px;border-radius:999px;font-size:12px;opacity:0;transition:.3s;z-index:25;white-space:nowrap}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-.gate{position:absolute;inset:0;background:#111;color:#fff;display:none;place-items:center;text-align:center;padding:30px;z-index:99}
+.gate{position:absolute;inset:0;background:#0B0D12;color:#fff;display:none;place-items:center;text-align:center;padding:30px;z-index:99}
 .gate.on{display:grid}
 .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-.kpi div{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}
-.kpi b{font-size:18px;display:block}.kpi span{font-size:10.5px;color:var(--mut)}
+.kpi div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+.kpi b{font-size:22px;display:block;font-family:'Cormorant Garamond',serif;font-weight:700}.kpi span{font-size:10.5px;color:var(--mut)}
 .kan{display:flex;gap:8px;overflow:auto;margin:0 -14px;padding:0 14px 6px}
-.col{min-width:150px;background:#ECEDF0;border-radius:12px;padding:8px}
-.col h4{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-.jc{background:#fff;border-radius:9px;padding:8px;margin-bottom:6px;font-size:11.5px;border-left:3px solid #C9CBD1}
+.col{min-width:150px;background:var(--bone);border-radius:14px;padding:8px}
+.col h4{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+.jc{background:#fff;border-radius:10px;padding:8px;margin-bottom:6px;font-size:11.5px;border-left:3px solid #C9C5BB;cursor:pointer}
 .jc b{display:block;font-size:12px}
 .jc.i{border-left-color:var(--blue)}.jc.w{border-left-color:var(--amber)}.jc.r{border-left-color:var(--ok)}
 .sched{display:grid;grid-template-columns:70px repeat(4,1fr);gap:4px;font-size:10.5px}
 .sched div{background:#fff;border:1px solid var(--line);border-radius:6px;padding:5px 4px;min-height:30px}
 .sched .h{background:transparent;border:0;font-weight:700;color:var(--mut)}
-.sched .j{background:#E8EEFD;border-color:#C7D4FA}.sched .j2{background:#FDF3E0;border-color:#F3DDB0}.sched .j3{background:#E6F6EC;border-color:#BFE6CD}
-.feed img{width:100%;height:130px;object-fit:cover;border-radius:10px;margin-bottom:8px;background:#fff}
-.tag{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--red)}
-.tabs{display:flex;gap:14px;border-bottom:1px solid var(--line);margin-bottom:12px}
-.tabs div{padding:8px 0;font-size:13px;font-weight:600;color:var(--mut);cursor:pointer;border-bottom:2px solid transparent}
+.sched .j{background:#E6ECFA;border-color:#C7D4FA}.sched .j2{background:#FBF0DA;border-color:#F3DDB0}.sched .j3{background:#E4F3EA;border-color:#BFE6CD}
+.feed img{width:100%;height:150px;object-fit:cover;border-radius:12px;margin-bottom:10px;background:#fff}
+.tag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--red)}
+.tabs{display:flex;gap:16px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.tabs div{padding:8px 0;font-size:12.5px;font-weight:600;color:var(--mut);cursor:pointer;border-bottom:2px solid transparent;letter-spacing:.02em}
 .tabs div.on{color:var(--ink);border-color:var(--red)}
 .sum{display:flex;justify-content:space-between;font-size:13px;padding:5px 0}
-.sum.t{border-top:1px solid var(--line);font-weight:700;margin-top:4px;padding-top:9px}
+.sum.t{border-top:1px solid var(--line);font-weight:700;margin-top:4px;padding-top:9px;font-family:'Cormorant Garamond',serif;font-size:18px}
 .opts{display:flex;gap:6px;flex-wrap:wrap}
-.opts span{font-size:12px;padding:7px 10px;border:1.5px solid var(--line);border-radius:9px;background:#fff;cursor:pointer}
+.opts span{font-size:12px;padding:8px 11px;border:1.5px solid var(--line);border-radius:999px;background:#fff;cursor:pointer}
 .opts span.on{border-color:var(--ink);background:var(--ink);color:#fff}
 .colors span{width:34px;height:34px;border-radius:50%;padding:0;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--line)}
 .colors span.on{box-shadow:0 0 0 2px var(--ink)}
-.brands{display:flex;flex-wrap:wrap;gap:6px}
-.brands span{font-size:11px;padding:5px 9px;background:#fff;border:1px solid var(--line);border-radius:8px;font-weight:600}
-
+.brands{display:flex;flex-wrap:wrap;gap:6px 14px}
+.brands span{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--ink2);letter-spacing:.02em}
+.field{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:11.5px}
+.field span{color:var(--mut)}.field b{font-weight:500}.field em{font-style:normal;font-size:9.5px;color:var(--ok);white-space:nowrap}
+.check{display:flex;gap:10px;align-items:flex-start;border-top:1px solid var(--line)}
+.branch{position:relative;height:120px;border-radius:16px;overflow:hidden;background:center/cover no-repeat;color:#fff;cursor:pointer}
+.branch::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(5,7,12,.85))}
+.branch div{position:absolute;left:12px;bottom:10px;z-index:1}
+.branch b{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600}
+.branch span{font-size:10.5px;color:rgba(255,255,255,.8)}
+.split{display:grid;grid-template-columns:1fr;gap:12px}
+.split .ph{height:160px;border-radius:16px;background:center/cover no-repeat}
+.foot{padding:26px 4px 6px;font-size:11px;color:var(--mut);line-height:1.7}
+.foot b{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--ink);font-weight:600}
 /* ===== website view (laptop) ===== */
 @media(min-width:900px){
  body.desk{display:block;padding:0;background:var(--bg)}
  body.desk #desk{display:none}
  body.desk #frame{max-width:none;height:100vh;border:0;border-radius:0;box-shadow:none}
- body.desk .top{padding:0 40px;height:64px;gap:16px}
+ body.desk .top{padding:0 48px;height:72px;gap:18px;background:rgba(244,242,236,.85)}
  body.desk .top img{height:40px}
- body.desk .hnav{display:flex;gap:4px;margin-left:12px}
+ body.desk .hnav{display:flex;gap:2px;margin-left:16px}
  body.desk .nav{display:none}
- body.desk .scr{padding:28px 40px 60px;max-width:1240px;margin:0 auto}
- body.desk .scr.narrow{max-width:760px}
- body.desk .hero{padding:34px 36px;min-height:280px;border-radius:24px}
- body.desk .hero h1{font-size:34px;max-width:460px}
- body.desk .hero p{font-size:15px;max-width:380px}
- body.desk .hero img{width:560px;right:-20px;bottom:-30px}
- body.desk .hgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:0 32px}
- body.desk .bar{margin:0;padding:0;flex-wrap:wrap}
- body.desk .bar .pill{font-size:13px;padding:8px 14px}
- body.desk #s-explore.on{display:grid;grid-template-columns:1.55fr 1fr;gap:22px;align-items:start}
- body.desk .xl .seg{max-width:360px}
+ body.desk .scr{padding:0 48px 80px;max-width:1320px;margin:0 auto}
+ body.desk .scr.narrow{max-width:760px;padding-top:28px}
+ body.desk #s-home{padding-top:0}
+ body.desk .hero{min-height:620px;border-radius:0 0 28px 28px;margin:0 -48px 36px;padding:0 64px 64px}
+ body.desk .hero h1{font-size:92px;max-width:900px;margin:10px 0 16px}
+ body.desk .hero p{font-size:18px;max-width:520px;margin-bottom:22px}
+ body.desk .hero .eyebrow{font-size:12px}
+ body.desk h2{font-size:40px;margin:36px 0 16px}
+ body.desk h1{font-size:48px}
+ body.desk .bar{margin:0;padding:0;gap:16px}
+ body.desk .craft{min-width:0;flex:1;height:360px;border-radius:22px}
+ body.desk .craft .t b{font-size:30px}
+ body.desk .acts{grid-template-columns:repeat(6,1fr);gap:14px}
+ body.desk .act{height:170px}
+ body.desk .act b{font-size:22px;left:16px;bottom:14px}
+ body.desk .dark{padding:48px;border-radius:28px;margin:28px 0}
+ body.desk .split{grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+ body.desk .split .ph{height:420px;border-radius:24px}
+ body.desk .hgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:0 40px}
+ body.desk .branches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+ body.desk .branch{height:200px}
+ body.desk .foot{padding:60px 0 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:30px;border-top:1px solid var(--line);margin-top:40px}
+ body.desk #s-explore.on{display:grid;grid-template-columns:1.6fr 1fr;gap:26px;align-items:start;padding-top:28px}
+ body.desk .xl .seg{max-width:380px}
  body.desk .xr{position:sticky;top:0}
- body.desk .xr .panel{max-height:calc(100vh - 140px);overflow:auto;padding-right:4px}
+ body.desk .xr .panel{max-height:calc(100vh - 150px);overflow:auto;padding-right:4px;margin-top:0}
+ body.desk .exp{padding:22px 24px 18px;border-radius:26px}
  body.desk .hs{width:32px;height:32px;margin:-16px 0 0 -16px}
- body.desk .hs::after{line-height:26px;font-size:18px}
- body.desk .areas span{font-size:12.5px;padding:6px 12px}
- body.desk h1{font-size:28px} body.desk h2{font-size:18px}
+ body.desk .hs::after{line-height:29px;font-size:18px}
+ body.desk .areas span{font-size:12.5px;padding:7px 13px}
  body.desk .chat{max-width:720px} body.desk .m{font-size:14px} body.desk .inp{max-width:720px}
  body.desk .kan{margin:0;padding:0} body.desk .col{min-width:0;flex:1}
- body.desk .sheet{left:50%;right:auto;width:440px;transform:translate(-50%,110%);border-radius:22px;bottom:30px}
+ body.desk #s-staff{max-width:1320px;padding-top:28px}
+ body.desk .sheet{left:50%;right:auto;width:460px;transform:translate(-50%,110%);border-radius:24px;bottom:30px}
  body.desk .sheet.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
- body.desk .push{left:auto;right:24px;top:80px;width:360px;transform:translateY(-300%)}
- body.desk .feed img{height:200px}
- body.desk .grid-off{display:grid;grid-template-columns:1fr 1fr;gap:12px}
- body.desk .grid-off .card{margin:0}
+ body.desk .push{left:auto;right:24px;top:84px;width:360px;transform:translateY(-300%)}
+ body.desk .feed img{height:220px}
+ body.desk .brands{gap:10px 26px}
+ body.desk .brands span{font-size:18px}
 }
 .hnav{display:none}
-.hnav span{padding:8px 12px;border-radius:9px;font-weight:600;font-size:13.5px;cursor:pointer;color:var(--ink2)}
-.hnav span.on{color:var(--red);background:#FDECEB}
+.hnav span{padding:8px 13px;border-radius:999px;font-weight:600;font-size:11.5px;cursor:pointer;color:var(--ink2);letter-spacing:.1em;text-transform:uppercase}
+.hnav span.on{color:var(--red)}
 .viewtog{display:none}@media(min-width:900px){body.desk .viewtog{display:inline-flex}}
 </style>
 </head>
@@ -220,7 +276,7 @@ p{margin-bottom:8px}
 <div class="top">
   <img src="assets/logo.png" alt="Delma Marine">
   <span class="pill" id="regionpill" onclick="toggleRegion()">📍 Abu Dhabi · AED</span>
-  <div class="hnav" id="hnav"><span data-s="home" onclick="go('home')">Home</span><span data-s="explore" onclick="go('explore')">Explore your boat</span><span data-s="ask" onclick="go('ask')">Ask Delma</span><span data-s="book" onclick="go('book')">Book a service</span><span data-s="mydelma" onclick="go('mydelma')">My Delma</span></div><span class="sp"></span><span class="sample">Sample data</span><button class="btn s o viewtog" onclick="toggleView()" id="vtog">App view</button>
+  <div class="hnav" id="hnav"><span data-s="home" onclick="go('home')">Home</span><span data-s="explore" onclick="go('explore')">Explore your boat</span><span data-s="ask" onclick="go('ask')">Ask Delma</span><span data-s="book" onclick="go('book')">Book a service</span><span data-s="mydelma" onclick="go('mydelma')">My Delma</span><span data-s="staff" onclick="go('staff')" style="margin-left:14px;color:var(--mut)">Staff</span></div><span class="sp"></span><span class="sample">Sample data</span><button class="btn s o viewtog" onclick="toggleView()" id="vtog">App view</button>
   <div class="ico" onclick="go('offers')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg><i class="dot"></i></div>
   <div class="ico" onclick="go('basket')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 100-2 1 1 0 000 2zM18 20a1 1 0 100-2 1 1 0 000 2z"/></svg><i class="dot" id="bdot" style="display:none"></i></div>
 </div>
@@ -229,34 +285,82 @@ p{margin-bottom:8px}
 
 <!-- HOME -->
 <section class="scr on" id="s-home">
-  <div class="hero"><img src="assets/navan.png" alt=""><h1>What do you want to do on the water?</h1><p>Tell us, and we'll put the right boat, engine and kit together.</p><div style="margin-top:10px"><button class="btn p s" onclick="go('ask')">Ask Delma</button></div></div>
-  <div class="bar">
-    <span class="pill" onclick="go('explore')">🎣 Fishing</span><span class="pill" onclick="go('explore')">👨‍👩‍👧 Family day out</span><span class="pill" onclick="go('explore')">🏄 Watersports</span><span class="pill" onclick="go('explore')">🤿 Diving</span><span class="pill" onclick="go('explore')">🛶 Kayaking</span><span class="pill" onclick="go('explore')">⚡ Performance</span>
+  <div class="hero"><div class="bg" style="background-image:url(assets/photos/hero-aerial.jpg)"></div><div class="sh"></div>
+    <div class="eyebrow">Delma Marine · Abu Dhabi · since 1978</div>
+    <h1>The water<br>is <em>waiting.</em></h1>
+    <p>Boats, engines and everything that belongs on board, chosen for the way you use the sea.</p>
+    <div class="row" style="flex-wrap:wrap"><button class="btn p" onclick="go('explore')">Explore your boat</button><button class="btn g" onclick="go('ask')">Ask Delma</button></div>
   </div>
+
+  <div class="eyebrow">Find your craft</div>
+  <h2 style="margin-top:4px">Built for how you'll use it.</h2>
+  <div class="bar">
+    <div class="craft" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/dark-yacht.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/navan.png)"></div><div class="t"><span>Day boats · cruisers</span><b>Navan · Bayliner</b></div></div>
+    <div class="craft" onclick="setCraftByName('jetski')"><div class="bg" style="background-image:url(assets/photos/jetski.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/taiga.png)"></div><div class="t"><span>Electric watercraft</span><b>Taiga · iWave</b></div></div>
+    <div class="craft" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/choppy.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/whaly.png)"></div><div class="t"><span>Polyethylene boats</span><b>Whaly · SeaStorm</b></div></div>
+    <div class="craft" onclick="setCraftByName('kayak')"><div class="bg" style="background-image:url(assets/photos/aerial-bow.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/kayak.png)"></div><div class="t"><span>Paddle · fish</span><b>Pelican · Wilderness</b></div></div>
+    <div class="craft" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/freediver.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/efoil.png)"></div><div class="t"><span>eFoil · diving</span><b>ABNC · Beuchat</b></div></div>
+  </div>
+
+  <div class="dark"><div class="glow"></div>
+    <div class="eyebrow">Explore your boat</div>
+    <h2>Tap a part. See what belongs there.</h2>
+    <p class="sm">Engine, helm, deck, hull, mooring: every area shows the pieces Delma fits there, with live stock in every branch.</p>
+    <div class="stage" style="margin:10px 0 6px;cursor:pointer" onclick="go('explore')"><img src="assets/navan.png" alt=""><i class="hs" style="left:14%;top:52%"></i><i class="hs" style="left:47%;top:41%"></i><i class="hs" style="left:84%;top:41%"></i><i class="hs" style="left:60%;top:66%"></i></div>
+    <button class="btn g s" onclick="go('explore')">Open the explorer</button>
+  </div>
+
+  <div class="eyebrow">What do you want to do?</div>
+  <h2 style="margin-top:4px">Start with the day you have in mind.</h2>
+  <div class="acts">
+    <div class="act" style="background-image:url(assets/photos/hero-race.jpg)" onclick="go('explore')"><b>Fishing</b></div>
+    <div class="act" style="background-image:url(assets/photos/aerial-bow.jpg)" onclick="go('explore')"><b>Family day out</b></div>
+    <div class="act" style="background-image:url(assets/photos/jetski-sunset.jpg)" onclick="setCraftByName('jetski')"><b>Watersports</b></div>
+    <div class="act" style="background-image:url(assets/photos/diver.jpg)" onclick="go('explore')"><b>Diving</b></div>
+    <div class="act" style="background-image:url(assets/photos/aerial-wake.jpg)" onclick="setCraftByName('kayak')"><b>Kayaking</b></div>
+    <div class="act" style="background-image:url(assets/photos/choppy.jpg)" onclick="go('explore')"><b>Performance</b></div>
+  </div>
+
+  <div class="split" style="margin-top:22px">
+    <div class="ph" style="background-image:url(assets/photos/helm.jpg)"></div>
+    <div><div class="eyebrow">Ask Delma</div><h2 style="margin-top:4px">Advice from the people who fit it.</h2><p class="sm mut">Tell Delma what you want to do and it puts the right boat, engine and kit together, from real stock, with a delivery date when something is on order.</p>
+      <div class="card" style="margin-top:10px"><div class="m u" style="max-width:100%;margin-bottom:8px">I have a Bayliner VR5 and want to use it for night fishing. What do I need?</div><div class="m a" style="max-width:100%">Three things: a Lowrance Elite FS 9 (in stock, Umm Al Nar), Hella deck and navigation lights, and a night-vision camera if you go far out. Shall I put them in your basket?</div><button class="btn k s" style="margin-top:10px" onclick="go('ask')">Ask Delma</button></div></div>
+  </div>
+
   <div class="hgrid"><div>
-  <h2>Explore your boat</h2>
-  <div class="exp" onclick="go('explore')" style="cursor:pointer"><div class="stage"><img src="assets/navan.png" alt=""><i class="hs" style="left:14%;top:52%"></i><i class="hs" style="left:47%;top:41%"></i><i class="hs" style="left:84%;top:41%"></i></div><p class="sm mut" style="padding:6px 8px 2px">Tap any part of the boat to see what fits there, with live stock.</p></div>
-  <h2>Shop by my boat or engine</h2>
-  <div class="card row"><div style="flex:1"><b>Bayliner VR5 · Mercury 150 FourStroke</b><div class="sm mut">Serial 2B•••••71 · saved in My Delma</div></div><button class="btn s" onclick="go('explore')">Parts that fit</button></div>
+    <div class="eyebrow" style="margin-top:22px">Shop by my boat or engine</div>
+    <div class="card row" style="margin-top:8px"><div style="flex:1"><b>Bayliner VR5 · Mercury 150 FourStroke</b><div class="sm mut">Serial 2B•••••71 · saved in My Delma</div></div><button class="btn s" onclick="go('explore')">Parts that fit</button></div>
+    <div class="eyebrow" style="margin-top:22px">New arrivals & offers</div>
+    <div class="prod" style="margin-top:8px" onclick="go('offers')"><div class="im" style="background-image:url(assets/mercury-avator.png)"></div><div class="b"><div class="n">Mercury Avator 110e</div><div class="br">Electric outboard · now at Umm Al Nar</div><div class="av bl">New arrival · book a viewing</div></div></div>
+    <div class="prod" onclick="go('offers')"><div class="im">INTER-<br>NATIONAL</div><div class="b"><div class="n">Antifouling season</div><div class="br">International Micron 350</div><div class="av ok">Offer until 30 Nov · app only</div></div></div>
   </div><div>
-  <h2>New arrivals & offers</h2>
-  <div class="prod" onclick="go('offers')"><div class="im" style="background-image:url(assets/mercury-avator.png)"></div><div class="b"><div class="n">Mercury Avator 110e</div><div class="br">Electric outboard · now at Umm Al Nar</div><div class="av bl">New arrival · book a viewing</div></div></div>
-  <div class="prod" onclick="go('offers')"><div class="im">INTER-<br>NATIONAL</div><div class="b"><div class="n">Antifouling season</div><div class="br">International Micron 350</div><div class="av ok">Offer until 30 Nov · app only</div></div></div>
-  <h2>Nearest branch</h2>
-  <div class="card row"><div style="flex:1"><b id="nb-name">Delma Marine · Umm Al Nar</b><div class="sm mut" id="nb-sub">Head office & showroom · open until 18:00 · 2.1 km</div></div><button class="btn s">Call</button><button class="btn s k">WhatsApp</button></div>
+    <div class="eyebrow" style="margin-top:22px">Service & care</div>
+    <div class="card" style="margin-top:8px;padding:0;overflow:hidden"><div style="height:120px;background:url(assets/workshop.jpg) center/cover"></div><div style="padding:12px 14px"><b>Four workshops. One standard.</b><div class="sm mut" style="margin:2px 0 8px">Service, engine installation and boat assembly at Bateen, Dubai, Fujairah and Ras Al Khaimah. Follow every job live in My Delma.</div><button class="btn s k" onclick="go('book')">Book a service</button></div></div>
+    <div class="eyebrow" style="margin-top:22px">Nearest branch</div>
+    <div class="card row" style="margin-top:8px"><div style="flex:1"><b id="nb-name">Delma Marine · Umm Al Nar</b><div class="sm mut" id="nb-sub">Head office & showroom · open until 18:00 · 2.1 km</div></div><button class="btn s">Call</button><button class="btn s k">WhatsApp</button></div>
   </div></div>
-  <h2>Brands we represent</h2>
-  <div class="brands"><span>Mercury</span><span>Bayliner</span><span>Navan</span><span>Taiga</span><span>ABNC</span><span>iWave</span><span>Whaly</span><span>SeaStorm</span><span>Lowrance</span><span>Kicker</span><span>Omnisense</span><span>Bob's Machine</span><span>Ultraflex</span><span>Hella Marine</span><span>Seaview</span><span>Polyform</span><span>Fendequip</span><span>Marlow</span><span>Beuchat</span><span>Connelly</span><span>E-SeaRider</span><span>Comfort Seat</span><span>Vitrifrigo</span><span>Max</span><span>Borika</span><span>Pelican</span><span>Wilderness</span><span>Perception</span></div>
-  <p class="xs mut" style="margin-top:14px">Delma Industrial Supplies & Marine Services · since 1978 · Abu Dhabi · Dubai · Fujairah · Ras Al Khaimah · Seychelles</p>
-  <p class="xs mut"><a href="#staff" style="color:var(--mut)">Staff view</a></p>
+
+  <div class="eyebrow" style="margin-top:22px">Visit us</div>
+  <h2 style="margin-top:4px">Showrooms, workshops and the marina.</h2>
+  <div class="branches acts">
+    <div class="branch" style="background-image:url(assets/showroom.jpg)"><div><b>Umm Al Nar</b><span>Head office & showroom</span></div></div>
+    <div class="branch" style="background-image:url(assets/photos/marina-sunset.jpg)"><div><b>Mangrove Marine</b><span>Berths & storage</span></div></div>
+    <div class="branch" style="background-image:url(assets/workshop.jpg)"><div><b>Bateen</b><span>Workshop</span></div></div>
+    <div class="branch" style="background-image:url(assets/boatshow.jpg)"><div><b>Dubai · Fujairah · RAK</b><span>Showroom & workshops</span></div></div>
+  </div>
+
+  <div class="eyebrow" style="margin-top:22px">Brands we represent</div>
+  <div class="brands" style="margin-top:8px"><span>Mercury</span><span>Bayliner</span><span>Navan</span><span>Taiga</span><span>ABNC</span><span>iWave</span><span>Whaly</span><span>SeaStorm</span><span>Lowrance</span><span>Kicker</span><span>Omnisense</span><span>Bob's Machine</span><span>Ultraflex</span><span>Hella Marine</span><span>Seaview</span><span>Polyform</span><span>Fendequip</span><span>Marlow</span><span>Beuchat</span><span>Connelly</span><span>E-SeaRider</span><span>Comfort Seat</span><span>Vitrifrigo</span><span>Max</span><span>Borika</span><span>Pelican</span><span>Wilderness</span><span>Perception</span></div>
+
+  <div class="foot"><div><b>Delma Marine</b>Delma Industrial Supplies & Marine Services · since 1978<br>Umm Al Nar, Abu Dhabi · PO Box 53382</div><div>Abu Dhabi · Dubai · Fujairah · Ras Al Khaimah · Seychelles<br>Mangrove Marine · ICAD warehouse</div><div>+971 2 557 6625 · info@delmamarine.net<br>@delmamarineuae · <a href="#staff" style="color:var(--mut)">Staff view</a></div></div>
 </section>
 
 <!-- EXPLORE -->
 <section class="scr" id="s-explore">
   <div class="xl">
   <div class="seg"><div class="on" onclick="setCraft('boat',this)">Boat</div><div onclick="setCraft('jetski',this)">Jet ski</div><div onclick="setCraft('kayak',this)">Kayak</div></div>
-  <div class="exp">
-    <div class="row" style="padding:0 6px 8px"><div style="flex:1"><b id="craftname">Navan S30 · twin Mercury 300</b><div class="xs mut">Tap a part of the boat</div></div><button class="btn s o" onclick="openSheet('mine')">Make it mine</button></div>
+  <div class="exp"><div class="glow"></div>
+    <div class="row" style="padding:0 6px 8px"><div style="flex:1"><b id="craftname" class="serif" style="font-size:20px">Navan S30 · twin Mercury 300</b><div class="xs mut">Tap a part of the boat</div></div><button class="btn s g" onclick="openSheet('mine')">Make it mine</button></div>
     <div class="stage" id="stage"></div>
     <div class="areas" id="areas"></div>
   </div>
@@ -282,7 +386,7 @@ p{margin-bottom:8px}
 
 <!-- ASK -->
 <section class="scr narrow" id="s-ask">
-  <div class="row" style="margin-bottom:8px"><div style="width:36px;height:36px;border-radius:12px;background:var(--red);display:grid;place-items:center"><img src="assets/logo.png" style="height:22px;filter:brightness(0) invert(1)"></div><div><b>Delma</b><div class="xs mut">Replies in seconds · answers from Delma's own stock and prices</div></div></div>
+  <div class="row" style="margin-bottom:8px"><div style="width:38px;height:38px;border-radius:50%;background:var(--ink);display:grid;place-items:center"><img src="assets/logo.png" style="height:20px;filter:brightness(0) invert(1)"></div><div><b class="serif" style="font-size:18px">Delma</b><div class="xs mut">Replies in seconds · answers from Delma's own stock and prices</div></div></div>
   <div class="chat" id="chat"></div>
   <div class="chips" id="chips"></div>
   <div class="inp"><input id="askin" placeholder="Ask anything about boats, engines, parts…" onkeydown="if(event.key==='Enter')sendTyped()"><button class="btn p" onclick="sendTyped()">Send</button></div>
@@ -350,25 +454,26 @@ p{margin-bottom:8px}
   <div class="card"><b>Notifications</b><div class="sm mut" style="margin-bottom:8px">New arrivals & offers · price drops · back in stock · orders · jobs · service due · boat shows. Each can be switched off.</div><button class="btn s o" onclick="showPush()">Send me a sample notification</button></div>
 </section>
 
-<!-- STAFF -->
+<!-- STAFF: manager -->
 <section class="scr" id="s-staff">
-  <div class="row" style="margin-bottom:8px"><div style="flex:1"><span class="tag">Staff · Bateen workshop</span><h1 style="font-size:19px">Today · Tue 27 Oct</h1></div><span class="chip gr">Rashid · supervisor</span></div>
-  <div class="kpi"><div><b>11</b><span>Open jobs</span></div><div><b>3</b><span>Waiting approval</span></div><div><b>2</b><span>Waiting parts</span></div></div>
-  <div class="kan">
-    <div class="col"><h4>Received</h4><div class="jc"><b>BT-2044 · Whaly 435</b>Periodic service · 09:40</div><div class="jc"><b>BT-2045 · Navan S30</b>Engine installation · linked to order DM-10482</div></div>
-    <div class="col"><h4>Diagnosing</h4><div class="jc i"><b>BT-2043 · SeaStorm 5</b>Won't start · Ahmed</div></div>
-    <div class="col"><h4>Waiting approval</h4><div class="jc w"><b>BT-2041 · Bayliner VR5</b>Impeller · sent 11:05</div><div class="jc w"><b>BT-2039 · Taiga Orca</b>Battery check · sent 10:20</div></div>
-    <div class="col"><h4>In progress</h4><div class="jc i"><b>BT-2038 · Bayliner VR6</b>Boat assembly & rigging · twin 150 · Rashid</div><div class="jc i"><b>BT-2036 · Mercury 60</b>Lower unit · Jomon</div></div>
-    <div class="col"><h4>Ready</h4><div class="jc r"><b>BT-2035 · Pelican Catch</b>Collected 12:10</div></div>
-  </div>
+  <div class="row" style="margin-bottom:8px"><div style="flex:1"><span class="tag">Staff · Bateen workshop · manager</span><h1 style="font-size:19px">Today · Tue 27 Oct</h1></div><span class="chip gr">Rashid · supervisor</span><button class="btn s o" onclick="go('tech')">Technician view</button></div>
+  <div class="kpi" id="kpi"></div>
+  <h2 style="margin-top:6px">To assign <span class="chip am" id="toassign-n"></span></h2>
+  <p class="sm mut" style="margin:-4px 0 8px">New bookings and jobs created from sales. Tap Assign to give the job to a technician and a time.</p>
+  <div id="toassign"></div>
+  <h2>Workshop board</h2>
+  <div class="kan" id="board"></div>
   <h2>Technician schedule</h2>
-  <div class="sched"><div class="h"></div><div class="h">09–11</div><div class="h">11–13</div><div class="h">14–16</div><div class="h">16–18</div>
-   <div class="h">Rashid</div><div class="j">BT-2038 rigging</div><div class="j">BT-2038</div><div class="j2">BT-2041 impeller</div><div></div>
-   <div class="h">Ahmed</div><div class="j">BT-2043 diag.</div><div></div><div class="j">BT-2045 install</div><div class="j">BT-2045</div>
-   <div class="h">Jomon</div><div class="j">BT-2036 lower unit</div><div class="j">BT-2036</div><div class="j3">BT-2044 service</div><div></div></div>
+  <div class="sched" id="sched"></div>
   <h2>Parts for today's jobs</h2>
-  <div class="card sm"><div class="row"><span style="flex:1">Impeller kit 47-8M0100526 · BT-2041</span><span class="chip ok">In store</span></div><div class="row" style="margin-top:6px"><span style="flex:1">Rigging kit, twin 150 · BT-2038</span><span class="chip ok">Reserved from order</span></div><div class="row" style="margin-top:6px"><span style="flex:1">Starter motor · BT-2043</span><span class="chip am">Transfer from ICAD · tomorrow</span></div></div>
+  <div class="card sm" id="partslist"></div>
   <p class="xs mut"><a href="#home" style="color:var(--mut)">← Back to the customer app</a></p>
+</section>
+
+<!-- STAFF: technician -->
+<section class="scr narrow" id="s-tech">
+  <div class="row" style="margin-bottom:8px"><div style="flex:1"><span class="tag">Staff · technician</span><h1 style="font-size:19px">My jobs today</h1></div><span class="chip gr">Ahmed</span><button class="btn s o" onclick="go('staff')">Manager view</button></div>
+  <div id="techjobs"></div>
 </section>
 
 </div><!-- /view -->
@@ -454,7 +559,7 @@ function avail(id){const p=P[id],r=REG[region];if(p.mode==='book')return{c:'bl',
  return{c:'am',t:'On order · delivered in '+p.lead+' days · order now with a deposit'}}
 function prodHTML(id,small){const p=P[id],a=avail(id);const price=p.mode==='shown'?fmt(p.p):(p.mode==='request'?'Price on request':'From '+fmt(350));
  const btn=p.mode==='book'?`<button class="btn s k" onclick="go('book')">Book</button>`:p.mode==='request'?`<button class="btn s o" onclick="toast('Quote request sent · Delma replies within an hour')">Request price</button>`:a.c==='am'?`<button class="btn s p" onclick="openSheet('pay',{title:'Order now',amount:fmt(Math.max(500,Math.round(P['${id}'].p*0.2/10)*10)),sub:'Deposit (20%) · delivered in ${p.lead} days · balance on delivery'})">Order · deposit</button><button class="btn s o" onclick="toast('We will message you when it is in stock')">Tell me</button>`:`<button class="btn s p" onclick="addToBasket('${id}')">Add to basket</button>`;
- return `<div class="prod"><div class="im" ${p.im?`style="background-image:url(${p.im})"`:''}>${p.im?'':p.t}</div><div class="b"><div class="n">${p.n}</div><div class="br">${p.br}</div><div class="pr">${price}</div><div class="av ${a.c}">${a.t}</div>${small?'':`<div class="act">${btn}</div>`}</div></div>`}
+ return `<div class="prod"><div class="im" ${p.im?`style="background-image:url(${p.im})"`:''}>${p.im?'':p.t}</div><div class="b"><div class="n">${p.n}</div><div class="br">${p.br}</div><div class="pr">${price}</div><div class="av ${a.c}">${a.t}</div>${small?'':`<div class="pact">${btn}</div>`}</div></div>`}
 
 /* ---------- explorer ---------- */
 const CRAFT={
@@ -480,11 +585,12 @@ const CRAFT={
   {k:'Paddle & safety',x:72,y:30,items:['kpad','vest','maxc'],note:'Paddle, vest, dry case.'},
   {k:'Diving & snorkelling',x:62,y:70,items:['beu'],note:'Beuchat masks, fins and snorkels.'}]}};
 let craft='boat',area=null;
+function setCraftByName(c){go('explore');const el=[...document.querySelectorAll('.seg div')][c==='boat'?0:c==='jetski'?1:2];setCraft(c,el)}
 function setCraft(c,el){craft=c;area=null;document.querySelectorAll('.seg div').forEach(d=>d.classList.remove('on'));el.classList.add('on');renderStage()}
 function renderStage(){const c=CRAFT[craft];document.getElementById('craftname').textContent=c.name;
  document.getElementById('stage').innerHTML=`<img src="${c.img}" alt="">`+c.areas.map((a,i)=>`<i class="hs ${area===i?'on':''}" style="left:${a.x}%;top:${a.y}%" onclick="pick(${i})"></i>`).join('');
  document.getElementById('areas').innerHTML=c.areas.map((a,i)=>`<span class="${area===i?'on':''}" onclick="pick(${i})">${a.k}</span>`).join('');renderPanel()}
-function pick(i){area=i;renderStage();document.getElementById('panel').scrollIntoView({behavior:'smooth',block:'start'})}
+function pick(i){area=i;renderStage();if(!FAST&&!document.body.classList.contains('desk'))document.getElementById('panel').scrollIntoView({behavior:'smooth',block:'start'})}
 function renderPanel(){const el=document.getElementById('panel');if(!el)return;if(area===null){return}const a=CRAFT[craft].areas[area];
  el.innerHTML=`<div class="row" style="margin:4px 0 8px"><div style="flex:1"><b>${a.k}</b><div class="xs mut">${a.note}</div></div><button class="btn s o" onclick="go('ask')">Ask</button></div>`+a.items.map(id=>prodHTML(id)).join('')}
 
@@ -547,6 +653,49 @@ document.querySelectorAll('#s-build .opts').forEach(g=>g.addEventListener('click
  const eng=document.querySelector('#b-eng .on').textContent,col=['white','black','sand','navy'][[...document.querySelectorAll('#b-col span')].findIndex(s=>s.classList.contains('on'))],el=document.querySelector('#b-el .on').textContent,se=document.querySelector('#b-seat .on').textContent.toLowerCase(),ex=[...document.querySelectorAll('#b-ex .on')].length;
  document.getElementById('b-sum').textContent=`${eng.replace('Mercury ','')} · ${col} · ${el.replace('Lowrance ','')} · ${se}${ex?' · '+ex+' extra'+(ex>1?'s':''):''}`}));
 
+
+/* ---------- staff: manager assignment + technician ---------- */
+const TECHS=[{n:'Rashid',role:'Supervisor · rigging & installation',skills:['assembly','install','service']},{n:'Ahmed',role:'Technician · diagnostics & installation',skills:['diag','install','service']},{n:'Jomon',role:'Technician · service',skills:['service','diag']}];
+const SLOTS=['09–11','11–13','14–16','16–18'];
+let JB=[
+ {id:'BT-2047',boat:'Bayliner VR6 · twin Mercury 150',cust:'Al Mazrouei',type:'Boat assembly & rigging',k:'assembly',status:'new',tech:null,slot:null,parts:'Rigging kit reserved from order DM-10490',promised:'Handover Sat 31 Oct',link:'Order DM-10490',hrs:'6 h'},
+ {id:'BT-2045',boat:'Navan S30 · Mercury 300 V8',cust:'K. Al Hammadi',type:'Engine installation',k:'install',status:'new',tech:null,slot:null,parts:'Engine + controls reserved from order DM-10482',promised:'Collect Thu 29 Oct',link:'Order DM-10482',hrs:'4 h'},
+ {id:'BT-2044',boat:'Whaly 435 · Mercury 60',cust:'Fisherman co-op',type:'Periodic service',k:'service',status:'new',tech:null,slot:null,parts:'100-hour kit in store',promised:'Today 16:00',link:'Booked online',hrs:'2 h'},
+ {id:'BT-2043',boat:'SeaStorm 5 · Mercury 40',cust:'R. Fernandes',type:'Diagnosis & repair',k:'diag',status:'diag',tech:'Ahmed',slot:0,parts:'Starter motor · transfer from ICAD tomorrow',promised:'Quote after diagnosis',link:'Walk-in',hrs:'—'},
+ {id:'BT-2041',boat:'Bayliner VR5 · Mercury 150',cust:'You (demo)',type:'Periodic service',k:'service',status:'appr',tech:'Rashid',slot:2,parts:'Impeller kit in store',promised:'Today 16:00',link:'Booked online',hrs:'2 h'},
+ {id:'BT-2039',boat:'Taiga Orca',cust:'S. Al Ketbi',type:'Diagnosis & repair',k:'diag',status:'appr',tech:'Jomon',slot:null,parts:'—',promised:'—',link:'WhatsApp',hrs:'1 h'},
+ {id:'BT-2038',boat:'Bayliner VR6 · twin Mercury 150',cust:'H. Al Marzooqi',type:'Boat assembly & rigging',k:'assembly',status:'prog',tech:'Rashid',slot:0,parts:'Rigging kit issued',promised:'Handover Wed 28 Oct',link:'Order DM-10471',hrs:'6 h'},
+ {id:'BT-2036',boat:'Mercury 60 (loose engine)',cust:'Marina tenant',type:'Diagnosis & repair',k:'diag',status:'prog',tech:'Jomon',slot:0,parts:'Lower unit seal kit issued',promised:'Thu',link:'Mangrove Marine',hrs:'3 h'},
+ {id:'BT-2035',boat:'Pelican Catch 110',cust:'M. Haddad',type:'Periodic service',k:'service',status:'ready',tech:'Jomon',slot:null,parts:'—',promised:'Collected 12:10',link:'App',hrs:'1 h'}];
+const KCOL={assembly:'rd',install:'bl',service:'ok',diag:'am'};
+const STAT={new:'To assign',asg:'Assigned',diag:'Diagnosing',appr:'Waiting approval',prog:'In progress',ready:'Ready'};
+let assignJob=null;
+function renderStaff(){
+ const open=JB.filter(j=>j.status!=='ready').length,toas=JB.filter(j=>j.status==='new'),appr=JB.filter(j=>j.status==='appr').length,wp=JB.filter(j=>/transfer|order/i.test(j.parts)&&j.status!=='ready').length;
+ document.getElementById('kpi').innerHTML=`<div><b>${open}</b><span>Open jobs</span></div><div><b>${toas.length}</b><span>To assign</span></div><div><b>${appr}</b><span>Waiting approval</span></div>`;
+ document.getElementById('toassign-n').textContent=toas.length;
+ document.getElementById('toassign').innerHTML=toas.length?toas.map(j=>`<div class="card" style="padding:10px 12px"><div class="row"><div style="flex:1;min-width:0"><b>${j.id} · ${j.boat}</b><div class="sm"><span class="chip ${KCOL[j.k]}">${j.type}</span> <span class="mut">${j.cust} · ${j.hrs}</span></div><div class="xs mut" style="margin-top:4px">${j.parts} · ${j.promised} · from ${j.link}</div></div><button class="btn s p" onclick="openAssign('${j.id}')">Assign</button></div></div>`).join(''):'<div class="card sm mut">Nothing waiting. Every job has a technician and a time.</div>';
+ const cols=[['new','Received · to assign'],['asg','Assigned'],['diag','Diagnosing'],['appr','Waiting approval'],['prog','In progress'],['ready','Ready']];
+ document.getElementById('board').innerHTML=cols.map(([k,t])=>`<div class="col"><h4>${t}</h4>${JB.filter(j=>j.status===k).map(j=>`<div class="jc ${k==='prog'||k==='diag'||k==='asg'?'i':k==='appr'?'w':k==='ready'?'r':''}" onclick="openJob('${j.id}')"><b>${j.id} · ${j.boat.split(' ·')[0]}</b>${j.type}${j.tech?' · '+j.tech:''}${j.slot!==null&&j.slot!==undefined?' · '+SLOTS[j.slot]:''}</div>`).join('')||'<div class="xs mut" style="padding:4px">—</div>'}</div>`).join('');
+ let sc='<div class="h"></div>'+SLOTS.map(x=>`<div class="h">${x}</div>`).join('');
+ TECHS.forEach(t=>{sc+=`<div class="h">${t.n}</div>`;SLOTS.forEach((x,i)=>{const j=JB.find(j=>j.tech===t.n&&j.status!=='ready'&&(j.slot===i||(j.slot!==null&&j.slot!==undefined&&i===j.slot+1&&/6 h|4 h|3 h/.test(j.hrs))));sc+=j?`<div class="${j.k==='assembly'||j.k==='install'?'j':j.status==='appr'?'j2':'j3'}">${j.id} ${j.type.split(' ')[0].toLowerCase()}</div>`:'<div></div>'})});
+ document.getElementById('sched').innerHTML=sc;
+ document.getElementById('partslist').innerHTML=JB.filter(j=>j.status!=='ready'&&j.parts!=='—').slice(0,5).map(j=>`<div class="row" style="margin-top:4px"><span style="flex:1">${j.parts} · ${j.id}</span><span class="chip ${/transfer|order/i.test(j.parts)&&!/reserved/i.test(j.parts)?'am':'ok'}">${/reserved/i.test(j.parts)?'Reserved from order':/transfer/i.test(j.parts)?'Transfer · tomorrow':'In store'}</span></div>`).join('')}
+function openAssign(id){assignJob=JB.find(j=>j.id===id);const s=document.getElementById('sheet');let pick={t:null,sl:null};
+ const draw=()=>{s.innerHTML=`<div class="handle"></div><b style="font-size:16px">Assign ${assignJob.id}</b><div class="sm mut">${assignJob.boat} · <span class="chip ${KCOL[assignJob.k]}">${assignJob.type}</span> · ${assignJob.hrs}</div><div class="xs mut" style="margin:4px 0 10px">${assignJob.parts} · ${assignJob.promised}</div>
+ <h3 style="font-size:13px;margin-bottom:6px">Technician</h3>${TECHS.map(t=>{const load=JB.filter(j=>j.tech===t.n&&j.status!=='ready').length;const fit=t.skills.includes(assignJob.k);return `<div class="opt ${pick.t===t.n?'on':''}" onclick="window._pk('t','${t.n}')"><div class="ck"></div><div style="flex:1"><b>${t.n}</b><div class="xs mut">${t.role} · ${load} job${load===1?'':'s'} today${fit?'':' · <span style=\'color:var(--amber)\'>not trained for this job</span>'}</div></div></div>`}).join('')}
+ <h3 style="font-size:13px;margin:10px 0 6px">Time</h3><div class="slots" style="grid-template-columns:repeat(4,1fr)">${SLOTS.map((x,i)=>{const busy=pick.t&&JB.some(j=>j.tech===pick.t&&j.status!=='ready'&&j.slot===i);return `<div class="${pick.sl===i?'on':''} ${busy?'x':''}" onclick="${busy?'':`window._pk('sl',${i})`}">${x}</div>`}).join('')}</div>
+ <div class="row" style="margin-top:12px"><button class="btn w o" onclick="closeSheet()">Cancel</button><button class="btn w p" onclick="window._doAssign()">Assign & notify</button></div><p class="xs mut" style="text-align:center;margin-top:8px">The technician gets the job card on WhatsApp and in the technician view.</p>`};
+ window._pk=(k,v)=>{pick[k]=v;draw()};window._doAssign=()=>{if(!pick.t||pick.sl===null){toast('Choose a technician and a time');return}assignJob.tech=pick.t;assignJob.slot=pick.sl;assignJob.status='asg';closeSheet();renderStaff();toast(`${assignJob.id} assigned to ${pick.t} · ${SLOTS[pick.sl]} · WhatsApp sent`)};
+ draw();s.classList.add('on');document.getElementById('dim').classList.add('on')}
+function openJob(id){const j=JB.find(x=>x.id===id);const s=document.getElementById('sheet');s.innerHTML=`<div class="handle"></div><b style="font-size:16px">${j.id} · ${j.boat}</b><div class="sm"><span class="chip ${KCOL[j.k]}">${j.type}</span> <span class="chip gr">${STAT[j.status]}</span></div><div class="field"><span>Customer</span><b>${j.cust}</b><em></em></div><div class="field"><span>From</span><b>${j.link}</b><em></em></div><div class="field"><span>Technician</span><b>${j.tech||'—'}${j.slot!==null&&j.slot!==undefined?' · '+SLOTS[j.slot]:''}</b><em></em></div><div class="field"><span>Parts</span><b>${j.parts}</b><em></em></div><div class="field"><span>Promise</span><b>${j.promised}</b><em></em></div><div class="row" style="margin-top:12px">${j.status==='new'?`<button class="btn w p" onclick="closeSheet();openAssign('${j.id}')">Assign</button>`:`<button class="btn w o" onclick="closeSheet();openAssign('${j.id}')">Reassign</button>`}<button class="btn w k" onclick="closeSheet();toast('Job card opened on the technician\'s phone')">Open job card</button></div>`;s.classList.add('on');document.getElementById('dim').classList.add('on')}
+const CHK={assembly:['Engine mounted and torqued','Steering and controls fitted','Electronics and battery wired','Fuel and cooling checked','Pre-delivery test run','Handover photos'],install:['Old unit removed / mount prepared','Engine fitted and torqued','Controls and rigging connected','Start-up and test run','Serial recorded for warranty'],service:['Oil and filter','Gear oil','Impeller / water pump','Spark plugs','Anodes and prop','Test run'],diag:['Customer complaint confirmed','Fault found and photographed','Quote sent for approval','Approved work done','Test run']};
+let TSTATE={};
+function renderTech(){const mine=JB.filter(j=>(j.tech==='Ahmed')&&j.status!=='ready');document.getElementById('techjobs').innerHTML=mine.length?mine.map(j=>{const st=TSTATE[j.id]||{started:false,done:[]};const list=CHK[j.k];return `<div class="card"><div class="row"><div style="flex:1"><b>${j.id} · ${j.boat}</b><div class="sm"><span class="chip ${KCOL[j.k]}">${j.type}</span> <span class="mut">${j.slot!==null&&j.slot!==undefined?SLOTS[j.slot]:''} · ${j.cust}</span></div></div><span class="chip ${st.started?'bl':'gr'}">${st.started?'In progress · '+st.done.length+'/'+list.length:'Assigned'}</span></div><div class="xs mut" style="margin:6px 0">${j.parts} · ${j.promised}</div>${st.started?`<div style="margin:8px 0">${list.map((c,i)=>`<div class="check" style="font-size:12.5px;padding:7px 0;cursor:pointer" onclick="window._tick('${j.id}',${i})"><span style="width:16px;height:16px;border-radius:5px;border:2px solid ${st.done.includes(i)?'var(--ok)':'#C9CBD1'};background:${st.done.includes(i)?'var(--ok)':'#fff'};flex-shrink:0;margin-top:2px"></span>${c}</div>`).join('')}</div><div class="row"><button class="btn s o" onclick="toast('Photo added to the job')">Add photo</button><button class="btn s o" onclick="toast('Part request sent to the store')">Request part</button>${st.done.length===list.length?`<button class="btn s p" onclick="window._complete('${j.id}')">Complete · test run done</button>`:''}</div>`:`<div class="row"><button class="btn s p" onclick="window._start('${j.id}')">Start job</button><button class="btn s o" onclick="toast('Customer told: work starts now')">Message customer</button></div>`}</div>`}).join(''):'<div class="card sm mut">No jobs assigned to you today.</div>'}
+window._start=id=>{TSTATE[id]={started:true,done:[]};const j=JB.find(x=>x.id===id);if(j.status==='asg')j.status='prog';renderTech();toast('Started · time is being recorded')};
+window._tick=(id,i)=>{const st=TSTATE[id];st.done=st.done.includes(i)?st.done.filter(x=>x!==i):[...st.done,i];renderTech()};
+window._complete=id=>{const j=JB.find(x=>x.id===id);j.status='ready';renderTech();toast(`${id} ready · customer messaged on WhatsApp`)};
+
 /* ---------- sheets, toasts, nav ---------- */
 function openSheet(kind,o){const s=document.getElementById('sheet');if(kind==='pay')s.innerHTML=`<div class="handle"></div><b style="font-size:16px">${o.title}</b><div class="sum" style="margin-top:8px"><span class="mut">${o.sub}</span></div><div class="sum t"><span>To pay now</span><span>${o.amount}</span></div><button class="btn w k" style="margin-top:12px;font-size:15px" onclick="paid('${o.amount}')"> Pay</button><button class="btn w o" style="margin-top:8px" onclick="paid('${o.amount}')">Pay by card</button><p class="xs mut" style="text-align:center;margin-top:10px">Secured by the payment gateway · tax invoice emailed · nothing is charged in this prototype</p>`;
  if(kind==='mine')s.innerHTML=`<div class="handle"></div><b style="font-size:16px">Make it mine</b><p class="sm mut">Pick your exact boat and the explorer shows only what fits.</p>${[['Bayliner VR5 · Mercury 150','From My Delma'],['Navan S30 · twin Mercury 300','From My Delma'],['Enter a model or engine serial','Or scan the engine plate']].map(o=>`<div class="opt" onclick="closeSheet();toast('Showing parts that fit the ${o[0].split(' ·')[0]}')"><div class="ck"></div><div><b>${o[0]}</b><div class="xs mut">${o[1]}</div></div></div>`).join('')}`;
@@ -556,7 +705,7 @@ function paid(a){document.getElementById('sheet').innerHTML=`<div class="handle"
 let tt;function toast(t){if(FAST)return;const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
 function showPush(){const p=document.getElementById('push');p.classList.add('on');if(!FAST)setTimeout(()=>p.classList.remove('on'),4000)}
 function go(s){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('on');document.querySelectorAll('.nav div,.hnav span').forEach(d=>d.classList.toggle('on',d.dataset.s===s));document.getElementById('view').scrollTop=0;closeSheet();
- if(s==='explore')renderStage();if(s==='ask')startChat();if(s==='basket')renderBasket();if(s==='book')renderBook();if(location.hash!=='#'+s)history.replaceState(null,'','#'+s)}
+ if(s==='explore')renderStage();if(s==='ask')startChat();if(s==='basket')renderBasket();if(s==='book')renderBook();if(s==='staff')renderStaff();if(s==='tech')renderTech();if(location.hash!=='#'+s)history.replaceState(null,'','#'+s)}
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(document.getElementById('s-'+h))go(h)});
 function setView(v){document.body.classList.toggle('desk',v==='web');document.getElementById('vtog').textContent=v==='web'?'App view':'Website view';try{localStorage.setItem('dm-view',v)}catch(e){}}
 function toggleView(){setView(document.body.classList.contains('desk')?'app':'web')}
