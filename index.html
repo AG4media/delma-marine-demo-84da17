@@ -681,6 +681,28 @@ body.desk .awards{gap:28px;margin-top:40px}
 body.desk .awards img{height:170px}
 body.desk .awards p{font-size:15px;max-width:420px}
 body.desk .chap.st{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;padding:90px 64px}
+/* story: labels, switcher, drawer */
+.story .hs{width:30px;height:30px;margin:-15px 0 0 -15px}
+.story .hs .hl{position:absolute;left:38px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(11,13,18,.7);backdrop-filter:blur(6px);padding:5px 9px;border-radius:999px;opacity:0;transition:.25s;pointer-events:none;font-weight:600}
+.story .hs:hover .hl,.story .hs.on .hl{opacity:1}
+.story .hs.r .hl{left:auto;right:38px}
+.sw2{position:absolute;right:18px;top:16px;z-index:4;display:flex;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:3px}
+.sw2 span{padding:7px 12px;border-radius:999px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);cursor:pointer;font-weight:600}
+.sw2 span.on{background:#fff;color:var(--ink)}
+.story .hint{position:absolute;left:50%;transform:translateX(-50%);top:62px;z-index:3;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+body.desk .sw2{right:64px;top:36px}
+body.desk .sw2 span{padding:9px 16px;font-size:11.5px}
+body.desk .story .hint{top:auto;bottom:40px;left:auto;right:64px;transform:none}
+body.desk .story .hs{width:36px;height:36px;margin:-18px 0 0 -18px}
+body.desk .story .hs::after{line-height:33px;font-size:20px}
+body.desk .story .hs .hl{font-size:12px;left:46px}
+body.desk .story .hs.r .hl{left:auto;right:46px}
+body.desk .sheet.drawer{left:auto;right:28px;top:90px;bottom:28px;width:460px;max-height:none;transform:translateX(120%);border-radius:26px;padding:18px 20px 26px}
+body.desk .sheet.drawer.on{transform:none}
+/* staff entry */
+.staffbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--ink2);cursor:pointer;background:#fff;white-space:nowrap}
+.staffbtn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+body.desk.over .staffbtn{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.35)}
 /* reduced motion */
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .hnav{display:none}
@@ -702,7 +724,7 @@ body.desk .chap.st{display:grid;grid-template-columns:1fr 1fr;align-items:center
 <div class="top">
   <img src="assets/logo.png" alt="Delma Marine">
   <span class="pill" id="regionpill" onclick="toggleRegion()">📍 Abu Dhabi · AED</span>
-  <div class="hnav" id="hnav"><span data-s="home" onclick="go('home')">Home</span><span data-s="shop" onclick="go('shop')">Shop</span><span data-s="explore" onclick="go('explore')">Explore your boat</span><span data-s="ask" class="ai" onclick="go('ask')"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg>Ask Delma AI</span><span data-s="book" onclick="go('book')">Book a service</span><span data-s="mydelma" onclick="go('mydelma')">My Delma</span><span data-s="staff" onclick="go('staff')" style="margin-left:14px;color:var(--mut)">Staff</span></div><span class="sp"></span><span class="sample">Sample data</span><button class="btn s o viewtog" onclick="toggleView()" id="vtog">App view</button><div class="ico viewtog" id="fsbtn" onclick="toggleFS()" title="Full screen (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></div>
+  <div class="hnav" id="hnav"><span data-s="home" onclick="go('home')">Home</span><span data-s="shop" onclick="go('shop')">Shop</span><span data-s="explore" onclick="go('explore')">Explore your boat</span><span data-s="ask" class="ai" onclick="go('ask')"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg>Ask Delma AI</span><span data-s="book" onclick="go('book')">Book a service</span><span data-s="mydelma" onclick="go('mydelma')">My Delma</span></div><span class="sp"></span><span class="sample">Sample data</span><span class="staffbtn" onclick="go('staff')" title="Staff: manager and technician views"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2M3 12h18"/></svg>Staff</span><button class="btn s o viewtog" onclick="toggleView()" id="vtog">App view</button><div class="ico viewtog" id="fsbtn" onclick="toggleFS()" title="Full screen (F)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></div>
   <div class="ico" onclick="go('offers')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg><i class="dot"></i></div>
   <div class="ico" onclick="go('basket')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6h15l-1.5 9h-12zM6 6L5 3H2M9 20a1 1 0 100-2 1 1 0 000 2zM18 20a1 1 0 100-2 1 1 0 000 2z"/></svg><i class="dot" id="bdot" style="display:none"></i></div>
 </div>
@@ -728,7 +750,7 @@ body.desk .chap.st{display:grid;grid-template-columns:1fr 1fr;align-items:center
   <section class="chap craft-ch"><div class="bg" style="background-image:url(assets/photos/dark-yacht.jpg);opacity:.55"></div><div class="sh"></div>
     <div class="idx">01 · FIND YOUR CRAFT</div><h2>Built for how<br>you'll use it.</h2><div class="hair"></div><p>Day boats, electric watercraft, unsinkable workboats, kayaks, eFoils. Each one chosen for the Gulf, fitted and supported by Delma.</p>
     <div class="craft-row">
-      <div class="cr" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/dark-yacht.jpg)"></div><div class="num">01</div><div class="cut" style="background-image:url(assets/navan.png)"></div><div class="t"><span>Day boats · cruisers</span><b>Navan · Bayliner</b><i>6 to 10 m · Mercury power</i></div></div>
+      <div class="cr" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/nv-s30-running.jpg)"></div><div class="num">01</div><div class="cut" style="background-image:url(assets/navan.png)"></div><div class="t"><span>Day boats · cruisers</span><b>Navan · Bayliner</b><i>6 to 10 m · Mercury power</i></div></div>
       <div class="cr" onclick="setCraftByName('jetski')"><div class="bg" style="background-image:url(assets/photos/jetski.jpg)"></div><div class="num">02</div><div class="cut" style="background-image:url(assets/taiga.png)"></div><div class="t"><span>Electric watercraft</span><b>Taiga · iWave</b><i>Silent · no fuel · instant torque</i></div></div>
       <div class="cr" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/choppy.jpg)"></div><div class="num">03</div><div class="cut" style="background-image:url(assets/whaly.png)"></div><div class="t"><span>Polyethylene boats</span><b>Whaly · SeaStorm</b><i>Unsinkable · zero maintenance</i></div></div>
       <div class="cr" onclick="setCraftByName('kayak')"><div class="bg" style="background-image:url(assets/photos/aerial-wake.jpg)"></div><div class="num">04</div><div class="cut" style="background-image:url(assets/kayak.png)"></div><div class="t"><span>Paddle · fish</span><b>Pelican · Wilderness</b><i>Stable fishing kayaks</i></div></div>
@@ -738,7 +760,7 @@ body.desk .chap.st{display:grid;grid-template-columns:1fr 1fr;align-items:center
 
   <!-- 02 story (pinned) -->
   <section class="story" id="story">
-    <div class="pin"><div class="glow"></div><div class="idx2">02 · EXPLORE YOUR BOAT</div>
+    <div class="pin"><div class="glow"></div><div class="idx2">02 · EXPLORE YOUR BOAT</div><div class="sw2" id="story-sw"><span data-c="boat" class="on" onclick="storySwitch('boat')">Boat</span><span data-c="jetski" onclick="storySwitch('jetski')">Jet ski</span><span data-c="kayak" onclick="storySwitch('kayak')">Kayak</span></div><div class="hint">Tap a point to see what fits there</div>
       <div class="stage" id="story-stage"></div>
       <div class="cap" id="story-cap"><div class="k"></div><h3></h3><p></p></div>
       <div class="dots" id="story-dots"><i class="on"></i><i></i><i></i><i></i></div>
@@ -756,7 +778,7 @@ body.desk .chap.st{display:grid;grid-template-columns:1fr 1fr;align-items:center
   <section class="chap lt" data-n="03" style="justify-content:flex-start;padding-top:34px"><div class="idx">03 · WHAT DO YOU WANT TO DO?</div><h2>Start with the day<br>you have in mind.</h2><div class="hair"></div><p>Tell us the day. We put together the boat, the engine and everything that goes with it.</p>
     <div class="mosaic">
       <div class="mo tall" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/hero-race.jpg)"></div><span>Offshore</span><b>Fishing</b></div>
-      <div class="mo" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/aerial-bow.jpg)"></div><span>Sunday</span><b>Family day out</b></div>
+      <div class="mo" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/nv-drone.jpg)"></div><span>Sunday</span><b>Family day out</b></div>
       <div class="mo" onclick="setCraftByName('jetski')"><div class="bg" style="background-image:url(assets/photos/jetski-sunset.jpg)"></div><span>Tow &amp; ride</span><b>Watersports</b></div>
       <div class="mo" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/diver.jpg)"></div><span>Below</span><b>Diving</b></div>
       <div class="mo" onclick="setCraftByName('kayak')"><div class="bg" style="background-image:url(assets/photos/aerial-wake.jpg)"></div><span>Quiet water</span><b>Kayaking</b></div>
@@ -1076,7 +1098,7 @@ function renderRail(target){const el=target||document.getElementById('rail');con
  <h4>Price</h4>${[['any','Any'],['0-500','Under 500'],['500-5000','500 – 5,000'],['5000-50000','5,000 – 50,000'],['50000-','50,000 and above']].map(([v,l])=>`<label><input type="radio" name="pr" ${F.price===v?'checked':''} onchange="F.price='${v}';renderShop()">${l}</label>`).join('')}
  <h4>Brand</h4><div style="max-height:220px;overflow:auto">${brands.map(b=>`<label><input type="checkbox" ${F.brand.has(b)?'checked':''} onchange="tog('brand','${b.replace(/'/g,"\\'")}')">${b}</label>`).join('')}</div>`}
 function tog(k,v){F[k].has(v)?F[k].delete(v):F[k].add(v);renderShop()}
-const CIMG={'Boats':'assets/photos/hero-race.jpg','Watercraft':'assets/photos/jetski.jpg','Kayaks':'assets/photos/aerial-wake.jpg','Engines':'assets/photos/choppy.jpg','Electronics':'assets/photos/helm.jpg','Fishing':'assets/photos/dark-yacht.jpg','Diving':'assets/photos/diver.jpg','Watersports':'assets/photos/jetski-sunset.jpg','Lighting':'assets/photos/marina-sunset.jpg','Service & care':'assets/workshop.jpg'};
+const CIMG={'Boats':'assets/photos/nv-s30-running.jpg','Watercraft':'assets/photos/jetski.jpg','Kayaks':'assets/photos/aerial-wake.jpg','Engines':'assets/photos/choppy.jpg','Electronics':'assets/photos/helm.jpg','Fishing':'assets/photos/dark-yacht.jpg','Diving':'assets/photos/diver.jpg','Watersports':'assets/photos/jetski-sunset.jpg','Lighting':'assets/photos/marina-sunset.jpg','Service & care':'assets/workshop.jpg'};
 function renderStrip(){const el=document.getElementById('cstrip');if(!el)return;el.innerHTML=Object.keys(CIMG).map(c=>`<div class="ct ${F.cat.has(c)?'on':''}" onclick="F.cat.clear();${F.cat.has(c)?'':`F.cat.add('${c}')`};renderShop()"><div class="bg" style="background-image:url(${CIMG[c]})"></div><b>${c}</b></div>`).join('')}
 function renderShop(){renderStrip();const ids=shopItems();const gc=document.getElementById('galcount');if(gc)gc.textContent=Object.keys(CATS).length;document.getElementById('shopcnt').textContent=ids.length+' of '+Object.keys(CATS).length+' items';
  const chips=[...F.cat].map(c=>`<span onclick="tog('cat','${c}')">${c}</span>`).concat([...F.brand].map(b=>`<span onclick="tog('brand','${b.replace(/'/g,"\\'")}')">${b}</span>`)).concat(F.fits?['<span onclick="F.fits=false;renderShop()">Fits my boat</span>']:[]).concat(F.avail!=='any'?[`<span onclick="F.avail='any';renderShop()">${F.avail==='here'?'In stock at my branch':'In stock at any branch'}</span>`]:[]).concat(F.price!=='any'?[`<span onclick="F.price='any';renderShop()">Price ${F.price.replace('-',' – ')}</span>`]:[]);
@@ -1085,13 +1107,28 @@ function renderShop(){renderStrip();const ids=shopItems();const gc=document.getE
  renderRail();const sr=document.getElementById('sheetrail');if(sr)renderRail(sr)}
 function quickView(id){const p=P[id],a=avail(id);const s=document.getElementById('sheet');s.innerHTML=`<div class="handle"></div><div class="pim" style="height:180px;border-radius:16px;display:grid;place-items:center;background:${WIDE.has(id)?'radial-gradient(120% 90% at 70% 30%,#1F2633,#0B0D12)':'linear-gradient(160deg,#F7F5EF,#E6E2D8)'};margin-bottom:12px;overflow:hidden">${IMG[id]?`<img src="${IMG[id]}" style="width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 16px 20px rgba(0,0,0,.25))">`:`<span class="serif" style="font-size:22px;color:var(--mut)">${brandOf(id)}</span>`}</div><div class="xs" style="letter-spacing:.14em;text-transform:uppercase;color:var(--mut)">${brandOf(id)} · ${CATS[id]}</div><b class="serif" style="font-size:22px;display:block;margin:2px 0">${p.n}</b><div class="sm mut">${p.br}</div><div class="serif" style="font-size:24px;font-weight:700;margin:8px 0 2px">${p.mode==='shown'?fmt(p.p):'Price on request'}</div><div class="av ${a.c}">${a.t}</div><div class="row" style="margin-top:14px">${p.mode==='request'?`<button class="btn w o" onclick="closeSheet();toast('Quote request sent · Delma replies within an hour')">Request price</button><button class="btn w k" onclick="closeSheet();go('build')">Build it</button>`:`<button class="btn w p" onclick="addToBasket('${id}');closeSheet()">Add to basket</button><button class="btn w o" onclick="closeSheet();go('ask')">Ask Delma AI</button>`}</div>`;s.classList.add('on');document.getElementById('dim').classList.add('on')}
 /* pinned story */
-const STEPS=[
- {k:'01 · Engine & propulsion',h:'Twin Mercury 300 V8 Verado.',p:'Propellers, controls, oils and service kits, matched to the engine on your transom.',hs:0,tf:'translate(8%,2%) scale(1.12)'},
- {k:'02 · Helm & electronics',h:'See more. Hear more.',p:'Lowrance sonar and charts, Omnisense night vision, Kicker audio. Mounted by the people who wire it.',hs:1,tf:'translate(-2%,6%) scale(1.18)'},
- {k:'03 · Deck & comfort',h:'Room for everyone.',p:'Comfort Seat, E-SeaRider bean bags, Borika rod holders, rods and tackle, dry cases.',hs:3,tf:'translate(4%,-2%) scale(1.06)'},
- {k:'04 · Looked after',h:'Fitted, serviced, followed live.',p:'Installation and service at four Delma workshops. Watch every job in My Delma, approve extra work in one tap.',hs:8,tf:'translate(0,0) scale(1)'}];
+const STEPSBY={
+ boat:[
+  {k:'01 · Engine & propulsion',h:'Mercury 300 V8 Verado.',p:'Propellers, controls, oils and service kits, matched to the engine on your transom.',hs:0,tf:'translate(-14%,2%) scale(1.16)'},
+  {k:'02 · Helm & electronics',h:'See more. Hear more.',p:'Lowrance sonar and charts, Omnisense night vision, Kicker audio. Mounted by the people who wire it.',hs:1,tf:'translate(6%,10%) scale(1.22)'},
+  {k:'03 · Deck & fishing',h:'Room for everyone, and the rods.',p:'Comfort Seat, E-SeaRider bean bags, Borika rod holders, rods, reels and tackle, dry cases.',hs:4,tf:'translate(-8%,4%) scale(1.12)'},
+  {k:'04 · Looked after',h:'Fitted, serviced, followed live.',p:'Installation and service at four Delma workshops. Watch every job in My Delma, approve extra work in one tap.',hs:9,tf:'translate(0,0) scale(1)'}],
+ jetski:[
+  {k:'01 · Handlebars & display',h:'Everything at your thumbs.',p:'Kicker audio and a dry case for the phone, fitted to the Orca.',hs:0,tf:'translate(2%,6%) scale(1.15)'},
+  {k:'02 · Seat & cover',h:'Ready for the sun.',p:'Taiga cover and Comfort Seat, so it looks new every weekend.',hs:1,tf:'translate(-6%,2%) scale(1.1)'},
+  {k:'03 · Safety & towing',h:'Bring the family.',p:'Connelly vests, tubes and tow ropes.',hs:4,tf:'translate(8%,0) scale(1.08)'},
+  {k:'04 · Charging & service',h:'Silent, electric, looked after.',p:'Fast charger on request; maintenance plans and service at a Delma workshop.',hs:3,tf:'translate(0,0) scale(1)'}],
+ kayak:[
+  {k:'01 · Seat & mounts',h:'Sit higher, cast further.',p:'Phase seat upgrade and Borika mounts on the Pelican Catch 110.',hs:0,tf:'translate(0,6%) scale(1.15)'},
+  {k:'02 · Electronics',h:'Find the fish.',p:'A Lowrance HOOK Reveal sized for a kayak, with the mount.',hs:1,tf:'translate(6%,2%) scale(1.1)'},
+  {k:'03 · Paddle & safety',h:'Everything else you need.',p:'Pelican paddle, Connelly vest, MAX dry case.',hs:2,tf:'translate(-6%,0) scale(1.08)'},
+  {k:'04 · Diving & snorkelling',h:'And below the surface.',p:'Beuchat masks, fins and snorkels from the Umm Al Nar showroom.',hs:3,tf:'translate(0,0) scale(1)'}]};
+let storyCraft='boat';
+let STEPS=STEPSBY.boat;
 let storyI=-1;
-function buildStory(){const st=document.getElementById('story-stage');if(!st||st.children.length)return;st.innerHTML=`<div class="floor"></div><img src="assets/navan.png" alt="">`+CRAFT.boat.areas.map((a,i)=>`<i class="hs" data-i="${i}" style="left:${a.x}%;top:${a.y}%" onclick="go('explore');pick(${i})"></i>`).join('');setStory(0,true)}
+function buildStory(force){const st=document.getElementById('story-stage');if(!st||(st.children.length&&!force))return;const c=CRAFT[storyCraft];st.innerHTML=`<div class="floor"></div><img src="${c.img}" alt="">`+c.areas.map((a,i)=>`<i class="hs ${a.x>60?'r':''}" data-i="${i}" style="left:${a.x}%;top:${a.y}%" onclick="event.stopPropagation();openArea('${storyCraft}',${i})"><span class="hl">${a.k}</span></i>`).join('');document.querySelectorAll('#story-sw span').forEach(e=>e.classList.toggle('on',e.dataset.c===storyCraft));storyI=-1;setStory(0,true)}
+function storySwitch(c){storyCraft=c;STEPS=STEPSBY[c];buildStory(true)}
+function openArea(c,i){const a=CRAFT[c].areas[i];const sh=document.getElementById('sheet');sh.classList.add('drawer');sh.innerHTML=`<div class="handle"></div><div class="eyebrow">${CRAFT[c].name}</div><b class="serif" style="font-size:24px;display:block;margin:2px 0 2px">${a.k}</b><div class="sm mut" style="margin-bottom:10px">${a.note}</div>`+a.items.map(id=>prodHTML(id)).join('')+`<div class="row" style="margin-top:10px"><button class="btn w k" onclick="closeSheet();craft='${c}';area=${i};go('explore');renderStage()">Open in the explorer</button><button class="btn w o" onclick="closeSheet();go('ask')">Ask Delma AI</button></div>`;sh.classList.add('on');document.getElementById('dim').classList.add('on')}
 function setStory(i,now){if(i===storyI)return;storyI=i;const S=STEPS[i],cap=document.getElementById('story-cap');const apply=()=>{cap.querySelector('.k').textContent=S.k;cap.querySelector('h3').textContent=S.h;cap.querySelector('p').textContent=S.p;cap.classList.remove('sw')};
  if(now||FAST){apply()}else{cap.classList.add('sw');setTimeout(apply,380)}
  document.getElementById('story-stage').style.transform=S.tf;
@@ -1112,15 +1149,16 @@ function reveal(){document.querySelectorAll('.scr.on .rv:not(.in)').forEach(el=>
 /* ---------- explorer ---------- */
 const CRAFT={
  boat:{name:'Navan S30 · twin Mercury 300',img:'assets/navan.png',areas:[
-  {k:'Engine & propulsion',x:14,y:52,items:['m300','prop','jack','steer','oil','inst'],note:'Twin 300 V8 Verado fitted. Everything here fits the S30 rigging.'},
-  {k:'Helm & electronics',x:47,y:41,items:['hds','fs9','omni','radar','seav','kick'],note:'Lowrance, Omnisense and Kicker, with Seaview mounts for the T-top.'},
-  {k:'T-top & lighting',x:44,y:28,items:['hel1','hel2','hel3','seav'],note:'Hella Marine LED: flood, navigation and underwater.'},
-  {k:'Deck & seating',x:31,y:45,items:['bor','rod','tackle','cseat','bean','maxc'],note:'Rod holders, rods and tackle, comfort on board, dry storage.'},
-  {k:'Bow · mooring',x:84,y:41,items:['rope','fend','fcov'],note:'Marlow ropes, Polyform fenders, Fendequip covers.'},
-  {k:'Hull & bottom',x:60,y:66,items:['micron','awl','clean'],note:'Antifouling and topside paint; cleaning kit.'},
-  {k:'Galley & comfort',x:68,y:48,items:['vit','vitp'],note:'Vitrifrigo cooling for the console galley.'},
-  {k:'Towing & fun',x:25,y:60,items:['tube','trope','ski','vest'],note:'Connelly water toys and vests for the family.'},
-  {k:'Service & care',x:90,y:50,items:['plan','kit','inst'],note:'Keep it covered: plan, service kits, installation at a Delma workshop.'}]},
+  {k:'Engine & propulsion',x:94,y:46,items:['m300','prop','jack','steer','oil','inst'],note:'Mercury 300 V8 Verado fitted. Everything here fits the S30 rigging.'},
+  {k:'Helm & electronics',x:45,y:33,items:['hds','fs9','omni','radar','seav','kick'],note:'Lowrance, Omnisense and Kicker, with Seaview mounts for the T-top.'},
+  {k:'T-top & lighting',x:56,y:6,items:['hel1','hel2','hel3','seav'],note:'Hella Marine LED: flood, navigation and underwater.'},
+  {k:'Deck & seating',x:67,y:37,items:['cseat','bean','maxc'],note:'Comfort on board and dry storage.'},
+  {k:'Fishing',x:84,y:46,items:['rod','tackle','bor','kff'],note:'Rods, reels, tackle and Borika rod holders, ready for the aft deck.'},
+  {k:'Bow · mooring',x:12,y:38,items:['rope','fend','fcov'],note:'Marlow ropes, Polyform fenders, Fendequip covers.'},
+  {k:'Hull & bottom',x:50,y:78,items:['micron','awl','clean'],note:'Antifouling and topside paint; cleaning kit.'},
+  {k:'Galley & comfort',x:36,y:50,items:['vit','vitp'],note:'Vitrifrigo cooling for the console galley.'},
+  {k:'Towing & fun',x:78,y:62,items:['tube','trope','ski','vest'],note:'Connelly water toys and vests for the family.'},
+  {k:'Service & care',x:97,y:86,items:['plan','kit','inst'],note:'Keep it covered: plan, service kits, installation at a Delma workshop.'}]},
  jetski:{name:'Taiga Orca · electric',img:'assets/taiga.png',areas:[
   {k:'Handlebars & display',x:44,y:27,items:['kick','maxc'],note:'Audio and a dry case for the phone.'},
   {k:'Seat & cover',x:62,y:40,items:['jcov','cseat'],note:'Taiga cover and seat comfort.'},
@@ -1287,7 +1325,7 @@ function openSheet(kind,o){const s=document.getElementById('sheet');if(kind==='p
  if(kind==='filters'){s.innerHTML='<div class="handle"></div><b style="font-size:16px">Filters</b><div class="rail" id="sheetrail" style="display:block;margin-top:8px"></div><button class="btn w k" style="margin-top:12px" onclick="closeSheet()">Show results</button>';renderRail(document.getElementById('sheetrail'))}
  if(kind==='mine')s.innerHTML=`<div class="handle"></div><b style="font-size:16px">Make it mine</b><p class="sm mut">Pick your exact boat and the explorer shows only what fits.</p>${[['Bayliner VR5 · Mercury 150','From My Delma'],['Navan S30 · twin Mercury 300','From My Delma'],['Enter a model or engine serial','Or scan the engine plate']].map(o=>`<div class="opt" onclick="closeSheet();toast('Showing parts that fit the ${o[0].split(' ·')[0]}')"><div class="ck"></div><div><b>${o[0]}</b><div class="xs mut">${o[1]}</div></div></div>`).join('')}`;
  s.classList.add('on');document.getElementById('dim').classList.add('on')}
-function closeSheet(){document.getElementById('sheet').classList.remove('on');document.getElementById('dim').classList.remove('on')}
+function closeSheet(){const sh=document.getElementById('sheet');sh.classList.remove('on');document.getElementById('dim').classList.remove('on');setTimeout(()=>sh.classList.remove('drawer'),350)}
 function paid(a){document.getElementById('sheet').innerHTML=`<div class="handle"></div><div style="text-align:center;padding:10px 0 4px"><div style="width:54px;height:54px;border-radius:50%;background:#E6F6EC;color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:26px">✓</div><b style="font-size:16px">Paid ${a}</b><p class="sm mut" style="margin:4px 0 12px">Order DM-10482 confirmed · tax invoice emailed · we'll message you on WhatsApp with every update.</p><button class="btn k" onclick="closeSheet();basket=[];document.getElementById('bdot').style.display='none';renderBasket();go('mydelma')">Track it in My Delma</button></div>`}
 let tt;function toast(t){if(FAST)return;const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
 function showPush(){const p=document.getElementById('push');p.classList.add('on');if(!FAST)setTimeout(()=>p.classList.remove('on'),4000)}

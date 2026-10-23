@@ -12,3 +12,7 @@
 - freediver.jpg: Zunnoon Ahmed · https://unsplash.com/photos/np5FePVgH7Q
 - helm.jpg: Titania Octaviani · https://unsplash.com/photos/7-0g1kM0jA0
 - choppy.jpg: Ruben Gruber · https://unsplash.com/photos/_YTZWbo9DiI
+
+# Manufacturer imagery (Delma is the authorised dealer)
+- assets/navan.png, navan-c30.png: Navan S30 / C30 studio renders, Brunswick / Navan Boats (navan-boats.com), used for the dealer prototype.
+- assets/photos/nv-*.jpg: Navan lifestyle photography from navan-boats.com (800 px captures; replace with the dealer media-kit originals before launch).
