@@ -34,7 +34,8 @@ body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#111216;col
 /* screens */
 #view{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;position:relative;scroll-behavior:smooth}
 .scr{display:none;padding:14px 14px 90px}
-#s-home{padding-top:10px}
+#s-home{padding-top:14px;padding-bottom:0}
+#s-home .wrap{padding-bottom:90px}
 .scr.on{display:block}
 h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:30px;font-weight:600;letter-spacing:-.01em;line-height:1.1}
 h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-weight:600;margin:22px 0 10px;line-height:1.1}
@@ -53,7 +54,7 @@ p{margin-bottom:8px}
 .chip.ok{background:#E4F3EA;color:var(--ok)}.chip.am{background:#FBF0DA;color:var(--amber)}.chip.bl{background:#E6ECFA;color:var(--blue)}.chip.gr{background:#ECEAE3;color:var(--mut)}.chip.rd{background:#FBEAE8;color:var(--red)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 /* hero */
-.hero{position:relative;border-radius:22px;overflow:hidden;min-height:520px;display:flex;flex-direction:column;padding:22px 18px 18px;color:#fff;margin-bottom:14px;background:#0B0D12}
+.hero{position:relative;border-radius:0;overflow:hidden;min-height:520px;display:flex;flex-direction:column;padding:22px 18px 18px;color:#fff;margin:-14px -14px 0;background:#0B0D12}
 .hero-copy{flex:1;display:flex;flex-direction:column;justify-content:center;position:relative}
 .hero .bg{position:absolute;inset:0;background:center/cover no-repeat;transform:scale(1.02)}
 .hero .sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.42) 0%,rgba(0,0,0,.08) 28%,rgba(0,0,0,.12) 55%,rgba(5,7,12,.82) 100%)}
@@ -228,10 +229,10 @@ p{margin-bottom:8px}
  body.desk .ph h1{font-size:48px}
  body.desk #s-home{padding-top:0}
  body.desk #s-home{max-width:none;padding:0}
- body.desk #s-home .wrap{max-width:1320px;margin:0 auto;padding:0 48px}
- body.desk .hero{height:100vh;min-height:640px;border-radius:0;margin:0 0 44px;padding:96px 64px 40px}
+ body.desk #s-home .wrap{max-width:none;margin:0;padding:0 48px}
+ body.desk .hero{height:100vh;min-height:640px;border-radius:0;margin:0;padding:96px 64px 40px}
  body.desk.over .aifab{display:none}
- body.desk .hero .bg{background-image:url(assets/photos/hero-aerial-4k.jpg)!important;background-position:center 45%}
+ body.desk .hero .bg[data-i="0"]{background-image:url(assets/photos/hero-aerial-4k.jpg)!important;background-position:center 45%}
  body.desk .hero h1{font-size:104px;max-width:1000px;margin:12px 0 18px}
  body.desk .hero p{font-size:19px;max-width:540px;margin-bottom:24px}
  body.desk.over .top{position:absolute;left:0;right:0;top:0;background:transparent;border-bottom:0;backdrop-filter:none}
@@ -428,6 +429,259 @@ body.desk .ogrid .card{margin:0}
 .sh-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:12px}
 .sh-head h1{font-size:30px}
 body.desk .sh-head h1{font-size:44px}
+/* ===== luxury layer ===== */
+/* entrance curtain */
+#curtain{position:absolute;inset:0;z-index:60;background:#0B0D12;display:grid;place-items:center;transition:opacity 1.1s ease 1.6s,visibility 0s 2.8s}
+#curtain.off{opacity:0;visibility:hidden}
+#curtain .mark{text-align:center;color:#fff;animation:markin 1.4s cubic-bezier(.2,.7,.2,1) both}
+#curtain .mark img{height:54px;filter:brightness(0) invert(1);opacity:.95}
+#curtain .mark .line{width:0;height:1px;background:var(--sand);margin:16px auto 12px;animation:linein 1.2s ease .5s forwards}
+#curtain .mark span{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,.8);letter-spacing:.02em;opacity:0;animation:fade 1s ease .9s forwards}
+@keyframes markin{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes linein{to{width:120px}}
+@keyframes fade{to{opacity:1}}
+/* hero: slow ken-burns, staggered copy */
+.hero .bg.sc{opacity:0;transition:opacity 1.8s ease;animation:kb 16s ease-in-out infinite alternate}
+.hero .bg.sc.on{opacity:1}
+.hprog{position:absolute;left:18px;top:14px;display:flex;gap:6px;z-index:3}
+.hprog i{width:26px;height:2px;background:rgba(255,255,255,.3);overflow:hidden;border-radius:2px}
+.hprog i::after{content:"";display:block;height:100%;width:0;background:#fff}
+.hprog i.on::after{animation:hp 7s linear forwards}
+@keyframes hp{to{width:100%}}
+body.desk .hprog{left:64px;top:92px}
+body.desk .hprog i{width:44px}
+.hero h1,.hero p{transition:opacity .6s,transform .6s}
+.hero.sw h1,.hero.sw p{opacity:0;transform:translateY(10px)}
+@keyframes kb{from{transform:scale(1.02) translateY(0)}to{transform:scale(1.1) translateY(-1.5%)}}
+.hero .eyebrow,.hero h1,.hero p,.hero .row,.hero .aibar{opacity:0;transform:translateY(22px);animation:up 1.1s cubic-bezier(.2,.7,.2,1) forwards}
+.hero .eyebrow{animation-delay:2.0s}.hero h1{animation-delay:2.15s}.hero p{animation-delay:2.35s}.hero .row{animation-delay:2.5s}.hero .aibar{animation-delay:2.8s}
+body.fast .hero .eyebrow,body.fast .hero h1,body.fast .hero p,body.fast .hero .row,body.fast .hero .aibar{animation:none;opacity:1;transform:none}
+body.fast #curtain{display:none}
+@keyframes up{to{opacity:1;transform:none}}
+.hero .scrollcue{position:absolute;right:22px;bottom:92px;width:1px;height:46px;background:rgba(255,255,255,.35);overflow:hidden;display:none}
+.hero .scrollcue::after{content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;background:#fff;animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{to{top:100%}}
+body.desk .hero .scrollcue{display:block}
+/* craft tiles: parallax cut-outs, serif numbers */
+.craft .num{position:absolute;left:16px;top:14px;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.2em;color:rgba(255,255,255,.7)}
+.craft:hover .cut{transform:translateY(-6px) scale(1.03)}
+.craft .cut{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+/* section titles with hairline */
+.sec{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:26px 0 12px}
+.sec h2{margin:0}
+.sec .eyebrow{display:block;margin-bottom:6px}
+.sec .ln{flex:1;height:1px;background:var(--line);margin:0 6px 10px}
+body.desk .sec{margin:54px 0 22px}
+/* gallery (shop) */
+.gal-hero{position:relative;border-radius:22px;overflow:hidden;min-height:300px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:22px 18px;background:#0B0D12;margin-bottom:14px}
+.gal-hero .bg{position:absolute;inset:0;background:center/cover no-repeat;animation:kb 20s ease-in-out infinite alternate}
+.gal-hero .sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,.3),rgba(5,7,12,.1) 40%,rgba(5,7,12,.88))}
+.gal-hero>*{position:relative}
+.gal-hero h1{color:#fff;font-size:34px;font-weight:500}
+.gal-hero .eyebrow{color:var(--sand)}
+.gal-hero p{color:rgba(255,255,255,.78);font-size:13px;max-width:560px}
+.gal-hero .stats{display:flex;gap:18px;margin-top:10px}
+.gal-hero .stats b{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;line-height:1}
+.gal-hero .stats span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65)}
+body.desk .gal-hero{border-radius:0;margin:0 -48px 30px;min-height:520px;padding:0 64px 54px}
+body.desk .gal-hero h1{font-size:72px;max-width:900px}
+body.desk .gal-hero p{font-size:17px}
+body.desk .gal-hero .stats{gap:40px;margin-top:18px}
+body.desk .gal-hero .stats b{font-size:40px}
+/* collection strip: category tiles */
+.cstrip{display:flex;gap:10px;overflow:auto;margin:0 -14px 14px;padding:0 14px 6px}
+.cstrip::-webkit-scrollbar{display:none}
+.ct{position:relative;min-width:132px;height:88px;border-radius:14px;overflow:hidden;cursor:pointer;background:#0B0D12;color:#fff;flex-shrink:0;border:1px solid transparent}
+.ct .bg{position:absolute;inset:0;background:center/cover no-repeat;opacity:.75;transition:transform .7s}
+.ct:hover .bg{transform:scale(1.06)}
+.ct::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(5,7,12,.85))}
+.ct b{position:absolute;left:10px;bottom:9px;z-index:1;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600}
+.ct.on{border-color:var(--sand)}
+.ct.on::before{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px var(--sand);z-index:2;border-radius:14px}
+body.desk .cstrip{margin:0 0 22px;padding:0;flex-wrap:nowrap}
+body.desk .ct{flex:1;min-width:0;height:120px}
+body.desk .ct b{font-size:20px;left:14px;bottom:12px}
+/* product cards: gallery feel */
+.pc{border-radius:20px;border-color:rgba(11,13,18,.06)}
+.pc .pim{background:radial-gradient(90% 70% at 50% 100%,#EEEAE0,#F8F6F1)}
+.pc .pim::before{content:"";position:absolute;left:12%;right:12%;bottom:14px;height:14px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.18),rgba(0,0,0,0));filter:blur(3px)}
+.pc .brandtag{background:transparent;color:rgba(11,13,18,.55);font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:.02em;text-transform:none;font-weight:600}
+.pc .mono{font-size:150px;color:rgba(11,13,18,.05);left:-6px;top:-24px}
+.pc.wide .pim{background:radial-gradient(110% 80% at 70% 20%,#223042,#0B0D12)}
+.pc.wide .pim::before{background:radial-gradient(closest-side,rgba(0,0,0,.6),rgba(0,0,0,0))}
+.pc.wide .brandtag{color:rgba(255,255,255,.7)}
+.pc .pb .pr{letter-spacing:-.01em}
+.pc .ql{position:absolute;right:10px;top:10px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.85);display:grid;place-items:center;opacity:0;transition:.25s;transform:translateY(-4px)}
+.pc:hover .ql{opacity:1;transform:none}
+.pc .ql svg{width:14px;height:14px}
+.pc.wide .ql{background:rgba(255,255,255,.2)}.pc.wide .ql svg{stroke:#fff}
+/* explorer turntable */
+.exp{background:radial-gradient(120% 80% at 50% 10%,#1A2230,#0B0D12 70%)}
+.exp .glow{background:radial-gradient(closest-side,rgba(140,170,220,.28),rgba(0,0,0,0))}
+.stage img{animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.stage .floor{position:absolute;left:10%;right:10%;bottom:4%;height:26px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.75),rgba(0,0,0,0));filter:blur(6px);z-index:-1}
+.stage{z-index:0}
+.hs::after{font-weight:300}
+.hs.on{box-shadow:0 0 0 6px rgba(215,38,30,.25)}
+body.desk .exp{padding:30px 28px 22px}
+/* assistant: luxe */
+.m.a{border-color:rgba(11,13,18,.06);box-shadow:0 10px 30px rgba(11,13,18,.05)}
+.prompt b{font-size:21px}
+/* buttons: subtle lift & sheen */
+.btn.p{background:linear-gradient(180deg,#E23A32,#C9211A);box-shadow:0 8px 20px rgba(215,38,30,.28)}
+.btn.k{background:linear-gradient(180deg,#1A1D25,#0B0D12);box-shadow:0 8px 20px rgba(11,13,18,.22)}
+.btn.g{backdrop-filter:blur(8px)}
+/* sheet: luxe */
+.sheet{border-radius:28px 28px 0 0;box-shadow:0 -30px 80px rgba(0,0,0,.45)}
+body.desk .sheet{border-radius:28px}
+/* my delma job card photo */
+.photo{height:160px}
+body.desk .photo{height:260px}
+/* footer luxe */
+.foot b{font-size:22px}
+body.desk .foot{padding:70px 0 26px;border-top:1px solid var(--line)}
+/* ===== home chapters (below the hero) ===== */
+.chap{position:relative;overflow:hidden;color:#fff;background:#0B0D12;margin:0 -14px;padding:34px 18px;min-height:520px;display:flex;flex-direction:column;justify-content:flex-end}
+.chap .bg{position:absolute;inset:0;background:center/cover no-repeat;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.chap .sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,.35) 0%,rgba(5,7,12,.15) 40%,rgba(5,7,12,.9) 100%)}
+.chap.lt{background:var(--pearl);color:var(--ink)}
+.chap>*{position:relative}
+.chap .idx{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.3em;color:var(--sand);margin-bottom:10px}
+.chap h2{color:inherit;font-size:36px;line-height:1.02;margin:0 0 10px;font-weight:500;max-width:720px}
+.chap h2 em{font-style:italic}
+.chap p{color:rgba(255,255,255,.8);font-size:14px;max-width:460px;margin:0 0 16px}
+.chap.lt p{color:#4A4E57}
+.chap .cta{display:flex;gap:10px;flex-wrap:wrap}
+.chap .hair{width:56px;height:1px;background:var(--sand);margin:0 0 16px}
+body.desk .chap{margin:0 -48px;padding:0 64px 70px;min-height:92vh}
+body.desk .chap h2{font-size:78px;max-width:1000px}
+body.desk .chap p{font-size:18px;max-width:560px}
+body.desk .chap .idx{font-size:14px}
+/* chapter: craft slider (horizontal) */
+.chap.craft-ch{justify-content:flex-start;padding-top:40px}
+.craft-row{display:flex;gap:14px;overflow:auto;margin:16px -18px 0;padding:0 18px 10px;scroll-snap-type:x mandatory}
+.craft-row::-webkit-scrollbar{display:none}
+.cr{position:relative;flex-shrink:0;width:270px;height:360px;border-radius:22px;overflow:hidden;background:#111;scroll-snap-align:start;cursor:pointer;border:1px solid rgba(255,255,255,.08)}
+.cr .bg{position:absolute;inset:0;background:center/cover no-repeat;opacity:.9;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.cr:hover .bg{transform:scale(1.06)}
+.cr::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,12,.1) 30%,rgba(5,7,12,.92))}
+.cr .cut{position:absolute;left:8%;right:8%;top:30%;height:42%;background:center/contain no-repeat;filter:drop-shadow(0 24px 30px rgba(0,0,0,.6));z-index:1;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.cr:hover .cut{transform:translateY(-8px) scale(1.04)}
+.cr .num{position:absolute;left:18px;top:16px;z-index:1;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.25em;color:rgba(255,255,255,.7)}
+.cr .t{position:absolute;left:18px;right:18px;bottom:18px;z-index:1}
+.cr .t span{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--sand);margin-bottom:4px}
+.cr .t b{display:block;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;line-height:1}
+.cr .t i{display:block;font-style:normal;font-size:11.5px;color:rgba(255,255,255,.7);margin-top:6px}
+body.desk .craft-row{margin:28px 0 0;padding:0 0 10px;gap:20px}
+body.desk .cr{width:calc((100% - 80px)/5);height:460px}
+body.desk .cr .t b{font-size:32px}
+/* chapter: explorer teaser */
+.chap.xp .stage{max-width:900px;margin:10px auto 0;width:100%}
+.chap.xp .stage img{filter:drop-shadow(0 40px 60px rgba(0,0,0,.7))}
+.chap.xp{text-align:center;align-items:center;justify-content:center;padding-top:40px}
+.chap.xp p{margin-left:auto;margin-right:auto}
+.chap.xp .cta{justify-content:center}
+.chap.xp .hair{margin-left:auto;margin-right:auto}
+/* chapter: activities, editorial mosaic */
+.mosaic{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.mo{position:relative;border-radius:18px;overflow:hidden;height:150px;cursor:pointer;color:#fff;background:#111}
+.mo .bg{position:absolute;inset:0;background:center/cover no-repeat;transition:transform 1s}
+.mo:hover .bg{transform:scale(1.06)}
+.mo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(5,7,12,.85))}
+.mo b{position:absolute;left:14px;bottom:12px;z-index:1;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500}
+.mo span{position:absolute;left:14px;top:12px;z-index:1;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--sand)}
+.mo.tall{grid-row:span 2;height:auto;min-height:310px}
+body.desk .mosaic{grid-template-columns:1.3fr 1fr 1fr 1fr;grid-auto-rows:220px;gap:16px;margin-top:30px}
+body.desk .mo{height:auto}
+body.desk .mo.tall{grid-row:span 2}
+body.desk .mo b{font-size:30px;left:20px;bottom:18px}
+/* chapter: AI */
+.chap.ai{justify-content:center;align-items:flex-start}
+.aidemo{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px);border-radius:22px;padding:14px;max-width:560px;margin-top:6px}
+.aidemo .m{font-size:12.5px}
+.aidemo .m.a{background:rgba(255,255,255,.95);color:var(--ink);border:0}
+.aidemo .m.u{background:rgba(255,255,255,.14);color:#fff}
+.chap.ai .orb{animation:glow 3s ease-in-out infinite}
+body.desk .chap.ai{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;padding:80px 64px}
+body.desk .aidemo{max-width:620px;padding:20px}
+body.desk .aidemo .m{font-size:14px}
+/* chapter: service */
+.svc-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:16px;width:100%}
+.svc{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:16px;backdrop-filter:blur(10px)}
+.svc b{display:block;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;margin-bottom:4px}
+.svc span{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.5;display:block}
+.svc .st{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.svc .st i{font-style:normal;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.1)}
+body.desk .svc-grid{grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:30px}
+body.desk .svc{padding:24px}
+/* chapter: branches (light) */
+.br-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;width:100%}
+.brc{position:relative;height:170px;border-radius:18px;overflow:hidden;color:#fff;cursor:pointer;background:#111}
+.brc .bg{position:absolute;inset:0;background:center/cover no-repeat;transition:transform 1s}
+.brc:hover .bg{transform:scale(1.06)}
+.brc::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(5,7,12,.9))}
+.brc div{position:absolute;left:14px;bottom:12px;z-index:1}
+.brc b{display:block;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500}
+.brc span{font-size:11px;color:rgba(255,255,255,.8)}
+body.desk .br-row{grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+body.desk .brc{height:300px}
+body.desk .brc b{font-size:28px}
+/* brands marquee */
+.marq{overflow:hidden;white-space:nowrap;margin-top:22px;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.marq div{display:inline-block;animation:marq 60s linear infinite}
+.marq span{display:inline-block;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ink2);margin:0 28px;letter-spacing:.02em}
+@keyframes marq{to{transform:translateX(-50%)}}
+body.desk .marq span{font-size:30px;margin:0 44px}
+/* ===== wow layer ===== */
+.hero::after,.chap:not(.lt)::after,.gal-hero::after,.story .pin::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.09;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.chap > .bg{transition:none;will-change:transform}
+.chap.lt{background:linear-gradient(180deg,#F8F6F1,#EDE9DF)}
+.chap.lt::before{content:attr(data-n);position:absolute;right:-6px;top:-40px;font-family:'Cormorant Garamond',serif;font-size:260px;line-height:1;color:rgba(11,13,18,.045);z-index:0;pointer-events:none}
+body.desk .chap.lt::before{font-size:560px;top:-120px;right:20px}
+/* pinned story */
+.story{position:relative;margin:0 -14px}
+.story .pin{position:sticky;top:0;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#1C2534,#0B0D12 70%);color:#fff;display:flex;align-items:center;justify-content:center;padding:60px 18px 120px}
+.story .pin .glow{position:absolute;width:70%;height:50%;left:15%;top:20%;background:radial-gradient(closest-side,rgba(140,170,220,.22),rgba(0,0,0,0));pointer-events:none}
+.story .stage{width:100%;max-width:980px;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.story .stage img{animation:none;filter:drop-shadow(0 50px 70px rgba(0,0,0,.75))}
+.story .cap{position:absolute;left:18px;right:18px;bottom:30px;max-width:520px;z-index:3}
+.story .cap .k{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.3em;color:var(--sand)}
+.story .cap h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:500;margin:6px 0 6px;color:#fff;line-height:1.05}
+.story .cap p{font-size:13px;color:rgba(255,255,255,.78);margin:0;max-width:460px}
+.story .cap .k,.story .cap h3,.story .cap p{transition:opacity .5s,transform .5s}
+.story .cap.sw .k,.story .cap.sw h3,.story .cap.sw p{opacity:0;transform:translateY(10px)}
+.story .idx2{position:absolute;left:18px;top:22px;z-index:3;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.3em;color:var(--sand)}
+.story .dots{position:absolute;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:12px;z-index:3}
+.story .dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.3);transition:.3s}
+.story .dots i.on{background:var(--sand);transform:scale(1.6)}
+.story .step{pointer-events:none}
+.story .hs{width:22px;height:22px;margin:-11px 0 0 -11px}
+.story .hs.on{background:var(--red);border-color:var(--red)}
+.story .hs.dim{opacity:.35}
+body.desk .story{margin:0 -48px}
+body.desk .story .pin{padding:80px 64px 140px}
+body.desk .story .cap{left:64px;bottom:70px;max-width:600px}
+body.desk .story .cap h3{font-size:54px}
+body.desk .story .cap p{font-size:17px;max-width:560px}
+body.desk .story .idx2{left:64px;top:40px;font-size:14px}
+body.desk .story .dots{right:44px}
+body.desk .story .hs{width:30px;height:30px;margin:-15px 0 0 -15px}
+/* stats */
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:14px 10px;margin-top:18px;width:100%}
+.stat b{display:block;font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:500;line-height:1;letter-spacing:-.01em}
+.stat span{display:block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:6px}
+.awards{display:flex;gap:14px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.awards img{height:110px;border-radius:10px;box-shadow:0 14px 30px rgba(11,13,18,.15);background:#fff}
+.awards p{font-size:12.5px;color:#4A4E57;max-width:300px;margin:0}
+body.desk .stats{grid-template-columns:repeat(4,1fr);gap:30px;margin-top:34px}
+body.desk .stat b{font-size:84px}
+body.desk .awards{gap:28px;margin-top:40px}
+body.desk .awards img{height:170px}
+body.desk .awards p{font-size:15px;max-width:420px}
+body.desk .chap.st{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:60px;padding:90px 64px}
+/* reduced motion */
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 .hnav{display:none}
 .hnav span{padding:8px 11px;border-radius:999px;font-weight:600;font-size:11px;cursor:pointer;color:var(--ink2);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
 .hnav span.on{color:var(--red)}
@@ -438,6 +692,7 @@ body.desk .sh-head h1{font-size:44px}
 <div id="desk"><b>Delma Marine · prototype</b>This is a clickable prototype of the customer app and website, with sample data. Nothing is real behind it: no orders, no payments, no messages.<br><br>Tap the boat on <a href="#explore">Explore</a>, chat on <a href="#ask">Ask</a>, book on <a href="#book">Book</a>, see a live job in <a href="#mydelma">My Delma</a>, and the offers feed under the bell. Switch region at the top to see Seychelles prices.<br><br><a href="#shop">Shop: the collection →</a><br><a href="#staff">Staff view: workshop board →</a><br><br><a href="javascript:toggleView()">Switch to the website view (laptop) →</a></div>
 
 <div id="frame">
+<div id="curtain"><div class="mark"><img src="assets/logo.png" alt=""><div class="line"></div><span>The water is waiting</span></div></div>
 <div class="gate" id="gate"><div><img src="assets/logo.png" style="height:60px;margin-bottom:16px"><h1 style="font-size:18px">This preview has expired</h1><p class="mut sm" style="margin-top:8px">Please ask Delma Marine for a new link.</p></div></div>
 
 <div class="push" id="push"><img src="assets/logo.png"><div><b>Delma Marine · now</b><span id="pushtxt">New arrival: Mercury Avator 110e electric outboard is at Umm Al Nar. Book a viewing.</span></div></div>
@@ -455,84 +710,96 @@ body.desk .sh-head h1{font-size:44px}
 
 <!-- HOME -->
 <section class="scr on" id="s-home">
-  <div class="hero"><div class="bg" style="background-image:url(assets/photos/hero-aerial.jpg)"></div><div class="sh"></div>
+  <div class="hero" id="hero"><div class="bg sc on" data-i="0" style="background-image:url(assets/photos/hero-aerial.jpg)"></div><div class="bg sc" data-i="1" style="background-image:url(assets/photos/jetski-sunset.jpg)"></div><div class="bg sc" data-i="2" style="background-image:url(assets/photos/dark-yacht.jpg)"></div><div class="sh"></div><div class="hprog"><i></i><i></i><i></i></div>
     <div class="hero-copy">
       <div class="eyebrow">Delma Marine · Abu Dhabi · since 1978</div>
-      <h1>The water<br>is <em>waiting.</em></h1>
-      <p>Boats, engines and everything that belongs on board, chosen for the way you use the sea.</p>
+      <h1 id="hero-h">The water<br>is <em>waiting.</em></h1>
+      <p id="hero-p">Boats, engines and everything that belongs on board, chosen for the way you use the sea.</p>
       <div class="row" style="flex-wrap:wrap"><button class="btn p" onclick="go('explore')">Explore your boat</button><button class="btn g" onclick="go('book')">Book a service</button></div>
     </div>
+    <div class="scrollcue"></div>
     <form class="aibar" onsubmit="event.preventDefault();askFromHome()"><div class="orb"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg></div><div class="q"><b>Ask Delma AI</b><input id="homeask" placeholder="Ask anything: &ldquo;I have a 7 m boat and want to fish at night. What do I need?&rdquo;"></div><button class="go" type="submit" aria-label="Ask"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
   </div>
 
   <div class="wrap">
-  <div class="row" style="justify-content:space-between;align-items:flex-end"><div class="eyebrow">Find your craft</div><button class="btn s o" onclick="go('shop')">See the whole collection</button></div>
-  <h2 style="margin-top:4px">Built for how you'll use it.</h2>
-  <div class="bar">
-    <div class="rv craft" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/dark-yacht.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/navan.png)"></div><div class="t"><span>Day boats · cruisers</span><b>Navan · Bayliner</b></div></div>
-    <div class="rv craft" onclick="setCraftByName('jetski')"><div class="bg" style="background-image:url(assets/photos/jetski.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/taiga.png)"></div><div class="t"><span>Electric watercraft</span><b>Taiga · iWave</b></div></div>
-    <div class="rv craft" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/choppy.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/whaly.png)"></div><div class="t"><span>Polyethylene boats</span><b>Whaly · SeaStorm</b></div></div>
-    <div class="rv craft" onclick="setCraftByName('kayak')"><div class="bg" style="background-image:url(assets/photos/aerial-bow.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/kayak.png)"></div><div class="t"><span>Paddle · fish</span><b>Pelican · Wilderness</b></div></div>
-    <div class="rv craft" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/freediver.jpg)"></div><div class="sh"></div><div class="cut" style="background-image:url(assets/efoil.png)"></div><div class="t"><span>eFoil · diving</span><b>ABNC · Beuchat</b></div></div>
-  </div>
 
-  <div class="rv dark"><div class="glow"></div>
-    <div class="eyebrow">Explore your boat</div>
-    <h2>Tap a part. See what belongs there.</h2>
-    <p class="sm">Engine, helm, deck, hull, mooring: every area shows the pieces Delma fits there, with live stock in every branch.</p>
-    <div class="stage" style="margin:10px 0 6px;cursor:pointer" onclick="go('explore')"><img src="assets/navan.png" alt=""><i class="hs" style="left:14%;top:52%"></i><i class="hs" style="left:47%;top:41%"></i><i class="hs" style="left:84%;top:41%"></i><i class="hs" style="left:60%;top:66%"></i></div>
-    <button class="btn g s" onclick="go('explore')">Open the explorer</button>
-  </div>
+  <!-- 01 craft -->
+  <section class="chap craft-ch"><div class="bg" style="background-image:url(assets/photos/dark-yacht.jpg);opacity:.55"></div><div class="sh"></div>
+    <div class="idx">01 · FIND YOUR CRAFT</div><h2>Built for how<br>you'll use it.</h2><div class="hair"></div><p>Day boats, electric watercraft, unsinkable workboats, kayaks, eFoils. Each one chosen for the Gulf, fitted and supported by Delma.</p>
+    <div class="craft-row">
+      <div class="cr" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/dark-yacht.jpg)"></div><div class="num">01</div><div class="cut" style="background-image:url(assets/navan.png)"></div><div class="t"><span>Day boats · cruisers</span><b>Navan · Bayliner</b><i>6 to 10 m · Mercury power</i></div></div>
+      <div class="cr" onclick="setCraftByName('jetski')"><div class="bg" style="background-image:url(assets/photos/jetski.jpg)"></div><div class="num">02</div><div class="cut" style="background-image:url(assets/taiga.png)"></div><div class="t"><span>Electric watercraft</span><b>Taiga · iWave</b><i>Silent · no fuel · instant torque</i></div></div>
+      <div class="cr" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/choppy.jpg)"></div><div class="num">03</div><div class="cut" style="background-image:url(assets/whaly.png)"></div><div class="t"><span>Polyethylene boats</span><b>Whaly · SeaStorm</b><i>Unsinkable · zero maintenance</i></div></div>
+      <div class="cr" onclick="setCraftByName('kayak')"><div class="bg" style="background-image:url(assets/photos/aerial-wake.jpg)"></div><div class="num">04</div><div class="cut" style="background-image:url(assets/kayak.png)"></div><div class="t"><span>Paddle · fish</span><b>Pelican · Wilderness</b><i>Stable fishing kayaks</i></div></div>
+      <div class="cr" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/freediver.jpg)"></div><div class="num">05</div><div class="cut" style="background-image:url(assets/efoil.png)"></div><div class="t"><span>eFoil · diving</span><b>ABNC · Beuchat</b><i>Fly over water, or under it</i></div></div>
+    </div>
+  </section>
 
-  <div class="eyebrow">What do you want to do?</div>
-  <h2 style="margin-top:4px">Start with the day you have in mind.</h2>
-  <div class="acts">
-    <div class="rv act" style="background-image:url(assets/photos/hero-race.jpg)" onclick="go('explore')"><b>Fishing</b></div>
-    <div class="rv act" style="background-image:url(assets/photos/aerial-bow.jpg)" onclick="go('explore')"><b>Family day out</b></div>
-    <div class="rv act" style="background-image:url(assets/photos/jetski-sunset.jpg)" onclick="setCraftByName('jetski')"><b>Watersports</b></div>
-    <div class="rv act" style="background-image:url(assets/photos/diver.jpg)" onclick="go('explore')"><b>Diving</b></div>
-    <div class="rv act" style="background-image:url(assets/photos/aerial-wake.jpg)" onclick="setCraftByName('kayak')"><b>Kayaking</b></div>
-    <div class="rv act" style="background-image:url(assets/photos/choppy.jpg)" onclick="go('explore')"><b>Performance</b></div>
-  </div>
+  <!-- 02 story (pinned) -->
+  <section class="story" id="story">
+    <div class="pin"><div class="glow"></div><div class="idx2">02 · EXPLORE YOUR BOAT</div>
+      <div class="stage" id="story-stage"></div>
+      <div class="cap" id="story-cap"><div class="k"></div><h3></h3><p></p></div>
+      <div class="dots" id="story-dots"><i class="on"></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="step"></div><div class="step"></div><div class="step"></div><div class="step"></div>
+  </section>
 
-  <div class="rv split" style="margin-top:22px">
-    <div class="ph" style="background-image:url(assets/photos/helm.jpg)"></div>
-    <div><div class="row"><div class="orb sm"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg></div><div class="eyebrow">Delma AI · your personal advisor</div></div><h2 style="margin-top:8px">Ask anything. Get the right setup, from real stock.</h2><p class="sm mut">Tell Delma what you want to do and it puts the right boat, engine and kit together, from real stock, with a delivery date when something is on order.</p>
-      <div class="card" style="margin-top:10px"><div class="m u" style="max-width:100%;margin-bottom:8px">I have a Bayliner VR5 and want to use it for night fishing. What do I need?</div><div class="m a" style="max-width:100%">Three things: a Lowrance Elite FS 9 (in stock, Umm Al Nar), Hella deck and navigation lights, and a night-vision camera if you go far out. Shall I put them in your basket?</div><button class="btn k s" style="margin-top:10px" onclick="go('ask')">Ask Delma AI</button></div></div>
-  </div>
+  <!-- 02b stats -->
+  <section class="chap lt st" data-n="02" style="justify-content:center"><div><div class="idx">SINCE 1978</div><h2>Forty-eight years<br>on the water.</h2><div class="hair"></div><p>Delma Industrial Supplies &amp; Marine Services. Emirati-owned, from Umm Al Nar, the UAE's oldest marine trade company.</p>
+    <div class="awards"><img src="assets/aw-mercury-2021-2023.png" alt=""><img src="assets/aw-csi-2023.png" alt=""><p>Mercury Marine dealer awards, 2021 to 2023. Recognition from the brand we have represented for decades.</p></div></div>
+    <div class="stats"><div class="stat"><b data-n="1978" data-from="1900">1978</b><span>Founded</span></div><div class="stat"><b data-n="27">27</b><span>Brands</span></div><div class="stat"><b data-n="5">5</b><span>Branches</span></div><div class="stat"><b data-n="4">4</b><span>Workshops</span></div></div>
+  </section>
 
-  <div class="hgrid"><div>
-    <div class="eyebrow" style="margin-top:22px">Shop by my boat or engine</div>
-    <div class="card row" style="margin-top:8px"><div style="flex:1"><b>Bayliner VR5 · Mercury 150 FourStroke</b><div class="sm mut">Serial 2B•••••71 · saved in My Delma</div></div><button class="btn s" onclick="go('explore')">Parts that fit</button></div>
-    <div class="eyebrow" style="margin-top:22px">New arrivals & offers</div>
-    <div class="prod" style="margin-top:8px" onclick="go('offers')"><div class="im" style="background-image:url(assets/mercury-avator.png)"></div><div class="b"><div class="n">Mercury Avator 110e</div><div class="br">Electric outboard · now at Umm Al Nar</div><div class="av bl">New arrival · book a viewing</div></div></div>
-    <div class="prod" onclick="go('offers')"><div class="im">INTER-<br>NATIONAL</div><div class="b"><div class="n">Antifouling season</div><div class="br">International Micron 350</div><div class="av ok">Offer until 30 Nov · app only</div></div></div>
-  </div><div>
-    <div class="eyebrow" style="margin-top:22px">Service & care</div>
-    <div class="card" style="margin-top:8px;padding:0;overflow:hidden"><div style="height:120px;background:url(assets/workshop.jpg) center/cover"></div><div style="padding:12px 14px"><b>Four workshops. One standard.</b><div class="sm mut" style="margin:2px 0 8px">Service, engine installation and boat assembly at Bateen, Dubai, Fujairah and Ras Al Khaimah. Follow every job live in My Delma.</div><button class="btn s k" onclick="go('book')">Book a service</button></div></div>
-    <div class="eyebrow" style="margin-top:22px">Nearest branch</div>
-    <div class="card row" style="margin-top:8px"><div style="flex:1"><b id="nb-name">Delma Marine · Umm Al Nar</b><div class="sm mut" id="nb-sub">Head office & showroom · open until 18:00 · 2.1 km</div></div><button class="btn s">Call</button><button class="btn s k">WhatsApp</button></div>
-  </div></div>
+  <!-- 03 days -->
+  <section class="chap lt" data-n="03" style="justify-content:flex-start;padding-top:34px"><div class="idx">03 · WHAT DO YOU WANT TO DO?</div><h2>Start with the day<br>you have in mind.</h2><div class="hair"></div><p>Tell us the day. We put together the boat, the engine and everything that goes with it.</p>
+    <div class="mosaic">
+      <div class="mo tall" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/hero-race.jpg)"></div><span>Offshore</span><b>Fishing</b></div>
+      <div class="mo" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/aerial-bow.jpg)"></div><span>Sunday</span><b>Family day out</b></div>
+      <div class="mo" onclick="setCraftByName('jetski')"><div class="bg" style="background-image:url(assets/photos/jetski-sunset.jpg)"></div><span>Tow &amp; ride</span><b>Watersports</b></div>
+      <div class="mo" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/diver.jpg)"></div><span>Below</span><b>Diving</b></div>
+      <div class="mo" onclick="setCraftByName('kayak')"><div class="bg" style="background-image:url(assets/photos/aerial-wake.jpg)"></div><span>Quiet water</span><b>Kayaking</b></div>
+      <div class="mo" onclick="go('explore')"><div class="bg" style="background-image:url(assets/photos/choppy.jpg)"></div><span>Fast</span><b>Performance</b></div>
+      <div class="mo" onclick="go('shop')"><div class="bg" style="background-image:url(assets/photos/helm.jpg)"></div><span>Everything</span><b>The collection</b></div>
+    </div>
+  </section>
 
-  <div class="eyebrow" style="margin-top:22px">Visit us</div>
-  <h2 style="margin-top:4px">Showrooms, workshops and the marina.</h2>
-  <div class="branches acts">
-    <div class="rv branch" style="background-image:url(assets/showroom.jpg)"><div><b>Umm Al Nar</b><span>Head office & showroom</span></div></div>
-    <div class="rv branch" style="background-image:url(assets/photos/marina-sunset.jpg)"><div><b>Mangrove Marine</b><span>Berths & storage</span></div></div>
-    <div class="rv branch" style="background-image:url(assets/workshop.jpg)"><div><b>Bateen</b><span>Workshop</span></div></div>
-    <div class="rv branch" style="background-image:url(assets/boatshow.jpg)"><div><b>Dubai · Fujairah · RAK</b><span>Showroom & workshops</span></div></div>
-  </div>
+  <!-- 04 AI -->
+  <section class="chap ai"><div class="bg" style="background-image:url(assets/photos/helm.jpg);background-position:center 30%"></div><div class="sh" style="background:rgba(5,7,12,.72)"></div>
+    <div><div class="row" style="margin-bottom:12px"><div class="orb"><svg viewBox="0 0 24 24"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9zM19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9zM5 15l.7 1.6L7.3 17.3l-1.6.7L5 19.6l-.7-1.6L2.7 17.3l1.6-.7z"/></svg></div><div class="idx" style="margin:0">04 · DELMA AI</div></div><h2>Advice from the people<br>who <em>fit it.</em></h2><div class="hair"></div><p>Ask anything, in Arabic or English. Delma AI answers from our real stock and prices, suggests the full setup, books your viewing or service, and takes your deposit when you're ready.</p><div class="cta"><button class="btn p" onclick="go('ask')">Ask Delma AI</button></div></div>
+    <div class="aidemo"><div class="m u" style="max-width:100%;margin-bottom:8px">I need a boat for fishing with family.</div><div class="m a" style="max-width:100%">Lovely. For fishing with the family you want shade, safe seating and a stable deck. Three to see this week: the Navan S30, the Bayliner VR5 and the Whaly 435. How many people usually come along?</div><div class="m u" style="max-width:100%;margin:8px 0">Up to 6, open deck.</div><div class="m a" style="max-width:100%">Then the Navan S30: T-top shade, seating for ten, a big bow deck and twin Mercury 300s. Shall I book a viewing at Umm Al Nar on Saturday?</div></div>
+  </section>
 
-  <div class="eyebrow" style="margin-top:22px">Brands we represent</div>
-  <div class="brands" style="margin-top:8px"><span>Mercury</span><span>Bayliner</span><span>Navan</span><span>Taiga</span><span>ABNC</span><span>iWave</span><span>Whaly</span><span>SeaStorm</span><span>Lowrance</span><span>Kicker</span><span>Omnisense</span><span>Bob's Machine</span><span>Ultraflex</span><span>Hella Marine</span><span>Seaview</span><span>Polyform</span><span>Fendequip</span><span>Marlow</span><span>Beuchat</span><span>Connelly</span><span>E-SeaRider</span><span>Comfort Seat</span><span>Vitrifrigo</span><span>Max</span><span>Borika</span><span>Pelican</span><span>Wilderness</span><span>Perception</span></div>
+  <!-- 05 service -->
+  <section class="chap"><div class="bg" style="background-image:url(assets/workshop.jpg)"></div><div class="sh"></div>
+    <div class="idx">05 · SERVICE &amp; INSTALLATION</div><h2>Four workshops.<br>One standard.</h2><div class="hair"></div><p>Bateen, Dubai, Fujairah and Ras Al Khaimah. Service, engine installation and boat assembly by Mercury-trained technicians, and you follow every job live.</p>
+    <div class="svc-grid">
+      <div class="svc"><b>Book in a minute</b><span>Boat, job, workshop, slot. Fixed prices for standard work; estimates after diagnosis.</span><div class="st"><i>Online</i><i>WhatsApp</i><i>Counter</i></div></div>
+      <div class="svc"><b>Follow it live</b><span>Received · diagnosing · waiting for your approval · in progress · ready. Photos at every step.</span><div class="st"><i>My Delma</i><i>Approve in one tap</i></div></div>
+      <div class="svc"><b>Keep it covered</b><span>Maintenance plans with reminders by date or engine hours. Warranty claims handled from the job.</span><div class="st"><i>Plans</i><i>Warranty</i></div></div>
+    </div>
+    <div class="cta" style="margin-top:16px"><button class="btn p" onclick="go('book')">Book a service</button><button class="btn g" onclick="go('mydelma')">See a live job</button></div>
+  </section>
 
-  <div class="foot"><div><b>Delma Marine</b>Delma Industrial Supplies & Marine Services · since 1978<br>Umm Al Nar, Abu Dhabi · PO Box 53382</div><div>Abu Dhabi · Dubai · Fujairah · Ras Al Khaimah · Seychelles<br>Mangrove Marine · ICAD warehouse</div><div>+971 2 557 6625 · info@delmamarine.net<br>@delmamarineuae · <a href="#staff" style="color:var(--mut)">Staff view</a></div></div>
+  <!-- 06 visit -->
+  <section class="chap lt" data-n="06" style="justify-content:flex-start;padding-top:34px"><div class="idx">06 · VISIT US</div><h2>Showrooms, workshops<br>and the marina.</h2><div class="hair"></div><p>Since 1978, from Umm Al Nar. Nearest to you now: <b id="nb-name">Delma Marine · Umm Al Nar</b> <span class="mut" id="nb-sub">· open until 18:00 · 2.1 km</span></p>
+    <div class="br-row">
+      <div class="brc"><div class="bg" style="background-image:url(assets/showroom.jpg)"></div><div><b>Umm Al Nar</b><span>Head office &amp; showroom</span></div></div>
+      <div class="brc"><div class="bg" style="background-image:url(assets/photos/marina-sunset.jpg)"></div><div><b>Mangrove Marine</b><span>Berths &amp; storage</span></div></div>
+      <div class="brc"><div class="bg" style="background-image:url(assets/workshop.jpg)"></div><div><b>Bateen</b><span>Workshop</span></div></div>
+      <div class="brc"><div class="bg" style="background-image:url(assets/boatshow.jpg)"></div><div><b>Dubai · Fujairah · RAK</b><span>Showroom &amp; workshops</span></div></div>
+    </div>
+    <div class="marq"><div><span>Mercury</span><span>Bayliner</span><span>Navan</span><span>Taiga</span><span>ABNC</span><span>iWave</span><span>Whaly</span><span>SeaStorm</span><span>Lowrance</span><span>Kicker</span><span>Omnisense</span><span>Bob's Machine</span><span>Ultraflex</span><span>Hella Marine</span><span>Seaview</span><span>Polyform</span><span>Fendequip</span><span>Marlow</span><span>Beuchat</span><span>Connelly</span><span>E-SeaRider</span><span>Comfort Seat</span><span>Vitrifrigo</span><span>Max</span><span>Borika</span><span>Pelican</span><span>Wilderness</span><span>Perception</span><span>Mercury</span><span>Bayliner</span><span>Navan</span><span>Taiga</span><span>ABNC</span><span>iWave</span><span>Whaly</span><span>SeaStorm</span><span>Lowrance</span><span>Kicker</span><span>Omnisense</span><span>Bob's Machine</span><span>Ultraflex</span><span>Hella Marine</span><span>Seaview</span><span>Polyform</span><span>Fendequip</span><span>Marlow</span><span>Beuchat</span><span>Connelly</span><span>E-SeaRider</span><span>Comfort Seat</span><span>Vitrifrigo</span><span>Max</span><span>Borika</span><span>Pelican</span><span>Wilderness</span><span>Perception</span></div></div>
+    <div class="foot" style="padding-top:30px"><div><b>Delma Marine</b>Delma Industrial Supplies &amp; Marine Services · since 1978<br>Umm Al Nar, Abu Dhabi · PO Box 53382</div><div>Abu Dhabi · Dubai · Fujairah · Ras Al Khaimah · Seychelles<br>Mangrove Marine · ICAD warehouse</div><div>+971 2 557 6625 · info@delmamarine.net<br>@delmamarineuae · <a href="#staff" style="color:var(--mut)">Staff view</a></div></div>
+  </section>
+
   </div>
 </section>
 
 <!-- SHOP -->
 <section class="scr" id="s-shop">
-  <div class="ph"><div class="bg" style="background-image:url(assets/photos/aerial-bow.jpg)"></div><div class="sh"></div><div class="eyebrow">The collection</div><h1>Everything that belongs on board.</h1><p>27 brands, chosen and fitted by Delma. Live stock in every branch, delivered across the Emirates or collected at your showroom.</p></div>
+  <div class="gal-hero"><div class="bg" style="background-image:url(assets/photos/aerial-bow.jpg)"></div><div class="sh"></div><div class="eyebrow">The collection</div><h1>Everything that belongs on board.</h1><p>27 brands, chosen and fitted by Delma. Live stock in every branch, delivered across the Emirates or collected at your showroom.</p><div class="stats"><div><b>27</b><span>Brands</span></div><div><b id="galcount">48</b><span>Pieces</span></div><div><b>5</b><span>Branches</span></div><div><b>1978</b><span>Since</span></div></div></div>
+  <div class="cstrip" id="cstrip"></div>
   <div class="shop">
     <aside class="rail" id="rail"></aside>
     <div>
@@ -707,7 +974,7 @@ let region='AE';
 function fmt(aed){const r=REG[region];const v=Math.round(aed*r.rate/10)*10;return r.cur+' '+v.toLocaleString('en-US')}
 function toggleRegion(){region=region==='AE'?'SC':'AE';applyRegion()}
 function applyRegion(){const r=REG[region];document.getElementById('regionpill').textContent=r.label;
- document.getElementById('nb-name').textContent=r.nb;document.getElementById('nb-sub').textContent=r.nbs;
+ document.getElementById('nb-name').textContent=r.nb;document.getElementById('nb-sub').textContent='· '+r.nbs.split('·').slice(1).join('·').trim();
  document.getElementById('d1').textContent=r.col;document.getElementById('d2s').textContent=r.del;document.getElementById('offreg').textContent=r.offreg;
  document.getElementById('apprprice').textContent=fmt(420);document.getElementById('inv1').textContent=fmt(680);document.getElementById('inv2').textContent=fmt(4530);
  renderPanel();renderBasket();toast(region==='AE'?'Showing Abu Dhabi prices in AED':'Showing Seychelles prices in SCR · nearest branch Victoria')}
@@ -799,7 +1066,7 @@ function shopItems(){let ids=Object.keys(P).filter(id=>CATS[id]);
  return ids}
 function pcard(id){const p=P[id],a=avail(id);const price=p.mode==='shown'?fmt(p.p):'Price on request';const im=IMG[id]?`<img src="${IMG[id]}" alt="">`:`<span class="mono">${brandOf(id)[0]}</span><span class="brandtag">${brandOf(id)}</span>`;
  const btn=p.mode==='request'?`<button class="btn s o" onclick="event.stopPropagation();toast('Quote request sent · Delma replies within an hour')">Request price</button>`:a.c==='am'?`<button class="btn s p" onclick="event.stopPropagation();openSheet('pay',{title:'Order now',amount:fmt(Math.max(500,Math.round(P['${id}'].p*0.2/10)*10)),sub:'Deposit (20%) · delivered in ${p.lead} days'})">Order · deposit</button>`:`<button class="btn s p" onclick="event.stopPropagation();addToBasket('${id}')">Add</button>`;
- return `<div class="pc rv in ${WIDE.has(id)?'wide':''}" onclick="quickView('${id}')"><div class="pim">${NEW.has(id)?'<span class="tag2 new">New</span>':WIDE.has(id)?'<span class="tag2">Featured</span>':''}${im}</div><div class="pb"><span class="br">${brandOf(id)} · ${CATS[id]}</span><span class="n">${p.n}</span><span class="pr">${price}</span><span class="av ${a.c}">${a.t}</span><div class="act3">${btn}<button class="btn s o" onclick="event.stopPropagation();quickView('${id}')">Quick view</button></div></div></div>`}
+ return `<div class="pc rv in ${WIDE.has(id)?'wide':''}" onclick="quickView('${id}')"><div class="pim">${NEW.has(id)?'<span class="tag2 new">New</span>':WIDE.has(id)?'<span class="tag2">Featured</span>':''}${im}<span class="ql"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5M11 8v6M8 11h6"/></svg></span></div><div class="pb"><span class="br">${brandOf(id)} · ${CATS[id]}</span><span class="n">${p.n}</span><span class="pr">${price}</span><span class="av ${a.c}">${a.t}</span><div class="act3">${btn}<button class="btn s o" onclick="event.stopPropagation();quickView('${id}')">Quick view</button></div></div></div>`}
 function renderRail(target){const el=target||document.getElementById('rail');const cats=[...new Set(Object.values(CATS))];const brands=[...new Set(Object.keys(CATS).map(brandOf))].sort();
  const cnt=k=>Object.keys(CATS).filter(id=>CATS[id]===k).length;
  el.innerHTML=`<div class="sw ${F.fits?'on':''}" onclick="F.fits=!F.fits;renderShop()"><div><b>Fits my boat</b><small>Bayliner VR5 · Mercury 150</small></div><div class="tog"></div></div>
@@ -808,12 +1075,36 @@ function renderRail(target){const el=target||document.getElementById('rail');con
  <h4>Price</h4>${[['any','Any'],['0-500','Under 500'],['500-5000','500 – 5,000'],['5000-50000','5,000 – 50,000'],['50000-','50,000 and above']].map(([v,l])=>`<label><input type="radio" name="pr" ${F.price===v?'checked':''} onchange="F.price='${v}';renderShop()">${l}</label>`).join('')}
  <h4>Brand</h4><div style="max-height:220px;overflow:auto">${brands.map(b=>`<label><input type="checkbox" ${F.brand.has(b)?'checked':''} onchange="tog('brand','${b.replace(/'/g,"\\'")}')">${b}</label>`).join('')}</div>`}
 function tog(k,v){F[k].has(v)?F[k].delete(v):F[k].add(v);renderShop()}
-function renderShop(){const ids=shopItems();document.getElementById('shopcnt').textContent=ids.length+' of '+Object.keys(CATS).length+' items';
+const CIMG={'Boats':'assets/photos/hero-race.jpg','Watercraft':'assets/photos/jetski.jpg','Kayaks':'assets/photos/aerial-wake.jpg','Engines':'assets/photos/choppy.jpg','Electronics':'assets/photos/helm.jpg','Fishing':'assets/photos/dark-yacht.jpg','Diving':'assets/photos/diver.jpg','Watersports':'assets/photos/jetski-sunset.jpg','Lighting':'assets/photos/marina-sunset.jpg','Service & care':'assets/workshop.jpg'};
+function renderStrip(){const el=document.getElementById('cstrip');if(!el)return;el.innerHTML=Object.keys(CIMG).map(c=>`<div class="ct ${F.cat.has(c)?'on':''}" onclick="F.cat.clear();${F.cat.has(c)?'':`F.cat.add('${c}')`};renderShop()"><div class="bg" style="background-image:url(${CIMG[c]})"></div><b>${c}</b></div>`).join('')}
+function renderShop(){renderStrip();const ids=shopItems();const gc=document.getElementById('galcount');if(gc)gc.textContent=Object.keys(CATS).length;document.getElementById('shopcnt').textContent=ids.length+' of '+Object.keys(CATS).length+' items';
  const chips=[...F.cat].map(c=>`<span onclick="tog('cat','${c}')">${c}</span>`).concat([...F.brand].map(b=>`<span onclick="tog('brand','${b.replace(/'/g,"\\'")}')">${b}</span>`)).concat(F.fits?['<span onclick="F.fits=false;renderShop()">Fits my boat</span>']:[]).concat(F.avail!=='any'?[`<span onclick="F.avail='any';renderShop()">${F.avail==='here'?'In stock at my branch':'In stock at any branch'}</span>`]:[]).concat(F.price!=='any'?[`<span onclick="F.price='any';renderShop()">Price ${F.price.replace('-',' – ')}</span>`]:[]);
  document.getElementById('fchips').innerHTML=chips.join('');
  document.getElementById('pgrid').innerHTML=ids.length?ids.map(pcard).join(''):'<div class="empty rv in">Nothing matches these filters. Try fewer filters, or ask Delma AI.</div>';
  renderRail();const sr=document.getElementById('sheetrail');if(sr)renderRail(sr)}
 function quickView(id){const p=P[id],a=avail(id);const s=document.getElementById('sheet');s.innerHTML=`<div class="handle"></div><div class="pim" style="height:180px;border-radius:16px;display:grid;place-items:center;background:${WIDE.has(id)?'radial-gradient(120% 90% at 70% 30%,#1F2633,#0B0D12)':'linear-gradient(160deg,#F7F5EF,#E6E2D8)'};margin-bottom:12px;overflow:hidden">${IMG[id]?`<img src="${IMG[id]}" style="width:80%;height:80%;object-fit:contain;filter:drop-shadow(0 16px 20px rgba(0,0,0,.25))">`:`<span class="serif" style="font-size:22px;color:var(--mut)">${brandOf(id)}</span>`}</div><div class="xs" style="letter-spacing:.14em;text-transform:uppercase;color:var(--mut)">${brandOf(id)} · ${CATS[id]}</div><b class="serif" style="font-size:22px;display:block;margin:2px 0">${p.n}</b><div class="sm mut">${p.br}</div><div class="serif" style="font-size:24px;font-weight:700;margin:8px 0 2px">${p.mode==='shown'?fmt(p.p):'Price on request'}</div><div class="av ${a.c}">${a.t}</div><div class="row" style="margin-top:14px">${p.mode==='request'?`<button class="btn w o" onclick="closeSheet();toast('Quote request sent · Delma replies within an hour')">Request price</button><button class="btn w k" onclick="closeSheet();go('build')">Build it</button>`:`<button class="btn w p" onclick="addToBasket('${id}');closeSheet()">Add to basket</button><button class="btn w o" onclick="closeSheet();go('ask')">Ask Delma AI</button>`}</div>`;s.classList.add('on');document.getElementById('dim').classList.add('on')}
+/* pinned story */
+const STEPS=[
+ {k:'01 · Engine & propulsion',h:'Twin Mercury 300 V8 Verado.',p:'Propellers, controls, oils and service kits, matched to the engine on your transom.',hs:0,tf:'translate(8%,2%) scale(1.12)'},
+ {k:'02 · Helm & electronics',h:'See more. Hear more.',p:'Lowrance sonar and charts, Omnisense night vision, Kicker audio. Mounted by the people who wire it.',hs:1,tf:'translate(-2%,6%) scale(1.18)'},
+ {k:'03 · Deck & comfort',h:'Room for everyone.',p:'Comfort Seat, E-SeaRider bean bags, Borika rod holders, rods and tackle, dry cases.',hs:3,tf:'translate(4%,-2%) scale(1.06)'},
+ {k:'04 · Looked after',h:'Fitted, serviced, followed live.',p:'Installation and service at four Delma workshops. Watch every job in My Delma, approve extra work in one tap.',hs:8,tf:'translate(0,0) scale(1)'}];
+let storyI=-1;
+function buildStory(){const st=document.getElementById('story-stage');if(!st||st.children.length)return;st.innerHTML=`<div class="floor"></div><img src="assets/navan.png" alt="">`+CRAFT.boat.areas.map((a,i)=>`<i class="hs" data-i="${i}" style="left:${a.x}%;top:${a.y}%" onclick="go('explore');pick(${i})"></i>`).join('');setStory(0,true)}
+function setStory(i,now){if(i===storyI)return;storyI=i;const S=STEPS[i],cap=document.getElementById('story-cap');const apply=()=>{cap.querySelector('.k').textContent=S.k;cap.querySelector('h3').textContent=S.h;cap.querySelector('p').textContent=S.p;cap.classList.remove('sw')};
+ if(now||FAST){apply()}else{cap.classList.add('sw');setTimeout(apply,380)}
+ document.getElementById('story-stage').style.transform=S.tf;
+ document.querySelectorAll('#story-stage .hs').forEach(h=>{const k=+h.dataset.i;h.classList.toggle('on',k===S.hs);h.classList.toggle('dim',k!==S.hs)});
+ document.querySelectorAll('#story-dots i').forEach((d,k)=>d.classList.toggle('on',k===i))}
+function fitStory(){const v=document.getElementById('view'),st=document.getElementById('story');if(!st)return;const h=v.clientHeight;st.querySelector('.pin').style.height=h+'px';st.querySelectorAll('.step').forEach(e=>e.style.height=h+'px');st.style.height=(h*5)+'px'}
+function storyScroll(){const v=document.getElementById('view'),st=document.getElementById('story');if(!st||!document.getElementById('s-home').classList.contains('on'))return;const r=st.getBoundingClientRect(),vr=v.getBoundingClientRect();const h=v.clientHeight;const prog=(vr.top-r.top)/h;const i=Math.max(0,Math.min(3,Math.floor(prog+0.35)));if(prog>-1&&prog<5)setStory(i)}
+/* parallax */
+function parallax(){if(!document.body.classList.contains('desk'))return;const v=document.getElementById('view');const vr=v.getBoundingClientRect(),vh=v.clientHeight;document.querySelectorAll('#s-home .chap > .bg').forEach(bg=>{const r=bg.parentElement.getBoundingClientRect();if(r.bottom<vr.top-200||r.top>vr.bottom+200)return;const c=(r.top+r.height/2)-(vr.top+vh/2);bg.style.transform=`translateY(${(-c*0.06).toFixed(1)}px) scale(1.18)`})}
+/* count-up stats */
+let counted=false;
+function countUp(){if(counted)return;const els=document.querySelectorAll('#s-home .stat b');if(!els.length)return;const v=document.getElementById('view');const r=els[0].getBoundingClientRect(),vr=v.getBoundingClientRect();if(r.top>vr.bottom-40)return;counted=true;els.forEach(b=>{const to=+b.dataset.n,from=+(b.dataset.from||0);if(FAST){b.textContent=to;return}const t0=performance.now(),d=1600;const f=t=>{const k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3);b.textContent=Math.round(from+(to-from)*e);if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)})}
+document.getElementById('view').addEventListener('scroll',()=>requestAnimationFrame(()=>{storyScroll();parallax();countUp()}),{passive:true});
+addEventListener('resize',fitStory);
 /* reveal on scroll */
 const io=('IntersectionObserver' in window)?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{root:document.getElementById('view'),threshold:.08}):null;
 function reveal(){document.querySelectorAll('.scr.on .rv:not(.in)').forEach(el=>{if(FAST||!io)el.classList.add('in');else io.observe(el)})}
@@ -844,7 +1135,7 @@ let craft='boat',area=null;
 function setCraftByName(c){go('explore');const el=[...document.querySelectorAll('.seg div')][c==='boat'?0:c==='jetski'?1:2];setCraft(c,el)}
 function setCraft(c,el){craft=c;area=null;document.querySelectorAll('.seg div').forEach(d=>d.classList.remove('on'));el.classList.add('on');renderStage()}
 function renderStage(){const c=CRAFT[craft];document.getElementById('craftname').textContent=c.name;
- document.getElementById('stage').innerHTML=`<img src="${c.img}" alt="">`+c.areas.map((a,i)=>`<i class="hs ${area===i?'on':''}" style="left:${a.x}%;top:${a.y}%" onclick="pick(${i})"></i>`).join('');
+ document.getElementById('stage').innerHTML=`<div class="floor"></div><img src="${c.img}" alt="">`+c.areas.map((a,i)=>`<i class="hs ${area===i?'on':''}" style="left:${a.x}%;top:${a.y}%" onclick="pick(${i})"></i>`).join('');
  document.getElementById('areas').innerHTML=c.areas.map((a,i)=>`<span class="${area===i?'on':''}" onclick="pick(${i})">${a.k}</span>`).join('');renderPanel()}
 function pick(i){area=i;renderStage();if(!FAST&&!document.body.classList.contains('desk'))document.getElementById('panel').scrollIntoView({behavior:'smooth',block:'start'})}
 function renderPanel(){const el=document.getElementById('panel');if(!el)return;if(area===null){return}const a=CRAFT[craft].areas[area];
@@ -999,19 +1290,27 @@ function closeSheet(){document.getElementById('sheet').classList.remove('on');do
 function paid(a){document.getElementById('sheet').innerHTML=`<div class="handle"></div><div style="text-align:center;padding:10px 0 4px"><div style="width:54px;height:54px;border-radius:50%;background:#E6F6EC;color:var(--ok);display:grid;place-items:center;margin:0 auto 10px;font-size:26px">✓</div><b style="font-size:16px">Paid ${a}</b><p class="sm mut" style="margin:4px 0 12px">Order DM-10482 confirmed · tax invoice emailed · we'll message you on WhatsApp with every update.</p><button class="btn k" onclick="closeSheet();basket=[];document.getElementById('bdot').style.display='none';renderBasket();go('mydelma')">Track it in My Delma</button></div>`}
 let tt;function toast(t){if(FAST)return;const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2200)}
 function showPush(){const p=document.getElementById('push');p.classList.add('on');if(!FAST)setTimeout(()=>p.classList.remove('on'),4000)}
+const SCENES=[{h:'The water<br>is <em>waiting.</em>',p:'Boats, engines and everything that belongs on board, chosen for the way you use the sea.'},{h:'Chase the<br><em>last light.</em>',p:'Electric watercraft, tow toys and the kit for a long summer evening. Fitted and ready.'},{h:'Fitted by the people<br>who <em>know it.</em>',p:'Four workshops, Mercury-trained technicians, every job followed live. Since 1978.'}];
+let sceneI=0,sceneT=null;
+function setScene(i){sceneI=i%3;const h=document.getElementById('hero');document.querySelectorAll('.hero .bg.sc').forEach(b=>b.classList.toggle('on',+b.dataset.i===sceneI));document.querySelectorAll('.hprog i').forEach((e,k)=>{e.classList.remove('on');void e.offsetWidth;if(k===sceneI)e.classList.add('on')});
+ const apply=()=>{document.getElementById('hero-h').innerHTML=SCENES[sceneI].h;document.getElementById('hero-p').textContent=SCENES[sceneI].p;h.classList.remove('sw')};
+ if(FAST){apply()}else{h.classList.add('sw');setTimeout(apply,600)}}
+function startScenes(){if(FAST)return;clearInterval(sceneT);setTimeout(()=>{document.querySelector('.hprog i').classList.add('on')},2000);sceneT=setInterval(()=>{if(document.getElementById('s-home').classList.contains('on')&&document.getElementById('view').scrollTop<300)setScene(sceneI+1)},7000)}
+startScenes();
 function askFromHome(){const v=(document.getElementById('homeask').value||'').trim();go('ask');startChat();if(v){document.getElementById('askin').value=v;sendTyped();document.getElementById('homeask').value=''}}
 function fitHero(){const h=document.querySelector('#s-home .hero');if(!h)return;if(document.body.classList.contains('desk')){h.style.minHeight=''}else{h.style.minHeight=(document.getElementById('view').clientHeight-24)+'px'}}
 addEventListener('resize',fitHero);
 function updateOver(){const home=document.getElementById('s-home').classList.contains('on'),desk=document.body.classList.contains('desk'),st=document.getElementById('view').scrollTop;document.body.classList.toggle('over',desk&&home&&st<40);const fab=document.getElementById('aifab');fab.classList.toggle('hide',fab.dataset.sh==='1'||(home&&st<(desk?40:420)))}
 document.getElementById('view').addEventListener('scroll',updateOver,{passive:true});
 function go(s){document.querySelectorAll('.scr').forEach(e=>e.classList.remove('on'));document.getElementById('s-'+s).classList.add('on');document.querySelectorAll('.nav div,.hnav span').forEach(d=>d.classList.toggle('on',d.dataset.s===s));document.getElementById('view').scrollTop=0;closeSheet();document.getElementById('aifab').dataset.sh=(s==='ask'||s==='staff'||s==='tech')?'1':'';updateOver();
- if(s==='explore')renderStage();if(s==='ask')startChat();if(s==='basket')renderBasket();if(s==='book')renderBook();if(s==='staff')renderStaff();if(s==='tech')renderTech();if(s==='shop')renderShop();setTimeout(reveal,30);if(location.hash!=='#'+s)history.replaceState(null,'','#'+s)}
+ if(s==='explore')renderStage();if(s==='ask')startChat();if(s==='basket')renderBasket();if(s==='book')renderBook();if(s==='staff')renderStaff();if(s==='tech')renderTech();if(s==='shop')renderShop();if(s==='home'){buildStory();fitStory();setTimeout(()=>{storyScroll();parallax();countUp()},50)}setTimeout(reveal,30);if(location.hash!=='#'+s)history.replaceState(null,'','#'+s)}
 window.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(document.getElementById('s-'+h))go(h)});
-function setView(v){document.body.classList.toggle('desk',v==='web');setTimeout(()=>{updateOver();fitHero()},0);document.getElementById('vtog').textContent=v==='web'?'App view':'Website view';try{localStorage.setItem('dm-view',v)}catch(e){}}
+function setView(v){document.body.classList.toggle('desk',v==='web');setTimeout(()=>{updateOver();fitHero();fitStory();parallax()},0);document.getElementById('vtog').textContent=v==='web'?'App view':'Website view';try{localStorage.setItem('dm-view',v)}catch(e){}}
 function toggleFS(){if(document.fullscreenElement){document.exitFullscreen()}else{document.documentElement.requestFullscreen().catch(()=>{})}}
 addEventListener('keydown',e=>{if((e.key==='f'||e.key==='F')&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)&&!e.metaKey&&!e.ctrlKey)toggleFS()});
 function toggleView(){setView(document.body.classList.contains('desk')?'app':'web')}
 let v0='web';try{v0=localStorage.getItem('dm-view')||'web'}catch(e){}
+if(FAST)document.body.classList.add('fast');setTimeout(()=>document.getElementById('curtain').classList.add('off'),FAST?0:200);
 if(/[?&]view=app/.test(location.search))v0='app';if(/[?&]view=web/.test(location.search))v0='web';setView(v0);
 applyRegion();document.getElementById('toast').classList.remove('on');
 const h0=location.hash.slice(1);
@@ -1022,6 +1321,7 @@ if(Q.get('area')!==null&&h0==='explore'){pick(+Q.get('area'))}
 if(Q.get('chat')){startChat();const c=Q.get('chat');chipReply(c==='night'?'Night fishing setup':c==='m150'?'Is the Mercury 150 in stock?':c==='family'?'Boat for fishing with family':c)}
 if(Q.get('approve')==='1')approve();
 if(Q.get('push')==='1')showPush();
+if(Q.get('scroll')){setTimeout(()=>{const v=document.getElementById('view');v.style.scrollBehavior='auto';v.scrollTop=+Q.get('scroll');document.querySelectorAll('.rv').forEach(e=>e.classList.add('in'));storyScroll();parallax();countUp()},400)}
 if(Q.get('book')){bk={step:+Q.get('book'),boat:0,job:2,ws:0,day:1,slot:2};renderBook()}
 if(Q.get('sheet')==='pay')openSheet('pay',{title:'Pay',amount:document.getElementById('grand')?document.getElementById('grand').textContent:'',sub:'Card · Apple Pay · Google Pay · tax invoice emailed'});
 </script>
