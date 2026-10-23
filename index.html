@@ -562,6 +562,13 @@ function applyRegion(){const r=REG[region];document.getElementById('regionpill')
 
 /* ---------- products ---------- */
 const P={
+ navan:{n:'Navan S30',br:'Navan · 9.3 m · twin Mercury 300 · shade, seating for 10, big bow deck',p:0,mode:'request',st:{AUH:1,DXB:0,WH:0,SEZ:0},lead:60,im:'assets/navan.png'},
+ vr5:{n:'Bayliner VR5 Bowrider',br:'Bayliner · 6.3 m · Mercury 150 · family bowrider, 8 seats, swim platform',p:0,mode:'request',st:{AUH:2,DXB:1,WH:0,SEZ:0},lead:45,im:'assets/bayliner.png'},
+ whaly:{n:'Whaly 435',br:'Whaly · 4.35 m polyethylene · unsinkable, zero maintenance · Mercury 40',p:38500,mode:'shown',st:{AUH:3,DXB:2,WH:4,SEZ:1},lead:30,im:'assets/whaly.png'},
+ orca:{n:'Taiga Orca',br:'Taiga · electric personal watercraft · silent, no fuel',p:0,mode:'request',st:{AUH:2,DXB:1,WH:0,SEZ:0},lead:45,im:'assets/taiga.png'},
+ m115:{n:'Mercury 115 FourStroke',br:'Mercury · 2.1 L · light and economical',p:38900,mode:'shown',st:{AUH:2,DXB:1,WH:3,SEZ:0},lead:10,im:'assets/mercury-v12.png'},
+ m60:{n:'Mercury 60 FourStroke',br:'Mercury · for 4–5 m boats',p:21500,mode:'shown',st:{AUH:3,DXB:2,WH:5,SEZ:1},lead:10,im:'assets/mercury-v12.png'},
+ kayak:{n:'Pelican Catch 110 HDII',br:'Pelican · fishing kayak · stable, stand-up casting',p:4200,mode:'shown',st:{AUH:4,DXB:2,WH:6,SEZ:1},lead:21,im:'assets/kayak.png'},
  m300:{n:'Mercury 300 V8 Verado',br:'Mercury · 4.6 L V8 · DTS',p:98500,mode:'shown',st:{AUH:1,DXB:0,WH:0,SEZ:0},lead:21,im:'assets/mercury-v12.png'},
  m150:{n:'Mercury 150 FourStroke',br:'Mercury · 3.0 L · the UAE favourite',p:52900,mode:'shown',st:{AUH:0,DXB:0,WH:0,SEZ:0},lead:10,im:'assets/mercury-v12.png'},
  prop:{n:'Enertia propeller 16" × 14',br:'Mercury · stainless',p:2850,mode:'shown',st:{AUH:4,DXB:2,WH:9,SEZ:1},lead:14,t:'PROP'},
@@ -603,7 +610,7 @@ const P={
  inst:{n:'Installation at a Delma workshop',br:'Service · engine, electronics, lighting, audio',p:0,mode:'book',st:{},lead:0,t:'INSTALL'},
  plan:{n:'Mercury Care maintenance plan',br:'2 visits a year · reminders',p:1900,mode:'shown',st:{AUH:99,DXB:99,WH:99,SEZ:99},lead:0,t:'PLAN'},
 };
-function avail(id){const p=P[id],r=REG[region];if(p.mode==='book')return{c:'bl',t:'Book a slot at any workshop'};if(p.mode==='request')return{c:'gr',t:'Price on request · we reply within an hour'};
+function avail(id){const p=P[id],r=REG[region];if(p.mode==='book')return{c:'bl',t:'Book a slot at any workshop'};if(p.mode==='request')return{c:'gr',t:'A salesperson confirms the price within an hour'};
  if(region==='SC'){if(p.st.SEZ>0)return{c:'ok',t:'In stock at Victoria · '+p.st.SEZ+' left'};return{c:'am',t:'Available from UAE · delivered in about '+(p.lead+5)+' days'}}
  if(p.st.AUH>0)return{c:'ok',t:'In stock at Umm Al Nar · '+p.st.AUH+' left'};
  const other=Object.keys(p.st).find(k=>k!=='AUH'&&k!=='SEZ'&&p.st[k]>0);if(other)return{c:'bl',t:'At '+r.br[other]+' · transfer in '+(other==='WH'?1:2)+' days, or collect there'};
@@ -663,24 +670,59 @@ function typing(){return msg('<span class="typing"><span></span><span></span><sp
 const Q=new URLSearchParams(location.search);const FAST=Q.get('fast')==='1';
 function reply(parts){if(FAST){parts.forEach(p=>msg(p,'a'));return}const t=typing();let i=0;const next=()=>{if(i===0)t.remove();if(i<parts.length){const p=parts[i++];setTimeout(()=>{msg(p,'a');if(i<parts.length){const tt=typing();setTimeout(()=>{tt.remove();next()},700)}else next()},i===1?600:0)}};setTimeout(next,900)}
 const SCRIPT={
- night:{u:'I have a Bayliner VR5 and want to use it for night fishing. What do I need?',a:[
-  'Nice boat for it. For night fishing on the VR5 I\'d suggest three things:',
+ family:{a:[
+  'Lovely. For fishing with the family you want shade, safe seating for everyone and a stable deck to fish from. Three I would look at, all in stock to see this week:',
+  prodHTML('navan',true)+prodHTML('vr5',true)+prodHTML('whaly',true),
+  'Two quick questions so I point you to the right one: <b>how many people</b> usually come along, and do you prefer a <b>day boat with a cabin</b> or an <b>open deck</b>? You can also book a viewing at Umm Al Nar and see all three side by side. <div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn s p" onclick="toast(\'Viewing booked · Saturday 11:00 · Umm Al Nar · confirmation on WhatsApp\')">Book a viewing</button><button class="btn s o" onclick="go(\'explore\')">Explore the Navan</button></div>'],
+  chips:['Up to 6 people, open deck','Something with a cabin','What engine does it need?','Talk to a person']},
+ family6:{a:['For six people on an open deck the <b>Navan S30</b> is the one: T-top shade, seating for ten, a huge bow deck to fish from and twin Mercury 300s. The <b>Bayliner VR5</b> works too if you want something smaller and easier to trailer. Want me to book a viewing of both, or build the Navan with the engine and electronics you want?<div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn s p" onclick="toast(\'Viewing booked · Saturday 11:00 · Umm Al Nar\')">Book a viewing</button><button class="btn s o" onclick="go(\'build\')">Build the Navan S30</button></div>'],chips:['What engine does it need?','Night fishing setup','Talk to a person']},
+ cabin:{a:['With a cabin you are looking at the <b>Navan C30</b> (same hull as the S30, with a cabin and a toilet) for overnighting or long days with children. It is priced on request; a salesperson will confirm the price and delivery. Shall I send the request and book a viewing?<div class="row" style="margin-top:8px"><button class="btn s p" onclick="toast(\'Request sent · Delma replies within an hour\')">Request price & viewing</button></div>'],chips:['Up to 6 people, open deck','Talk to a person']},
+ engine:{a:['That depends on the boat length and weight. As a guide:'+prodHTML('m60',true)+prodHTML('m115',true)+prodHTML('m150',true)+'Tell me the boat model or length and I will give you the exact match, with what is in stock and the installation slot at a Delma workshop.'],chips:['Is the Mercury 150 in stock?','Book the installation','Talk to a person']},
+ night:{a:[
+  'For night fishing I would suggest three things:',
   '<b>1 · See the fish</b>'+prodHTML('fs9',true)+'<b>2 · See the deck and be seen</b>'+prodHTML('hel1',true)+prodHTML('hel2',true)+'<b>3 · If you go far out</b>'+prodHTML('omni',true),
   'A Marlow anchor line helps if you drift-fish. Shall I put the fish finder and the lights in your basket? I can also book the installation at the Bateen workshop. <div class="row" style="margin-top:8px"><button class="btn s p" onclick="addToBasket(\'fs9\');addToBasket(\'hel1\');addToBasket(\'hel2\');chipReply(\'Yes, add them\')">Add all three</button><button class="btn s o" onclick="go(\'book\')">Book installation</button></div>'],
   chips:['Yes, add them','Is the Mercury 150 in stock?','How much is the service?']},
  'Yes, add them':{a:['Done: Elite FS 9 and the two Hella lights are in your basket. Everything is in stock at Umm Al Nar, so you can collect tomorrow or we deliver on Thursday. <div style="margin-top:8px"><button class="btn s k" onclick="go(\'basket\')">Go to basket</button></div>'],chips:['Is the Mercury 150 in stock?','Book the installation']},
- m150:{u:'Is the Mercury 150 FourStroke in stock?',a:[
+ m150:{a:[
   'Let me check across our branches…',
-  'Not right now: Umm Al Nar, Dubai and the warehouse are all out. You have three options:'+prodHTML('m150',true)+'<b>Order now</b> with a 20% deposit and it\'s delivered in <b>10 days</b>; or choose from stock: the <b>Mercury 115 FourStroke</b> (in stock, Umm Al Nar) or the <b>Mercury 150 Pro XS</b> (in stock, Dubai, transfer in 2 days); or I tell you the moment one lands. <div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn s p" onclick="openSheet(\'pay\',{title:\'Order the Mercury 150\',amount:fmt(10580),sub:\'Deposit (20%) · delivered in 10 days · balance on delivery\'})">Order · pay deposit</button><button class="btn s o" onclick="toast(\'We will message you when it is in stock\')">Tell me</button></div>'],
+  'Not right now: Umm Al Nar, Dubai and the warehouse are all out. You have three options:'+prodHTML('m150',true)+'<b>Order now</b> with a 20% deposit and it is delivered in <b>10 days</b>; or choose from stock: the <b>Mercury 115 FourStroke</b> (in stock, Umm Al Nar) or the <b>Mercury 150 Pro XS</b> (in stock, Dubai, transfer in 2 days); or I tell you the moment one lands. <div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn s p" onclick="openSheet(\'pay\',{title:\'Order the Mercury 150\',amount:fmt(10580),sub:\'Deposit (20%) · delivered in 10 days · balance on delivery\'})">Order · pay deposit</button><button class="btn s o" onclick="toast(\'We will message you when it is in stock\')">Tell me</button></div>'],
   chips:['Night fishing setup','Book the installation','Talk to a person']},
- service:{u:'How much is the 100-hour service for my 150?',a:['For the Mercury 150 FourStroke the 100-hour service is <b>'+fmt(680)+'</b> at any Delma workshop (kit, oil, plugs, impeller check, labour, VAT). Bateen has slots tomorrow 09:00 and 14:00. <div class="row" style="margin-top:8px"><button class="btn s p" onclick="go(\'book\')">Book a slot</button></div>'],chips:['Night fishing setup','Is the Mercury 150 in stock?']},
- book:{u:'Book the installation',a:['Sure. I\'ll take you to booking with your VR5 and the items from your basket already selected.'],go:'book'},
- human:{u:'Talk to a person',a:['Of course. I\'ve sent this conversation to Khalid at Umm Al Nar sales. He\'ll continue with you on WhatsApp within 15 minutes (showroom hours 09:00–18:00). You can keep asking me meanwhile.'],chips:['Night fishing setup','Is the Mercury 150 in stock?']}};
-const CH={'Night fishing setup':'night','Is the Mercury 150 in stock?':'m150','How much is the service?':'service','Book the installation':'book','Talk to a person':'human','Yes, add them':'Yes, add them'};
-function chips(list){document.getElementById('chips').innerHTML=list.map(c=>`<span onclick="chipReply('${c}')">${c}</span>`).join('')}
-function chipReply(c){const s=SCRIPT[CH[c]||c];if(!s)return;msg(s.u||c,'u');document.getElementById('chips').innerHTML='';reply(s.a);setTimeout(()=>{if(s.chips)chips(s.chips);if(s.go)go(s.go)},FAST?0:1200+700*s.a.length)}
-function sendTyped(){const i=document.getElementById('askin');const v=i.value.trim();if(!v)return;i.value='';const k=/150/.test(v)?'m150':/service|100/.test(v)?'service':/person|human|call/.test(v)?'human':'night';msg(v,'u');reply(SCRIPT[k].a);setTimeout(()=>chips(SCRIPT[k].chips||[]),1200+700*SCRIPT[k].a.length)}
-function startChat(){if(chat.children.length)return;msg('Hi, I\'m Delma. Tell me what you want to do on the water, or ask about any boat, engine or part. I check our real stock in every branch.','a');chips(['Night fishing setup','Is the Mercury 150 in stock?','How much is the service?','Talk to a person'])}
+ service:{a:['For the Mercury 150 FourStroke the 100-hour service is <b>'+fmt(680)+'</b> at any Delma workshop (kit, oil, plugs, impeller check, labour, VAT). Bateen has slots tomorrow 09:00 and 14:00. <div class="row" style="margin-top:8px"><button class="btn s p" onclick="go(\'book\')">Book a slot</button></div>'],chips:['Night fishing setup','Is the Mercury 150 in stock?']},
+ book:{a:['Sure. I will take you to booking with your boat already selected.'],go:'book'},
+ jetski:{a:['For a personal watercraft we represent <b>Taiga</b>, the electric one: silent, no fuel, instant torque, and it charges overnight.'+prodHTML('orca',true)+'It is priced on request; a salesperson confirms the price and delivery. I can book a viewing at Umm Al Nar or Dubai.<div class="row" style="margin-top:8px"><button class="btn s p" onclick="toast(\'Viewing booked · Saturday 11:00 · Umm Al Nar\')">Book a viewing</button><button class="btn s o" onclick="setCraftByName(\'jetski\')">Explore the Orca</button></div>'],chips:['Boat for fishing with family','Talk to a person']},
+ kayak:{a:['For kayak fishing the <b>Pelican Catch 110</b> is our most popular: stable enough to stand and cast, with rod holders and space for a fish finder.'+prodHTML('kayak',true)+prodHTML('kff',true)+'Both in stock at Umm Al Nar. Want them in your basket?<div class="row" style="margin-top:8px"><button class="btn s p" onclick="addToBasket(\'kayak\')">Add the kayak</button><button class="btn s o" onclick="setCraftByName(\'kayak\')">Explore kayak kit</button></div>'],chips:['Boat for fishing with family','Night fishing setup']},
+ diving:{a:['For diving and snorkelling we carry <b>Beuchat</b>: masks, fins, snorkels, wetsuits and spearfishing gear, all in the Umm Al Nar showroom.'+prodHTML('beu',true)+'Tell me what you dive (reef, spearfishing, with children) and I will suggest a set.'],chips:['Boat for fishing with family','Talk to a person']},
+ price:{a:['Happy to. Which product do you mean? You can name it, or tell me what you want to do on the water and I will suggest options with prices and stock.'],chips:['Boat for fishing with family','What engine does it need?','How much is the service?']},
+ stock:{a:['I check live stock in every branch: Umm Al Nar, Dubai, Fujairah, Ras Al Khaimah and the ICAD warehouse. Which product? If it is out, I can order it with a deposit and give you the delivery date.'],chips:['Is the Mercury 150 in stock?','Night fishing setup']},
+ hello:{a:['Hello! I am Delma, your advisor at Delma Marine. Tell me what you want to do on the water, or the boat or engine you have, and I will put the right things together from our real stock.'],chips:['Boat for fishing with family','Night fishing setup','Is the Mercury 150 in stock?','How much is the service?']},
+ thanks:{a:['You are welcome. I am here whenever you need stock, advice or a booking.'],chips:['Boat for fishing with family','Book the installation']},
+ human:{a:['Of course. I have sent this conversation to Khalid at Umm Al Nar sales. He will continue with you on WhatsApp within 15 minutes (showroom hours 09:00–18:00). You can keep asking me meanwhile.'],chips:['Boat for fishing with family','Night fishing setup']},
+ fallback:{a:['I can help with boats, engines, parts and accessories, servicing and bookings at any Delma branch. Tell me what you want to do on the water, or the model you have, and I will suggest the right things from our stock.'],chips:['Boat for fishing with family','Night fishing setup','What engine does it need?','Talk to a person']}};
+const CH={'Night fishing setup':'night','Is the Mercury 150 in stock?':'m150','How much is the service?':'service','Book the installation':'book','Talk to a person':'human','Yes, add them':'Yes, add them','Boat for fishing with family':'family','Up to 6 people, open deck':'family6','Something with a cabin':'cabin','What engine does it need?':'engine'};
+function route(v){const t=v.toLowerCase();
+ if(/\b(hi|hello|hey|salam|good (morning|evening))\b/.test(t)&&t.length<25)return 'hello';
+ if(/thank/.test(t))return 'thanks';
+ if(/person|human|agent|someone|call me|salesman|staff/.test(t))return 'human';
+ if(/night/.test(t))return 'night';
+ if(/cabin|overnight|sleep/.test(t))return 'cabin';
+ if(/(six|6).*(people|person|family)|(people|person).*(six|6)|open deck/.test(t))return 'family6';
+ if(/jet ?ski|watercraft|taiga|orca|pwc/.test(t))return 'jetski';
+ if(/kayak|paddle/.test(t))return 'kayak';
+ if(/div(e|ing)|snorkel|spearfish|beuchat/.test(t))return 'diving';
+ if(/\b150\b/.test(t))return 'm150';
+ if(/service|100.?hour|maintenance|oil change/.test(t))return 'service';
+ if(/install|fit(ting)?\b/.test(t))return 'book';
+ if(/book|appointment|slot/.test(t))return 'book';
+ if(/engine|outboard|\bhp\b|horsepower|mercury/.test(t))return 'engine';
+ if(/boat|fish|family|yacht|cruiser|bowrider/.test(t))return 'family';
+ if(/price|cost|how much|quote/.test(t))return 'price';
+ if(/stock|available|deliver|in store/.test(t))return 'stock';
+ return 'fallback'}
+function chips(list){document.getElementById('chips').innerHTML=list.map(c=>`<span onclick="chipReply('${c.replace(/'/g,"\\'")}')">${c}</span>`).join('')}
+function chipReply(c){const k=CH[c]||c;const s=SCRIPT[k];if(!s)return;msg(c,'u');document.getElementById('chips').innerHTML='';reply(s.a);setTimeout(()=>{if(s.chips)chips(s.chips);if(s.go)go(s.go)},FAST?0:1200+700*s.a.length)}
+function sendTyped(){const i=document.getElementById('askin');const v=i.value.trim();if(!v)return;i.value='';const k=route(v);const s=SCRIPT[k];msg(v,'u');document.getElementById('chips').innerHTML='';reply(s.a);setTimeout(()=>{if(s.chips)chips(s.chips);if(s.go)go(s.go)},FAST?0:1200+700*s.a.length)}
+function startChat(){if(chat.children.length)return;msg('Hi, I\'m Delma. Tell me what you want to do on the water, or ask about any boat, engine or part. I check our real stock in every branch.','a');chips(['Boat for fishing with family','Night fishing setup','Is the Mercury 150 in stock?','How much is the service?','Talk to a person'])}
 
 /* ---------- booking ---------- */
 let bk={step:0,boat:0,job:null,ws:null,day:1,slot:null};
@@ -775,7 +817,7 @@ if(Q.get('region')==='SC'){region='SC';applyRegion()}
 if(Q.get('basket')==='1'){['fs9','hel1','hel2'].forEach(id=>basket.push(id));document.getElementById('bdot').style.display='block'}
 go(document.getElementById('s-'+h0)?h0:'home');
 if(Q.get('area')!==null&&h0==='explore'){pick(+Q.get('area'))}
-if(Q.get('chat')){startChat();chipReply(Q.get('chat')==='night'?'Night fishing setup':Q.get('chat')==='m150'?'Is the Mercury 150 in stock?':Q.get('chat'))}
+if(Q.get('chat')){startChat();const c=Q.get('chat');chipReply(c==='night'?'Night fishing setup':c==='m150'?'Is the Mercury 150 in stock?':c==='family'?'Boat for fishing with family':c)}
 if(Q.get('approve')==='1')approve();
 if(Q.get('push')==='1')showPush();
 if(Q.get('book')){bk={step:+Q.get('book'),boat:0,job:2,ws:0,day:1,slot:2};renderBook()}
