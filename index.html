@@ -569,6 +569,8 @@ const P={
  m115:{n:'Mercury 115 FourStroke',br:'Mercury · 2.1 L · light and economical',p:38900,mode:'shown',st:{AUH:2,DXB:1,WH:3,SEZ:0},lead:10,im:'assets/mercury-v12.png'},
  m60:{n:'Mercury 60 FourStroke',br:'Mercury · for 4–5 m boats',p:21500,mode:'shown',st:{AUH:3,DXB:2,WH:5,SEZ:1},lead:10,im:'assets/mercury-v12.png'},
  kayak:{n:'Pelican Catch 110 HDII',br:'Pelican · fishing kayak · stable, stand-up casting',p:4200,mode:'shown',st:{AUH:4,DXB:2,WH:6,SEZ:1},lead:21,im:'assets/kayak.png'},
+ rod:{n:'Saltwater rod & reel combo, 2.4 m',br:'Fishing gear · spinning, braid loaded · ready to fish',p:420,mode:'shown',st:{AUH:8,DXB:5,WH:20,SEZ:3},lead:14,t:'ROD & REEL'},
+ tackle:{n:'Tackle set · lures, hooks, leaders',br:'Fishing gear · Gulf hamour and kingfish selection',p:180,mode:'shown',st:{AUH:12,DXB:6,WH:30,SEZ:4},lead:14,t:'TACKLE'},
  m300:{n:'Mercury 300 V8 Verado',br:'Mercury · 4.6 L V8 · DTS',p:98500,mode:'shown',st:{AUH:1,DXB:0,WH:0,SEZ:0},lead:21,im:'assets/mercury-v12.png'},
  m150:{n:'Mercury 150 FourStroke',br:'Mercury · 3.0 L · the UAE favourite',p:52900,mode:'shown',st:{AUH:0,DXB:0,WH:0,SEZ:0},lead:10,im:'assets/mercury-v12.png'},
  prop:{n:'Enertia propeller 16" × 14',br:'Mercury · stainless',p:2850,mode:'shown',st:{AUH:4,DXB:2,WH:9,SEZ:1},lead:14,t:'PROP'},
@@ -625,7 +627,7 @@ const CRAFT={
   {k:'Engine & propulsion',x:14,y:52,items:['m300','prop','jack','steer','oil','inst'],note:'Twin 300 V8 Verado fitted. Everything here fits the S30 rigging.'},
   {k:'Helm & electronics',x:47,y:41,items:['hds','fs9','omni','radar','seav','kick'],note:'Lowrance, Omnisense and Kicker, with Seaview mounts for the T-top.'},
   {k:'T-top & lighting',x:44,y:28,items:['hel1','hel2','hel3','seav'],note:'Hella Marine LED: flood, navigation and underwater.'},
-  {k:'Deck & seating',x:31,y:45,items:['cseat','bean','bor','maxc'],note:'Comfort on board, rod holders and dry storage.'},
+  {k:'Deck & seating',x:31,y:45,items:['bor','rod','tackle','cseat','bean','maxc'],note:'Rod holders, rods and tackle, comfort on board, dry storage.'},
   {k:'Bow · mooring',x:84,y:41,items:['rope','fend','fcov'],note:'Marlow ropes, Polyform fenders, Fendequip covers.'},
   {k:'Hull & bottom',x:60,y:66,items:['micron','awl','clean'],note:'Antifouling and topside paint; cleaning kit.'},
   {k:'Galley & comfort',x:68,y:48,items:['vit','vitp'],note:'Vitrifrigo cooling for the console galley.'},
@@ -638,7 +640,7 @@ const CRAFT={
   {k:'Charging & service',x:86,y:66,items:['jchg','plan','inst'],note:'Fast charger on request; plans and installation at a Delma workshop.'},
   {k:'Safety & towing',x:20,y:56,items:['vest','tube','trope'],note:'Connelly vests and tow toys.'}]},
  kayak:{name:'Pelican Catch 110 · fishing kayak',img:'assets/kayak.png',areas:[
-  {k:'Seat & mounts',x:50,y:36,items:['kseat','bor'],note:'Seat upgrade and Borika mounts.'},
+  {k:'Seat & mounts',x:50,y:36,items:['kseat','bor','rod'],note:'Seat upgrade, Borika mounts, rod and reel.'},
   {k:'Electronics',x:36,y:48,items:['kff'],note:'A fish finder sized for a kayak.'},
   {k:'Paddle & safety',x:72,y:30,items:['kpad','vest','maxc'],note:'Paddle, vest, dry case.'},
   {k:'Diving & snorkelling',x:62,y:70,items:['beu'],note:'Beuchat masks, fins and snorkels.'}]}};
@@ -673,8 +675,9 @@ const SCRIPT={
  family:{a:[
   'Lovely. For fishing with the family you want shade, safe seating for everyone and a stable deck to fish from. Three I would look at, all in stock to see this week:',
   prodHTML('navan',true)+prodHTML('vr5',true)+prodHTML('whaly',true),
+  'And for the fishing itself, we stock rods, reels, tackle and Borika rod holders, all in Umm Al Nar:'+prodHTML('rod',true)+prodHTML('bor',true),
   'Two quick questions so I point you to the right one: <b>how many people</b> usually come along, and do you prefer a <b>day boat with a cabin</b> or an <b>open deck</b>? You can also book a viewing at Umm Al Nar and see all three side by side. <div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn s p" onclick="toast(\'Viewing booked · Saturday 11:00 · Umm Al Nar · confirmation on WhatsApp\')">Book a viewing</button><button class="btn s o" onclick="go(\'explore\')">Explore the Navan</button></div>'],
-  chips:['Up to 6 people, open deck','Something with a cabin','What engine does it need?','Talk to a person']},
+  chips:['Up to 6 people, open deck','Something with a cabin','Fishing gear','What engine does it need?','Talk to a person']},
  family6:{a:['For six people on an open deck the <b>Navan S30</b> is the one: T-top shade, seating for ten, a huge bow deck to fish from and twin Mercury 300s. The <b>Bayliner VR5</b> works too if you want something smaller and easier to trailer. Want me to book a viewing of both, or build the Navan with the engine and electronics you want?<div class="row" style="margin-top:8px;flex-wrap:wrap"><button class="btn s p" onclick="toast(\'Viewing booked · Saturday 11:00 · Umm Al Nar\')">Book a viewing</button><button class="btn s o" onclick="go(\'build\')">Build the Navan S30</button></div>'],chips:['What engine does it need?','Night fishing setup','Talk to a person']},
  cabin:{a:['With a cabin you are looking at the <b>Navan C30</b> (same hull as the S30, with a cabin and a toilet) for overnighting or long days with children. It is priced on request; a salesperson will confirm the price and delivery. Shall I send the request and book a viewing?<div class="row" style="margin-top:8px"><button class="btn s p" onclick="toast(\'Request sent · Delma replies within an hour\')">Request price & viewing</button></div>'],chips:['Up to 6 people, open deck','Talk to a person']},
  engine:{a:['That depends on the boat length and weight. As a guide:'+prodHTML('m60',true)+prodHTML('m115',true)+prodHTML('m150',true)+'Tell me the boat model or length and I will give you the exact match, with what is in stock and the installation slot at a Delma workshop.'],chips:['Is the Mercury 150 in stock?','Book the installation','Talk to a person']},
@@ -693,17 +696,19 @@ const SCRIPT={
  jetski:{a:['For a personal watercraft we represent <b>Taiga</b>, the electric one: silent, no fuel, instant torque, and it charges overnight.'+prodHTML('orca',true)+'It is priced on request; a salesperson confirms the price and delivery. I can book a viewing at Umm Al Nar or Dubai.<div class="row" style="margin-top:8px"><button class="btn s p" onclick="toast(\'Viewing booked · Saturday 11:00 · Umm Al Nar\')">Book a viewing</button><button class="btn s o" onclick="setCraftByName(\'jetski\')">Explore the Orca</button></div>'],chips:['Boat for fishing with family','Talk to a person']},
  kayak:{a:['For kayak fishing the <b>Pelican Catch 110</b> is our most popular: stable enough to stand and cast, with rod holders and space for a fish finder.'+prodHTML('kayak',true)+prodHTML('kff',true)+'Both in stock at Umm Al Nar. Want them in your basket?<div class="row" style="margin-top:8px"><button class="btn s p" onclick="addToBasket(\'kayak\')">Add the kayak</button><button class="btn s o" onclick="setCraftByName(\'kayak\')">Explore kayak kit</button></div>'],chips:['Boat for fishing with family','Night fishing setup']},
  diving:{a:['For diving and snorkelling we carry <b>Beuchat</b>: masks, fins, snorkels, wetsuits and spearfishing gear, all in the Umm Al Nar showroom.'+prodHTML('beu',true)+'Tell me what you dive (reef, spearfishing, with children) and I will suggest a set.'],chips:['Boat for fishing with family','Talk to a person']},
+ tackle:{a:['For the fishing itself we keep it simple and in stock:'+prodHTML('rod',true)+prodHTML('tackle',true)+prodHTML('bor',true)+'Tell me what you fish for (hamour, kingfish, trolling offshore) and I will set you up. Want these in your basket?<div class="row" style="margin-top:8px"><button class="btn s p" onclick="addToBasket(\'rod\');addToBasket(\'tackle\')">Add rod & tackle</button><button class="btn s o" onclick="go(\'explore\')">Explore your boat</button></div>'],chips:['Boat for fishing with family','Night fishing setup','Talk to a person']},
  price:{a:['Happy to. Which product do you mean? You can name it, or tell me what you want to do on the water and I will suggest options with prices and stock.'],chips:['Boat for fishing with family','What engine does it need?','How much is the service?']},
  stock:{a:['I check live stock in every branch: Umm Al Nar, Dubai, Fujairah, Ras Al Khaimah and the ICAD warehouse. Which product? If it is out, I can order it with a deposit and give you the delivery date.'],chips:['Is the Mercury 150 in stock?','Night fishing setup']},
  hello:{a:['Hello! I am Delma, your advisor at Delma Marine. Tell me what you want to do on the water, or the boat or engine you have, and I will put the right things together from our real stock.'],chips:['Boat for fishing with family','Night fishing setup','Is the Mercury 150 in stock?','How much is the service?']},
  thanks:{a:['You are welcome. I am here whenever you need stock, advice or a booking.'],chips:['Boat for fishing with family','Book the installation']},
  human:{a:['Of course. I have sent this conversation to Khalid at Umm Al Nar sales. He will continue with you on WhatsApp within 15 minutes (showroom hours 09:00–18:00). You can keep asking me meanwhile.'],chips:['Boat for fishing with family','Night fishing setup']},
  fallback:{a:['I can help with boats, engines, parts and accessories, servicing and bookings at any Delma branch. Tell me what you want to do on the water, or the model you have, and I will suggest the right things from our stock.'],chips:['Boat for fishing with family','Night fishing setup','What engine does it need?','Talk to a person']}};
-const CH={'Night fishing setup':'night','Is the Mercury 150 in stock?':'m150','How much is the service?':'service','Book the installation':'book','Talk to a person':'human','Yes, add them':'Yes, add them','Boat for fishing with family':'family','Up to 6 people, open deck':'family6','Something with a cabin':'cabin','What engine does it need?':'engine'};
+const CH={'Night fishing setup':'night','Is the Mercury 150 in stock?':'m150','How much is the service?':'service','Book the installation':'book','Talk to a person':'human','Yes, add them':'Yes, add them','Boat for fishing with family':'family','Up to 6 people, open deck':'family6','Something with a cabin':'cabin','What engine does it need?':'engine','Fishing gear':'tackle'};
 function route(v){const t=v.toLowerCase();
  if(/\b(hi|hello|hey|salam|good (morning|evening))\b/.test(t)&&t.length<25)return 'hello';
  if(/thank/.test(t))return 'thanks';
  if(/person|human|agent|someone|call me|salesman|staff/.test(t))return 'human';
+ if(/\b(rod|reel|tackle|lure|hook|bait|fishing gear)/.test(t))return 'tackle';
  if(/night/.test(t))return 'night';
  if(/cabin|overnight|sleep/.test(t))return 'cabin';
  if(/(six|6).*(people|person|family)|(people|person).*(six|6)|open deck/.test(t))return 'family6';
