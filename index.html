@@ -232,6 +232,7 @@ p{margin-bottom:8px}
  body.desk #s-home .wrap{max-width:none;margin:0;padding:0 48px}
  body.desk .hero{height:100vh;min-height:640px;border-radius:0;margin:0;padding:96px 64px 40px}
  body.desk.over .aifab{display:none}
+ body.instory .aifab{display:none}
  body.desk .hero .bg[data-i="0"]{background-image:url(assets/photos/hero-aerial-4k.jpg)!important;background-position:center 45%}
  body.desk .hero h1{font-size:104px;max-width:1000px;margin:12px 0 18px}
  body.desk .hero p{font-size:19px;max-width:540px;margin-bottom:24px}
@@ -645,7 +646,7 @@ body.desk .chap.lt::before{font-size:560px;top:-120px;right:20px}
 .story .pin .glow{position:absolute;width:70%;height:50%;left:15%;top:20%;background:radial-gradient(closest-side,rgba(140,170,220,.22),rgba(0,0,0,0));pointer-events:none}
 .story .stage{width:100%;max-width:980px;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
 .story .stage img{animation:none;filter:drop-shadow(0 50px 70px rgba(0,0,0,.75))}
-.story .cap{position:absolute;left:18px;right:18px;bottom:30px;max-width:520px;z-index:3}
+.story .cap{position:absolute;left:18px;right:18px;bottom:88px;max-width:520px;z-index:3}
 .story .cap .k{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.3em;color:var(--sand)}
 .story .cap h3{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:500;margin:6px 0 6px;color:#fff;line-height:1.05}
 .story .cap p{font-size:13px;color:rgba(255,255,255,.78);margin:0;max-width:460px}
@@ -1097,7 +1098,7 @@ function setStory(i,now){if(i===storyI)return;storyI=i;const S=STEPS[i],cap=docu
  document.querySelectorAll('#story-stage .hs').forEach(h=>{const k=+h.dataset.i;h.classList.toggle('on',k===S.hs);h.classList.toggle('dim',k!==S.hs)});
  document.querySelectorAll('#story-dots i').forEach((d,k)=>d.classList.toggle('on',k===i))}
 function fitStory(){const v=document.getElementById('view'),st=document.getElementById('story');if(!st)return;const h=v.clientHeight;st.querySelector('.pin').style.height=h+'px';st.querySelectorAll('.step').forEach(e=>e.style.height=h+'px');st.style.height=(h*5)+'px'}
-function storyScroll(){const v=document.getElementById('view'),st=document.getElementById('story');if(!st||!document.getElementById('s-home').classList.contains('on'))return;const r=st.getBoundingClientRect(),vr=v.getBoundingClientRect();const h=v.clientHeight;const prog=(vr.top-r.top)/h;const i=Math.max(0,Math.min(3,Math.floor(prog+0.35)));if(prog>-1&&prog<5)setStory(i)}
+function storyScroll(){const v=document.getElementById('view'),st=document.getElementById('story');if(!st||!document.getElementById('s-home').classList.contains('on'))return;const r=st.getBoundingClientRect(),vr=v.getBoundingClientRect();const h=v.clientHeight;const prog=(vr.top-r.top)/h;const i=Math.max(0,Math.min(3,Math.floor(prog+0.35)));if(prog>-1&&prog<5)setStory(i);document.body.classList.toggle('instory',prog>-0.3&&prog<4.2)}
 /* parallax */
 function parallax(){if(!document.body.classList.contains('desk'))return;const v=document.getElementById('view');const vr=v.getBoundingClientRect(),vh=v.clientHeight;document.querySelectorAll('#s-home .chap > .bg').forEach(bg=>{const r=bg.parentElement.getBoundingClientRect();if(r.bottom<vr.top-200||r.top>vr.bottom+200)return;const c=(r.top+r.height/2)-(vr.top+vh/2);bg.style.transform=`translateY(${(-c*0.06).toFixed(1)}px) scale(1.18)`})}
 /* count-up stats */
